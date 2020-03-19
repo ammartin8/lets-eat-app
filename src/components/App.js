@@ -14,20 +14,31 @@ export default class App extends Component {
             restaurants: []
         }
     }
+
     componentDidMount() {
-        this.fetchData();
+        this.fetchRestaurants();
+    }
+    
+    //HELPER FUNCTIONS
+  
+    checkStatus(response) {
+        if (response.ok === true) {
+            return Promise.resolve(response);
+        } else {
+            return Promise.reject(new Error(response.statusText));
+        }
+    }
+
+    //FETCH FUNCTIONS
+    fetchRestaurants = () => {
+        fetch(`https://developers.zomato.com/api/v2.1/search?entity_id=59&entity_type=city&apikey=${config.apiKey}`)
+            .then(this.checkStatus)
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(error => console.log('You got error: ', error))
     }
     
 
-    //FETCH FUNCTIONS
-    fetchData = () => {
-        fetch(`https://developers.zomato.com/api/v2.1/search?entity_id=59&entity_type=city&apikey=${config.apiKey}`)
-            .then(data => {
-                console.log(data.status); //map through dat!
-            })
-            .catch(error => {console.log("You have an error ", error)});
-    };
-    
     render() {
         return (
             <div>
