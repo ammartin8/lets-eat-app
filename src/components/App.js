@@ -36,7 +36,8 @@ export default class App extends Component {
         fetch(`https://developers.zomato.com/api/v2.1/search?entity_id=59&entity_type=city&apikey=${config.apiKey}`)
             .then(this.checkStatus)
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => console.log(data.restaurants.map(restaurant => console.log(restaurant.restaurant.name)
+            )))
             .catch(error => console.log('You got error: ', error))
     }
     
@@ -53,7 +54,7 @@ export default class App extends Component {
                 <ul>
                     {this.state.restaurantObj.restaurants.map(restaurant => (
                         <li>
-                            {restaurant.name}
+                            {restaurant.restaurant.name}
                         </li>
                     ))}
                 </ul>
