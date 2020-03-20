@@ -46,8 +46,10 @@ export default class App extends Component {
     render() {
         return (
             <div>
-                <h1>Hello, World</h1>
-                <Header />
+                <Header 
+                    title="Let's Eat!" 
+                    subtitle="Discover Your New Favorite Restaurant"
+                />
                 <ul>
                     {this.state.restaurantObj.restaurants.map(restaurant => (
                         <li>
