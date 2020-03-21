@@ -5,9 +5,9 @@ import React from "react";
 const Header = (props) => {
     return (
         <div className="header-bg">
-            <h1>{props.title}</h1>
-            <p>{props.subtitle}</p>
-            <img src={require("../images/headerImg.jpg")} alt=""/>
+            <img src={require("../images/headerImg.jpg")} alt="" className="header-image"/>
+            <h1 className="main-title">{props.title}</h1>
+            <p className="subtitle">{props.subtitle}</p>
         </div>
     )
 } 

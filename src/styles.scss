@@ -1,0 +1,46 @@
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+// Header
+.header-bg {
+    width: 100%;
+    background-color: tomato;
+    padding: .5em;   
+}
+
+.header-image {
+    max-width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -2;
+}
+
+.main-title {
+    text-align: center;
+    color: #fff;
+    font-size: 6em;
+    padding: .25em;
+    margin: 0;
+}
+
+.subtitle {
+    text-align: center;
+    color: #fff;
+    font-size: 1.5em;
+    margin: 0;
+}
+// Restaurant List
+ul {
+    display: inline;    
+}
+.restaurant-card {
+    border: 1px red solid;
+    width: 20%;
+    list-style: none;
+}
+
+

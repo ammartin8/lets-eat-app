@@ -8,6 +8,7 @@ const config = {
 
 /*TODOS:
 1. Fetch data from Zomato API
+2. Map list of restaurants and show in DOM
 */
 
 export default class App extends Component {
@@ -31,13 +32,16 @@ export default class App extends Component {
         }
     }
 
+    generateList(data) {
+        
+    }
+
     //FETCH FUNCTIONS
     fetchRestaurants = () => {
         fetch(`https://developers.zomato.com/api/v2.1/search?entity_id=59&entity_type=city&apikey=${config.apiKey}`)
             .then(this.checkStatus)
             .then(res => res.json())
-            .then(data => console.log(data.restaurants.map(restaurant => console.log(restaurant.restaurant.name)
-            )))
+            .then(data => this.setState({restaurantObj: data}))
             .catch(error => console.log('You got error: ', error))
     }
     
@@ -49,11 +53,11 @@ export default class App extends Component {
             <div>
                 <Header 
                     title="Let's Eat!" 
-                    subtitle="Discover Your New Favorite Restaurant"
+                    subtitle="Your New Favorite Restaurant Awaits"
                 />
                 <ul>
                     {this.state.restaurantObj.restaurants.map(restaurant => (
-                        <li>
+                        <li className="restaurant-card">
                             {restaurant.restaurant.name}
                         </li>
                     ))}
