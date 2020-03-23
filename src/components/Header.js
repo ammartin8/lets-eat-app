@@ -1,14 +1,15 @@
 import React from "react";
 
+// Importing React Bootstrap Elements
+import Jumbotron from 'react-bootstrap/Jumbotron';
 
 //HEADER COMPONENT
 const Header = (props) => {
     return (
-        <div className="header-bg">
-            <img src={require("../images/headerImg.jpg")} alt="" className="header-image"/>
-            <h1 className="main-title">{props.title}</h1>
+        <Jumbotron className="mx-auto">
+            <h1 className="header">{props.title}</h1>
             <p className="subtitle">{props.subtitle}</p>
-        </div>
+        </Jumbotron>
     )
 } 
 

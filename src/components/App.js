@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import Header from './Header';
+import Footer from './Footer';
+import Gallery from './Gallery';
+
+// Importing React Bootstrap Elements
+import {Container, Col, Card, Button} from 'react-bootstrap';
 
 const config = {
     apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -50,19 +55,33 @@ export default class App extends Component {
 
     render() {
         return (
-            <div>
+                <>
                 <Header 
                     title="Let's Eat!" 
                     subtitle="Your New Favorite Restaurant Awaits"
                 />
-                <ul>
-                    {this.state.restaurantObj.restaurants.map(restaurant => (
-                        <li className="restaurant-card">
-                            {restaurant.restaurant.name}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                
+                <Container>
+                        <Col>
+                            <ul>
+                                {this.state.restaurantObj.restaurants.map(restaurant => (
+                                    <Card className="restaurant-card">
+                                        <Card.Header >
+                                                {restaurant.restaurant.name}
+                                        </Card.Header>
+                                        <Card.Body> 
+                                           <Card.Title>Average Rating: {restaurant.restaurant.user_rating.aggregate_rating}</Card.Title> 
+                                           <Card.Text>Address</Card.Text>
+                                           <Button>Details</Button>
+                                        </Card.Body>
+                                    </Card>
+                                ))}
+                            </ul>
+                        </Col>
+                </Container>
+                <Gallery title="Here will Lie a Gallery" />
+                <Footer title="Here will Lie A Footer" />
+                </>
         )
     }
 }
