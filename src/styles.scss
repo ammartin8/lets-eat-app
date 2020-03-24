@@ -13,13 +13,13 @@ html {
 }
 
 .header {
-    color: rgb(48, 167, 131);
+    color: rgb(19, 117, 88);
     font-size: 3em;
     font-weight: bolder;
 }
 
 .subtitle {
-    color: rgb(88, 167, 143);
+    color: rgb(19, 117, 88);
     font-size: 2em;
 }
 
@@ -39,4 +39,9 @@ li {
 
 .card-title {
     font-size: 1.2em;
+}
+
+.restaurant-general-info > * {
+    font-size: 1em;
+    margin: 0;
 }
