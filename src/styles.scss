@@ -5,18 +5,29 @@ html {
     box-sizing: border-box;
 }
 
-// Header
-// .header-bg {
-//     width: 100%;
-//     background-image: url(/lets-eat-restaurant-app/src/images/headerImg.jpg);
-//     padding: .5em; 
-// }
+// Header Component Custom Styling
+.header-background {
+    width: 100%;
+    background: url(./images/headerImg.jpg), tomato;
+    background-size: cover;
+}
+
+.header {
+    color: rgb(48, 167, 131);
+    font-size: 3em;
+    font-weight: bolder;
+}
+
+.subtitle {
+    color: rgb(88, 167, 143);
+    font-size: 2em;
+}
 
 li {
     list-style: none;
 }
 
-// Restaurant Cards
+// Restaurant Cards Custom Styling
 .restaurant-card {
     background-color: #fff;
 }

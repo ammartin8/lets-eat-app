@@ -66,6 +66,7 @@ export default class App extends Component {
                 />
                 
                 <Container>
+                    <h4>Explore New Restaurants in Istanbul</h4>
                     <Col>
                         <ul>
                             {this.state.restaurantObj.restaurants.map(restaurant => (
@@ -76,10 +77,10 @@ export default class App extends Component {
                                     <Card.Body>
                                         <Row>
                                             <Col>
-                                                <img className="img-fluid width: auto max-height: 100px" src={restaurant.restaurant.featured_image} alt="" />
+                                                <img className="img-fluid round max-width: 50px height: auto" src={restaurant.restaurant.featured_image} alt="" />
                                             </Col> 
                                             <Col>
-                                                <Card.Title>Average Rating: {restaurant.restaurant.user_rating.aggregate_rating}</Card.Title> 
+                                                <Card.Title className="">Average Rating: {restaurant.restaurant.user_rating.aggregate_rating}</Card.Title> 
                                                 <Card.Text>Address</Card.Text>
                                             </Col>
                                         </Row>
