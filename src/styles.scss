@@ -42,6 +42,30 @@ li {
 }
 
 .restaurant-general-info > * {
-    font-size: 1em;
+    font-size: .9em;
     margin: 0;
+}
+
+// Footer Component Custom Styling
+.upper-footer-container {
+    background-color: tomato;
+    display: flex;
+    flex-direction: row;
+}
+
+.lower-footer-container {
+    background-color: darkred;
+}
+
+.top-cities,
+.cuisine-container,
+.illustration-container {
+    padding: 1em 6em;
+}
+
+
+.social-media-container {
+    width: 100%;
+    padding: 4em;
+    margin: 0 auto;
 }

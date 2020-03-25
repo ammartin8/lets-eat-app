@@ -6,7 +6,7 @@ import { Container, Col, Row } from "react-bootstrap";
 //HEADER COMPONENT
 const Gallery = (props) => {
     return (
-        <Container>
+        <Container style={{display: "none"}}>
             <p>{props.title}</p>
             <Row>
                 <Col>Column 1</Col>

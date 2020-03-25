@@ -66,7 +66,7 @@ export default class App extends Component {
               {this.state.restaurantObj.restaurants.map(restaurant => (
                 <Card
                   className="restaurant-card my-2"
-                  style={{ height: "15em" }}
+                  style={{ height: "16em" }}
                 >
                   <Card.Header>
                     <p className="m-0 h4">{restaurant.restaurant.name}</p>
@@ -81,7 +81,7 @@ export default class App extends Component {
                           alt=""
                         />
                       </Col>
-                      <Col>
+                      <Col sm={8}>
                         <Card.Title className="">
                           <strong>Rating</strong>:{" "}
                           {restaurant.restaurant.user_rating.aggregate_rating}
@@ -113,7 +113,7 @@ export default class App extends Component {
           </Col>
         </Container>
         <Gallery title="Here will Lie a Gallery" />
-        <Footer title="Here will Lie A Footer" />
+        <Footer title="Top Cities to Visit" />
       </>
     );
   }
