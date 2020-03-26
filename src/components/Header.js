@@ -1,7 +1,12 @@
 import React from "react";
 
 // Importing React Bootstrap Elements
-import { Jumbotron, FormControl, Button, Form} from "react-bootstrap/";
+import {
+  Jumbotron,
+  FormControl,
+  Button,
+  InputGroup
+} from "react-bootstrap";
 
 //HEADER COMPONENT
 const Header = props => {
@@ -13,10 +18,19 @@ const Header = props => {
       <h1 className="header">{props.title}</h1>
       <p className="subtitle">{props.subtitle}</p>
 
-      <Form className="p-5 search-box-container mx-auto">
-        <FormControl inline type="text" placeholder="Search" />
-        <Button inline type="submit" variant="success" className="">Search</Button>
-      </Form>
+      <InputGroup size="lg" className="search-box-container mx-auto py-3">
+        <FormControl
+          type="text"
+          placeholder="Enter City Name"
+          aria-label="Large"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+        <InputGroup.Append>
+          <Button type="submit" variant="success">
+            Explore
+          </Button>
+        </InputGroup.Append>
+      </InputGroup>
     </Jumbotron>
   );
 };

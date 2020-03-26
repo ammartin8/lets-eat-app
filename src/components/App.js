@@ -60,8 +60,11 @@ export default class App extends Component {
         />
 
         <Container>
+          <Row>
+          <Col className="border">Look Another Column!</Col>
+          
+          <Col sm={9} className="border">
           <h4>Explore New Restaurants in Istanbul</h4>
-          <Col>
             <ul>
               {this.state.restaurantObj.restaurants.map(restaurant => (
                 <Card
@@ -111,6 +114,7 @@ export default class App extends Component {
               ))}
             </ul>
           </Col>
+          </Row>
         </Container>
         <Gallery title="Here will Lie a Gallery" />
         <Footer title="Top Cities to Visit" />
