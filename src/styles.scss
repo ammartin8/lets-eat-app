@@ -8,19 +8,27 @@ html {
 // Header Component Custom Styling
 .header-background {
     width: 100%;
-    background: url(./images/headerImg.jpg), tomato;
+    background: url(./images/headerImgEdit.jpg), tomato;
     background-size: cover;
+    padding: 10em;
 }
 
 .header {
-    color: rgb(19, 117, 88);
-    font-size: 3em;
+    color: rgb(255, 255, 255);
+    font-size: 4em;
     font-weight: bolder;
 }
 
 .subtitle {
-    color: rgb(19, 117, 88);
+    color: rgb(255, 255, 255);
     font-size: 2em;
+    font-weight: bold;
+}
+
+.search-box-container {
+    display: flex;
+    max-width: 50em;
+    align-items: center;
 }
 
 li {

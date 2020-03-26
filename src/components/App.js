@@ -56,7 +56,7 @@ export default class App extends Component {
       <>
         <Header
           title="Let's Eat!"
-          subtitle="Your New Favorite Restaurant Awaits"
+          subtitle="Discover Your New Favorite Restaurant"
         />
 
         <Container>
