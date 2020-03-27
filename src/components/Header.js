@@ -1,12 +1,7 @@
 import React from "react";
 
 // Importing React Bootstrap Elements
-import {
-  Jumbotron,
-  FormControl,
-  Button,
-  InputGroup
-} from "react-bootstrap";
+import { Jumbotron, FormControl, Button, InputGroup } from "react-bootstrap";
 
 //HEADER COMPONENT
 const Header = props => {

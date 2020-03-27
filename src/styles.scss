@@ -5,6 +5,10 @@ html {
     box-sizing: border-box;
 }
 
+li {
+    list-style: none;
+}
+
 // Header Component Custom Styling
 .header-background {
     width: 100%;
@@ -29,9 +33,7 @@ html {
     max-width: 50em;
 }
 
-li {
-    list-style: none;
-}
+
 
 // Restaurant Cards Custom Styling
 .restaurant-card {
@@ -69,9 +71,17 @@ li {
     padding: 1em 6em;
 }
 
-
 .social-media-container {
     width: 100%;
     padding: 4em;
     margin: 0 auto;
+}
+
+// Sidebar Component Custom Styling
+.filterLabel {
+    font-size: 1.0em;
+}
+
+.filter-checkboxes > * {
+    font-size: .85em;
 }

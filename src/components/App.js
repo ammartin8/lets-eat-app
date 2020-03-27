@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import Gallery from "./Gallery";
 
@@ -13,6 +14,7 @@ const config = {
 /*TODOS:
 1. Fetch data from Zomato API
 2. Map list of restaurants and show in DOM
+3. Filter list
 */
 
 export default class App extends Component {
@@ -48,7 +50,7 @@ export default class App extends Component {
         console.log(data);
         this.setState({ restaurantObj: data });
       })
-      .catch(error => console.log("You got error: ", error));
+      .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
   render() {
@@ -61,59 +63,61 @@ export default class App extends Component {
 
         <Container>
           <Row>
-          <Col className="border">Look Another Column!</Col>
-          
-          <Col sm={9} className="border">
-          <h4>Explore New Restaurants in Istanbul</h4>
-            <ul>
-              {this.state.restaurantObj.restaurants.map(restaurant => (
-                <Card
-                  className="restaurant-card my-2"
-                  style={{ height: "16em" }}
-                >
-                  <Card.Header>
-                    <p className="m-0 h4">{restaurant.restaurant.name}</p>
-                  </Card.Header>
-                  <Card.Body>
-                    <Row>
-                      <Col>
-                        <img
-                          className="img-fluid round"
-                          style={{ width: "auto", maxHeight: "150px" }}
-                          src={restaurant.restaurant.featured_image}
-                          alt=""
-                        />
-                      </Col>
-                      <Col sm={8}>
-                        <Card.Title className="">
-                          <strong>Rating</strong>:{" "}
-                          {restaurant.restaurant.user_rating.aggregate_rating}
-                        </Card.Title>
-                        <div className="restaurant-general-info">
-                          <Card.Text>
-                            <strong>Address</strong>:{" "}
-                            {restaurant.restaurant.location.address}
-                          </Card.Text>
-                          <Card.Text>
-                            <strong>Phone Number</strong>:{" "}
-                            {restaurant.restaurant.phone_numbers}
-                          </Card.Text>
-                          <Card.Text>
-                            <strong>Price Range</strong>:{" "}
-                            {restaurant.restaurant.price_range}
-                          </Card.Text>
-                          <Card.Text>
-                            <strong>Hours Open</strong>:{" "}
-                            {restaurant.restaurant.timings}
-                          </Card.Text>
-                        </div>
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
-              ))}
-            </ul>
-          </Col>
+            <Col>
+              <Sidebar />
+            </Col>
+
+            <Col sm={9}>
+              <h4>Explore New Restaurants in Istanbul</h4>
+              <ul>
+                {this.state.restaurantObj.restaurants.map(restaurant => (
+                  <Card
+                    className="restaurant-card my-2"
+                    style={{ height: "16em" }}
+                  >
+                    <Card.Header>
+                      <p className="m-0 h4">{restaurant.restaurant.name}</p>
+                    </Card.Header>
+                    <Card.Body>
+                      <Row>
+                        <Col>
+                          <img
+                            className="img-fluid round"
+                            style={{ width: "auto", maxHeight: "150px" }}
+                            src={restaurant.restaurant.featured_image}
+                            alt=""
+                          />
+                        </Col>
+                        <Col sm={8}>
+                          <Card.Title className="">
+                            <strong>Rating</strong>:{" "}
+                            {restaurant.restaurant.user_rating.aggregate_rating}
+                          </Card.Title>
+                          <div className="restaurant-general-info">
+                            <Card.Text>
+                              <strong>Address</strong>:{" "}
+                              {restaurant.restaurant.location.address}
+                            </Card.Text>
+                            <Card.Text>
+                              <strong>Phone Number</strong>:{" "}
+                              {restaurant.restaurant.phone_numbers}
+                            </Card.Text>
+                            <Card.Text>
+                              <strong>Price Range</strong>:{" "}
+                              {restaurant.restaurant.price_range}
+                            </Card.Text>
+                            <Card.Text>
+                              <strong>Hours Open</strong>:{" "}
+                              {restaurant.restaurant.timings}
+                            </Card.Text>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                ))}
+              </ul>
+            </Col>
           </Row>
         </Container>
         <Gallery title="Here will Lie a Gallery" />
