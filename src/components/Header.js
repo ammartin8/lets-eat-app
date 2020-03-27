@@ -13,7 +13,7 @@ const Header = props => {
       <h1 className="header">{props.title}</h1>
       <p className="subtitle">{props.subtitle}</p>
 
-      <InputGroup size="lg" className="search-box-container mx-auto py-3">
+      <InputGroup size="md" className="search-box-container mx-auto py-3">
         <FormControl
           type="text"
           placeholder="Enter City Name"

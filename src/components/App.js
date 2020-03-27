@@ -74,6 +74,7 @@ export default class App extends Component {
                   <Card
                     className="restaurant-card my-2"
                     style={{ height: "16em" }}
+                    
                   >
                     <Card.Header>
                       <p className="m-0 h4">{restaurant.restaurant.name}</p>
