@@ -1,7 +1,8 @@
 import React from "react";
+import SearchCityName from './SearchCityName';
 
 // Importing React Bootstrap Elements
-import { Jumbotron, FormControl, Button, InputGroup } from "react-bootstrap";
+import { Jumbotron} from "react-bootstrap";
 
 //HEADER COMPONENT
 const Header = props => {
@@ -13,19 +14,8 @@ const Header = props => {
       <h1 className="header">{props.title}</h1>
       <p className="subtitle">{props.subtitle}</p>
 
-      <InputGroup size="md" className="search-box-container mx-auto py-3">
-        <FormControl
-          type="text"
-          placeholder="Enter City Name"
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-        <InputGroup.Append>
-          <Button type="submit" variant="success">
-            Explore
-          </Button>
-        </InputGroup.Append>
-      </InputGroup>
+    <SearchCityName />
+      
     </Jumbotron>
   );
 };
