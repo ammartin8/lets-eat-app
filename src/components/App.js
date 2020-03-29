@@ -70,11 +70,12 @@ export default class App extends Component {
             <Col sm={9}>
               <h4>Explore New Restaurants in Istanbul</h4>
               <ul>
+                {/*Restaurant List*/}
                 {this.state.restaurantObj.restaurants.map(restaurant => (
                   <Card
                     className="restaurant-card my-2"
                     style={{ height: "16em" }}
-                    
+                    key={restaurant.restaurant.id}
                   >
                     <Card.Header>
                       <p className="m-0 h4">{restaurant.restaurant.name}</p>
