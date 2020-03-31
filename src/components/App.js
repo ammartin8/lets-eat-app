@@ -21,7 +21,7 @@ export default class App extends Component {
   state = {
     restaurantObj: {
       restaurants: [],
-      location: {}
+      cities: []
     }
   };
 
@@ -59,6 +59,7 @@ export default class App extends Component {
         <Header
           title="Let's Eat!"
           subtitle="Discover Your New Favorite Restaurant"
+          cities={this.state.restaurantObj.restaurants.map(restaurant => restaurant.restaurant.location.city)}
         />
 
         <Container>

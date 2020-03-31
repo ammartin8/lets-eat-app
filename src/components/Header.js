@@ -14,7 +14,7 @@ const Header = props => {
       <h1 className="header">{props.title}</h1>
       <p className="subtitle">{props.subtitle}</p>
 
-    <SearchCityName />
+    <SearchCityName citylist={props.cities}/>
       
     </Jumbotron>
   );
