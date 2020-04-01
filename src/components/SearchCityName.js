@@ -2,10 +2,15 @@ import React, { Component } from "react";
 
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 
+// DRY
+const config = {
+  apiKey: `${process.env.REACT_APP_API_KEY}`
+};
 
 class SearchCityName extends Component {
   state = {
     value: "",
+    results: []
   };
 
   handleValueChange = () => {
@@ -13,7 +18,26 @@ class SearchCityName extends Component {
   }
 
   /*Making API Call Here for Cities*/
+  checkStatus(response) {
+    if (response.ok === true) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(new Error(response.statusText));
+    }
+  }
 
+  getCityInfo = () => {
+    fetch(
+      `https://developers.zomato.com/api/v2.1/cities?q=${this.state.value}&count=5`
+    )
+      .then(this.checkStatus)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ results: data });
+      })
+      .catch(error => console.log("Uh oh! You gotta error: ", error));
+  };
 
   render() {
     console.log(this.state.value);
@@ -29,7 +53,6 @@ class SearchCityName extends Component {
           aria-label="Large"
           aria-describedby="inputGroup-sizing-sm"
         />
-        <datalist option="{this.state.cities}"></datalist>
         <InputGroup.Append>
           <Button type="submit" variant="success">
             Explore
