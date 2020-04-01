@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from 'react-dom';
 
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 
@@ -7,14 +6,14 @@ import { InputGroup, FormControl, Button } from "react-bootstrap";
 class SearchCityName extends Component {
   state = {
     value: "",
-    cities: []
   };
 
-  handleValueChange = e => {
-    this.setState({ value: e.target.value });
-  };
+  handleValueChange = () => {
+    this.setState({ value: this.search.value })
+  }
 
-  
+  /*Making API Call Here for Cities*/
+
 
   render() {
     console.log(this.state.value);
@@ -23,14 +22,14 @@ class SearchCityName extends Component {
         <FormControl
           type="text"
           id="cityName"
-          list="city-list"
+          ref={input => this.search = input}
           value={this.state.value}
           onChange={this.handleValueChange}
           placeholder="Enter City Name"
           aria-label="Large"
           aria-describedby="inputGroup-sizing-sm"
         />
-        <datalist id="city-list"></datalist>
+        <datalist option="{this.state.cities}"></datalist>
         <InputGroup.Append>
           <Button type="submit" variant="success">
             Explore
