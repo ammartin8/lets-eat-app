@@ -3,11 +3,23 @@ import React from "react";
 // Importing React Bootstrap Elements
 import { Container, Col, Row } from "react-bootstrap";
 
+// Importing Icons
+import { IconContext } from "react-icons";
+import {
+  FaTwitter,
+  FaFacebook,
+  FaInstagram,
+  FaPinterest
+} from "react-icons/fa";
+
 //HEADER COMPONENT
 const Footer = props => {
   return (
     <>
-      <Container className="upper-footer-container" style={{ maxWidth: "100%" }}>
+      <Container
+        className="upper-footer-container"
+        style={{ maxWidth: "100%" }}
+      >
         <Col className="top-cities">
           <Row>
             <strong>{props.title}</strong>
@@ -31,14 +43,32 @@ const Footer = props => {
           <Row>Italian</Row>
           <Row>Mexican</Row>
         </Col>
-        <Col className="illustration-container"><strong>Illustration Here</strong></Col>
+        <Col className="illustration-container">
+          <strong>Illustration Here</strong>
+        </Col>
       </Container>
-      <Container className="lower-footer-container" style={{ maxWidth: "100%" }}>
+      <Container
+        className="lower-footer-container"
+        style={{ maxWidth: "100%" }}
+      >
         <Row className="social-media-container">
-          <Col>social media 1</Col>
-          <Col>social media 2</Col>
-          <Col>social media 3</Col>
-          <Col>social media 4</Col>
+          <IconContext.Provider value={{ className: "social-icons" }}>
+            <Col sm={1}>
+              <FaTwitter />
+            </Col>
+            <Col sm={1}>
+              <FaFacebook />
+            </Col>
+            <Col sm={1}>
+              <FaInstagram />
+            </Col>
+            <Col sm={1}>
+              <FaPinterest />
+            </Col>
+          </IconContext.Provider>
+        </Row>
+        <Row sm={12}>
+        <span  className="mx-auto">&copy; Copyright 2020. All Rights Reserved</span>
         </Row>
       </Container>
     </>

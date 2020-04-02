@@ -1,5 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     height: 100%;
     box-sizing: border-box;
@@ -50,7 +54,7 @@ li {
     font-size: 1.2em;
 }
 
-.restaurant-general-info > * {
+.restaurant-general-info>* {
     font-size: .9em;
     margin: 0;
 }
@@ -73,9 +77,18 @@ li {
 }
 
 .social-media-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
     width: 100%;
     padding: 4em;
     margin: 0 auto;
+}
+
+.social-icons {
+    font-size: 1.6em;
+    cursor: pointer;
+    padding: 0;
 }
 
 // Sidebar Component Custom Styling
@@ -83,6 +96,6 @@ li {
     font-size: 1.0em;
 }
 
-.filter-checkboxes > * {
+.filter-checkboxes>* {
     font-size: .85em;
 }

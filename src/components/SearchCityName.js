@@ -2,20 +2,11 @@ import React, { Component } from "react";
 
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 
-// DRY
-const config = {
-  apiKey: `${process.env.REACT_APP_API_KEY}`
-};
-
 class SearchCityName extends Component {
   state = {
     value: "",
     results: []
   };
-
-  handleValueChange = () => {
-    this.setState({ value: this.search.value })
-  }
 
   /*Making API Call Here for Cities*/
   checkStatus(response) {
@@ -39,6 +30,16 @@ class SearchCityName extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
+  handleValueChange = () => {
+    this.setState({ value: this.search.value }, () => {
+      if (this.state.value && this.state.value > 3) {
+        if (this.state.value.length % 2 === 0) {
+          this.getCityInfo()
+        }
+      }
+    })
+  }
+
   render() {
     console.log(this.state.value);
     return (
@@ -46,7 +47,7 @@ class SearchCityName extends Component {
         <FormControl
           type="text"
           id="cityName"
-          ref={input => this.search = input}
+          ref={input => (this.search = input)}
           value={this.state.value}
           onChange={this.handleValueChange}
           placeholder="Enter City Name"
