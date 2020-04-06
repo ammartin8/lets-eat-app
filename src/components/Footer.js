@@ -12,7 +12,7 @@ import {
   FaPinterest
 } from "react-icons/fa";
 
-//HEADER COMPONENT
+//FOOTER COMPONENT
 const Footer = props => {
   return (
     <>

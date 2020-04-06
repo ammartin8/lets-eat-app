@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import CitySuggestions from "./CitySuggestions";
 
-import { InputGroup, FormControl, Button } from "react-bootstrap";
+import { InputGroup, FormControl, Button, Row } from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -15,7 +16,7 @@ class SearchCityName extends Component {
   };
 
   componentDidMount() {
-    this.getCityInfo();
+    this.handleValueChange();
   }
 
   /*Making API Call Here for Cities*/
@@ -48,34 +49,39 @@ class SearchCityName extends Component {
 
   handleValueChange = () => {
     this.setState({ query: this.search.value }, () => {
-      if (this.state.query && this.state.query > 1) {
-        if (this.state.query.length % 2 === 0) {
-          this.getCityInfo()
-        }
-      }
-    })
+      // call fetch method
+      this.getCityInfo();
+    });
   };
 
   render() {
     console.log(this.state.query);
     return (
-      <InputGroup size="md" className="search-box-container mx-auto py-3">
-        <FormControl
-          type="text"
-          id="cityName"
-          ref={input => (this.search = input)}
-          value={this.state.query}
-          onChange={this.handleValueChange}
-          placeholder="Enter City Name"
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-        <InputGroup.Append>
-          <Button type="submit" variant="success">
-            Explore
-          </Button>
-        </InputGroup.Append>
-      </InputGroup>
+      <>
+        <Row>
+          <InputGroup size="md" className="search-box-container mx-auto pt-3">
+            <FormControl
+              type="text"
+              id="cityName"
+              ref={input => (this.search = input)}
+              value={this.state.query}
+              onChange={this.handleValueChange}
+              placeholder="Enter City Name"
+              aria-label="Large"
+              aria-describedby="inputGroup-sizing-sm"
+            />
+            <InputGroup.Append>
+              <Button type="submit" variant="success">
+                Explore
+              </Button>
+            </InputGroup.Append>
+          </InputGroup>
+        </Row>
+
+        <Row>
+          <CitySuggestions results={this.state.cityObj.location_suggestions} />
+        </Row>
+      </>
     );
   }
 }
