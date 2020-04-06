@@ -20,8 +20,7 @@ const config = {
 export default class App extends Component {
   state = {
     restaurantObj: {
-      restaurants: [],
-      cities: []
+      restaurants: []
     }
   };
 
@@ -42,7 +41,7 @@ export default class App extends Component {
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=59&entity_type=city&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${58}&entity_type=city&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
