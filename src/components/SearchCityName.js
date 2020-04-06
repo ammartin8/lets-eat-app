@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CitySuggestions from "./CitySuggestions";
 
-import { InputGroup, FormControl, Button, Row } from "react-bootstrap";
+import { InputGroup, FormControl, Button, Row, Container } from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -58,29 +58,33 @@ class SearchCityName extends Component {
     console.log(this.state.query);
     return (
       <>
-        <Row>
-          <InputGroup size="md" className="search-box-container mx-auto pt-3">
-            <FormControl
-              type="text"
-              id="cityName"
-              ref={input => (this.search = input)}
-              value={this.state.query}
-              onChange={this.handleValueChange}
-              placeholder="Enter City Name"
-              aria-label="Large"
-              aria-describedby="inputGroup-sizing-sm"
-            />
-            <InputGroup.Append>
-              <Button type="submit" variant="success">
-                Explore
-              </Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </Row>
+        <Container className="search-box-container mx-auto">
+          <Row>
+            <InputGroup size="md">
+              <FormControl
+                type="text"
+                id="cityName"
+                ref={input => (this.search = input)}
+                value={this.state.query}
+                onChange={this.handleValueChange}
+                placeholder="Enter City Name"
+                aria-label="Large"
+                aria-describedby="inputGroup-sizing-sm"
+              />
+              <InputGroup.Append>
+                <Button type="submit" variant="success">
+                  Explore
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Row>
 
-        <Row>
-          <CitySuggestions results={this.state.cityObj.location_suggestions} />
-        </Row>
+          <Row>
+            <CitySuggestions
+              results={this.state.cityObj.location_suggestions}
+            />
+          </Row>
+        </Container>
       </>
     );
   }
