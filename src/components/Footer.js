@@ -9,7 +9,8 @@ import {
   FaTwitter,
   FaFacebook,
   FaInstagram,
-  FaPinterest
+  FaPinterest,
+  FaChevronUp
 } from "react-icons/fa";
 
 //FOOTER COMPONENT
@@ -20,7 +21,7 @@ const Footer = props => {
         className="upper-footer-container"
         style={{ maxWidth: "100%" }}
       >
-        <Col className="top-cities">
+        <Col className="top-cities" sm={3}>
           <Row>
             <strong>{props.title}</strong>
           </Row>
@@ -32,7 +33,7 @@ const Footer = props => {
           <Row>Tokyo</Row>
           <Row>Addis Abba</Row>
         </Col>
-        <Col className="cuisine-container">
+        <Col className="cuisine-container" sm={3}>
           <Row>
             <strong>Cuisines</strong>
           </Row>
@@ -43,10 +44,14 @@ const Footer = props => {
           <Row>Italian</Row>
           <Row>Mexican</Row>
         </Col>
-        <Col className="illustration-container">
+        <Col className="illustration-container" sm={3}>
           <strong>Illustration Here</strong>
         </Col>
+        <Col sm={1}>
+          <a href="#main-header"><FaChevronUp className="chevron-top-page float-right"/></a>
+        </Col>
       </Container>
+
       <Container
         className="lower-footer-container"
         style={{ maxWidth: "100%" }}
@@ -68,7 +73,9 @@ const Footer = props => {
           </IconContext.Provider>
         </Row>
         <Row sm={12}>
-        <span  className="mx-auto">&copy; Copyright 2020. All Rights Reserved</span>
+          <span className="mx-auto py-3">
+            &copy; Copyright 2020. All Rights Reserved
+          </span>
         </Row>
       </Container>
     </>

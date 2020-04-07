@@ -8,6 +8,7 @@ import { Jumbotron} from "react-bootstrap";
 const Header = props => {
   return (
     <Jumbotron
+      id="main-header"
       className="text-center header-background"
       style={{ height: "75vh" }}
     >
