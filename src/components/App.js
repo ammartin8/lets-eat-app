@@ -14,7 +14,7 @@ const config = {
 /*TODOS:
 1. Fetch data from Zomato API
 2. Map list of restaurants and show in DOM
-3. Filter list
+3. Lift state up
 */
 
 export default class App extends Component {
