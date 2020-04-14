@@ -22,7 +22,8 @@ export default class App extends Component {
     restaurantObj: {
       restaurants: []
     },
-    cityId: ""
+    cityId: "",
+    isCardOpen: false
   };
 
   componentDidMount() {
@@ -39,10 +40,16 @@ export default class App extends Component {
     }
   }
 
+  handleClose = () => {
+    this.setState({ isCardOpen: false });
+  };
+
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${58}&entity_type=city&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${58}&entity_type=city&apikey=${
+        config.apiKey
+      }`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -53,13 +60,31 @@ export default class App extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
+  fetchRestaurantsDetails = () => { //put city id in paratheses to replace 58
+    fetch(
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${58}&entity_type=city&apikey=${
+        config.apiKey
+      }`
+    )
+      .then(this.checkStatus)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ restaurantObj: data });
+        this.setState({isCardOpen: true});
+      })
+      .catch(error => console.log("Uh oh! You gotta error: ", error));
+  };
+
   render() {
     return (
       <>
         <Header
           title="Let's Eat!"
           subtitle="Discover Your New Favorite Restaurant"
-          cities={this.state.restaurantObj.restaurants.map(restaurant => restaurant.restaurant.location.city)}
+          cities={this.state.restaurantObj.restaurants.map(
+            restaurant => restaurant.restaurant.location.city
+          )}
         />
 
         <Container>
@@ -69,57 +94,75 @@ export default class App extends Component {
             </Col>
 
             <Col sm={9}>
-              <h4>Explore New Restaurants in Istanbul</h4>
-              <ul>
-                {/*Restaurant List*/}
-                {this.state.restaurantObj.restaurants.map(restaurant => (
-                  <Card
-                    className="restaurant-card my-2"
-                    style={{ height: "16em" }}
-                    key={restaurant.restaurant.id}
-                  >
-                    <Card.Header>
-                      <p className="m-0 h4">{restaurant.restaurant.name}</p>
-                    </Card.Header>
-                    <Card.Body>
-                      <Row>
-                        <Col>
-                          <img
-                            className="img-fluid round"
-                            style={{ width: "auto", maxHeight: "150px" }}
-                            src={restaurant.restaurant.featured_image}
-                            alt=""
-                          />
-                        </Col>
-                        <Col sm={8}>
-                          <Card.Title className="">
-                            <strong>Rating</strong>:{" "}
-                            {restaurant.restaurant.user_rating.aggregate_rating}
-                          </Card.Title>
-                          <div className="restaurant-general-info">
-                            <Card.Text>
-                              <strong>Address</strong>:{" "}
-                              {restaurant.restaurant.location.address}
-                            </Card.Text>
-                            <Card.Text>
-                              <strong>Phone Number</strong>:{" "}
-                              {restaurant.restaurant.phone_numbers}
-                            </Card.Text>
-                            <Card.Text>
-                              <strong>Price Range</strong>:{" "}
-                              {restaurant.restaurant.price_range}
-                            </Card.Text>
-                            <Card.Text>
-                              <strong>Hours Open</strong>:{" "}
-                              {restaurant.restaurant.timings}
-                            </Card.Text>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Card.Body>
-                  </Card>
-                ))}
-              </ul>
+              <div id="main-content">
+                {this.state.isCardOpen ? (
+                  <div>
+                    Why Hello There!
+                    <button onClick={() => this.handleClose()}>
+                      Close Me!
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <ul>
+                      {/*Restaurant List*/}
+                      {this.state.restaurantObj.restaurants.map(restaurant => (
+                        <Card
+                          className="restaurant-card my-2"
+                          style={{ height: "16em" }}
+                          key={restaurant.restaurant.id}
+                          onClick= {() => this.fetchRestaurantsDetails()}
+                        >
+                          <Card.Header>
+                            <p className="m-0 h4">
+                              {restaurant.restaurant.name}
+                            </p>
+                          </Card.Header>
+                          <Card.Body>
+                            <Row>
+                              <Col>
+                                <img
+                                  className="img-fluid round"
+                                  style={{ width: "auto", maxHeight: "150px" }}
+                                  src={restaurant.restaurant.featured_image}
+                                  alt=""
+                                />
+                              </Col>
+                              <Col sm={8}>
+                                <Card.Title className="">
+                                  <strong>Rating</strong>:{" "}
+                                  {
+                                    restaurant.restaurant.user_rating
+                                      .aggregate_rating
+                                  }
+                                </Card.Title>
+                                <div className="restaurant-general-info">
+                                  <Card.Text>
+                                    <strong>Address</strong>:{" "}
+                                    {restaurant.restaurant.location.address}
+                                  </Card.Text>
+                                  <Card.Text>
+                                    <strong>Phone Number</strong>:{" "}
+                                    {restaurant.restaurant.phone_numbers}
+                                  </Card.Text>
+                                  <Card.Text>
+                                    <strong>Price Range</strong>:{" "}
+                                    {restaurant.restaurant.price_range}
+                                  </Card.Text>
+                                  <Card.Text>
+                                    <strong>Hours Open</strong>:{" "}
+                                    {restaurant.restaurant.timings}
+                                  </Card.Text>
+                                </div>
+                              </Col>
+                            </Row>
+                          </Card.Body>
+                        </Card>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </div>
             </Col>
           </Row>
         </Container>
