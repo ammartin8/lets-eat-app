@@ -2,7 +2,7 @@ import React from "react";
 import SearchCityName from './SearchCityName';
 
 // Importing React Bootstrap Elements
-import { Jumbotron} from "react-bootstrap";
+import { Jumbotron } from "react-bootstrap";
 
 //HEADER COMPONENT
 const Header = props => {
@@ -15,7 +15,12 @@ const Header = props => {
       <h1 className="header">{props.title}</h1>
       <p className="subtitle">{props.subtitle}</p>
 
-    <SearchCityName citylist={props.cities}/>
+    <SearchCityName 
+      searchTerm={props.query}
+      handleValueChange={props.handleValueChange}
+      results={props.results}
+      changeCity={props.changeCity}
+    />
       
     </Jumbotron>
   );

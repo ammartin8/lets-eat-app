@@ -14,14 +14,15 @@ const config = {
 /*TODOS:
 1. Fetch data from Zomato API
 2. Map list of restaurants and show in DOM
-3. Lift state up
+3. Filter list
 */
 
 export default class App extends Component {
   state = {
     restaurantObj: {
       restaurants: []
-    }
+    },
+    cityId: ""
   };
 
   componentDidMount() {

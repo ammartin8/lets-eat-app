@@ -2,7 +2,7 @@ import React from "react";
 
 // Get City Id
 const cityId = () => {
-    console.log('hi!');
+    console.log();
 }
 
 // Generates Dropdown box

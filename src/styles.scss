@@ -2,7 +2,7 @@
 
 * {
   box-sizing: border-box;
-  scroll-behavior: smooth;;
+  scroll-behavior: smooth;
 }
 
 html {
@@ -63,12 +63,17 @@ li {
 }
 
 button.city-option-button:hover {
-  background: rgb(96, 228, 78);
+  background: rgb(213, 239, 159);
 }
 
 // Restaurant Cards Custom Styling
 .restaurant-card {
   background-color: #fff;
+}
+
+.restaurant-card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
 
 .restaurant-title {
