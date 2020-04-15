@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import Gallery from "./Gallery";
 
 // Importing React Bootstrap Elements
-import { Container, Col, Row, Card } from "react-bootstrap";
+import { Container, Col, Row, Card, Modal } from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -22,7 +22,7 @@ export default class App extends Component {
     restaurantObj: {
       restaurants: []
     },
-    cityId: "",
+    cityId: "60",
     isCardOpen: false
   };
 
@@ -47,7 +47,7 @@ export default class App extends Component {
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${58}&entity_type=city&apikey=${
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&apikey=${
         config.apiKey
       }`
     )
@@ -60,7 +60,7 @@ export default class App extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
-  fetchRestaurantsDetails = () => { //put city id in paratheses to replace 58
+  fetchRestaurantsDetails = () => { //city id needs to be placed here upon click of restaurant
     fetch(
       `https://developers.zomato.com/api/v2.1/search?entity_id=${58}&entity_type=city&apikey=${
         config.apiKey
@@ -71,7 +71,7 @@ export default class App extends Component {
       .then(data => {
         console.log(data);
         this.setState({ restaurantObj: data });
-        this.setState({isCardOpen: true});
+        this.setState({ isCardOpen: true });
       })
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
@@ -96,12 +96,19 @@ export default class App extends Component {
             <Col sm={9}>
               <div id="main-content">
                 {this.state.isCardOpen ? (
-                  <div>
-                    Why Hello There!
-                    <button onClick={() => this.handleClose()}>
-                      Close Me!
-                    </button>
-                  </div>
+                  <Modal.Dialog>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Restaurant Name</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                      <div>
+                        Why Hello There!
+                        <button onClick={() => this.handleClose()}>X</button>
+                      </div>
+                    </Modal.Body>
+
+                  </Modal.Dialog>
                 ) : (
                   <>
                     <ul>
@@ -111,7 +118,7 @@ export default class App extends Component {
                           className="restaurant-card my-2"
                           style={{ height: "16em" }}
                           key={restaurant.restaurant.id}
-                          onClick= {() => this.fetchRestaurantsDetails()}
+                          onClick={() => this.fetchRestaurantsDetails()}
                         >
                           <Card.Header>
                             <p className="m-0 h4">
