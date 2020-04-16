@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import Header from "./Header";
+// import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import Gallery from "./Gallery";
+import SearchCityName from "./SearchCityName";
 
 // Importing React Bootstrap Elements
-import { Container, Col, Row, Card, Modal } from "react-bootstrap";
+import { Container, Col, Row, Card, Modal, Jumbotron } from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -22,7 +23,7 @@ export default class App extends Component {
     restaurantObj: {
       restaurants: []
     },
-    cityId: "60",
+    cityId: "",
     isCardOpen: false
   };
 
@@ -44,6 +45,12 @@ export default class App extends Component {
     this.setState({ isCardOpen: false });
   };
 
+  handleListUpdate = (cityId) => {
+    this.setState({
+      cityId: cityId
+    })
+  }
+
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
@@ -60,7 +67,8 @@ export default class App extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
-  fetchRestaurantsDetails = () => { //city id needs to be placed here upon click of restaurant
+  fetchRestaurantsDetails = () => {
+    //put city id in paratheses to replace 58
     fetch(
       `https://developers.zomato.com/api/v2.1/search?entity_id=${58}&entity_type=city&apikey=${
         config.apiKey
@@ -79,13 +87,20 @@ export default class App extends Component {
   render() {
     return (
       <>
-        <Header
-          title="Let's Eat!"
-          subtitle="Discover Your New Favorite Restaurant"
-          cities={this.state.restaurantObj.restaurants.map(
-            restaurant => restaurant.restaurant.location.city
-          )}
-        />
+        <Jumbotron
+          id="main-header"
+          className="text-center header-background"
+          style={{ height: "75vh" }}
+        >
+          <h1 className="header">Let's Eat</h1>
+          <p className="subtitle">Discover Your New Favorite Restaurant</p>
+          
+          <SearchCityName
+            query={this.state.query}
+            handleValueChange={this.handleValueChange}
+            updateRestaurantList={this.handleListUpdate}
+          />
+        </Jumbotron>
 
         <Container>
           <Row>
@@ -107,7 +122,6 @@ export default class App extends Component {
                         <button onClick={() => this.handleClose()}>X</button>
                       </div>
                     </Modal.Body>
-
                   </Modal.Dialog>
                 ) : (
                   <>

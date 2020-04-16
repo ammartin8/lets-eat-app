@@ -1,8 +1,13 @@
-
 import React, { Component } from "react";
-import CitySuggestions from "./CitySuggestions";
+// import CitySuggestions from "./CitySuggestions";
 
-import { InputGroup, FormControl, Button, Row, Container } from "react-bootstrap";
+import {
+  InputGroup,
+  FormControl,
+  Button,
+  Row,
+  Container
+} from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -13,7 +18,8 @@ class SearchCityName extends Component {
     query: "",
     cityObj: {
       location_suggestions: []
-    }
+    },
+    cityId: ""
   };
 
   componentDidMount() {
@@ -55,6 +61,11 @@ class SearchCityName extends Component {
     });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.updateRestaurantList(this.state.cityId);
+  };
+
   render() {
     console.log(this.state.query);
     return (
@@ -71,6 +82,7 @@ class SearchCityName extends Component {
                 placeholder="Enter City Name"
                 aria-label="Large"
                 aria-describedby="inputGroup-sizing-sm"
+                onSubmit={this.handleSubmit}
               />
               <InputGroup.Append>
                 <Button type="submit" variant="success">
@@ -81,9 +93,18 @@ class SearchCityName extends Component {
           </Row>
 
           <Row>
-            <CitySuggestions
+            {/* <CitySuggestions
               results={this.state.cityObj.location_suggestions}
-            />
+            /> */}
+            <ul className="city-suggestions">
+              {this.state.cityObj.location_suggestions.map(cities => (
+                <li key={cities.id}>
+                  <button className="city-option-button" onClick={this.handleSubmit}>
+                    {cities.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </Row>
         </Container>
       </>
