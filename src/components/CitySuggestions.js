@@ -1,21 +1,21 @@
-// import React from "react";
+import React from "react";
 
 // // Get City Id
 // const cityId = () => {
 //     console.log();
 // }
 
-// // Generates Dropdown box
-// const CitySuggestions = props => {
-//   const options = props.results.map(cities => (
-//     <li key={cities.id}>
-//       <button className="city-option-button" onClick={cityId}>{cities.name}</button>
-//     </li>
-//   ));
-//   return <ul className="city-suggestions">{options}</ul>;
-// };
+// Generates Dropdown box
+const CitySuggestions = props => {
+  const options = props.results.map(cities => (
+    <li key={cities.id}>
+      <button className="city-option-button">{cities.name}</button>
+    </li>
+  ));
+  return <ul className="city-suggestions">{options}</ul>;
+};
 
-// export default CitySuggestions;
+export default CitySuggestions;
 
 // /* TODO:
 //         1. map the list of options  based on user input

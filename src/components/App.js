@@ -43,20 +43,25 @@ export default class App extends Component {
 
   handleClose = () => {
     this.setState({ isCardOpen: false });
+    this.fetchRestaurants();
   };
 
-  handleListUpdate = (cityId) => {
-    this.setState({
-      cityId: cityId
-    })
-  }
+  handleListUpdate = cityId => {
+    console.log(cityId);
+    this.setState(
+      {
+        cityId: cityId
+      },
+      () => {
+        this.fetchRestaurants();
+      }
+    );
+  };
 
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&apikey=${
-        config.apiKey
-      }`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -70,9 +75,7 @@ export default class App extends Component {
   fetchRestaurantsDetails = () => {
     //put city id in paratheses to replace 58
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${58}&entity_type=city&apikey=${
-        config.apiKey
-      }`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -94,10 +97,10 @@ export default class App extends Component {
         >
           <h1 className="header">Let's Eat</h1>
           <p className="subtitle">Discover Your New Favorite Restaurant</p>
-          
+
           <SearchCityName
-            query={this.state.query}
-            handleValueChange={this.handleValueChange}
+            // query={this.state.query}
+            // handleValueChange={this.handleValueChange}
             updateRestaurantList={this.handleListUpdate}
           />
         </Jumbotron>

@@ -1,13 +1,7 @@
 import React, { Component } from "react";
-// import CitySuggestions from "./CitySuggestions";
+import CitySuggestions from "./CitySuggestions";
 
-import {
-  InputGroup,
-  FormControl,
-  Button,
-  Row,
-  Container
-} from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -18,8 +12,7 @@ class SearchCityName extends Component {
     query: "",
     cityObj: {
       location_suggestions: []
-    },
-    cityId: ""
+    }
   };
 
   componentDidMount() {
@@ -35,7 +28,7 @@ class SearchCityName extends Component {
     }
   }
 
-  getCityInfo = () => {
+  getCityList = () => {
     fetch(
       `https://developers.zomato.com/api/v2.1/cities?q=${this.state.query}&count=5`,
       {
@@ -57,54 +50,59 @@ class SearchCityName extends Component {
   handleValueChange = () => {
     this.setState({ query: this.search.value }, () => {
       // call fetch method
-      this.getCityInfo();
+      this.getCityList();
     });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.updateRestaurantList(this.state.cityId);
+  handleSubmit = input => {
+    input.preventDefault();
+    this.setState({
+      cityId: this.state.cityObj.location_suggestions[0].id
+    },
+      () => {
+        this.props.updateRestaurantList(this.state.cityId);
+      });
+    // console.log(this.state.cityId);
+    this.setState({ query: "" });
   };
 
   render() {
-    console.log(this.state.query);
+    // console.log(this.state.query);
     return (
       <>
         <Container className="search-box-container mx-auto">
           <Row>
-            <InputGroup size="md">
-              <FormControl
+            <form onSubmit={this.handleSubmit}>
+              <input
                 type="text"
                 id="cityName"
                 ref={input => (this.search = input)}
                 value={this.state.query}
                 onChange={this.handleValueChange}
                 placeholder="Enter City Name"
-                aria-label="Large"
-                aria-describedby="inputGroup-sizing-sm"
-                onSubmit={this.handleSubmit}
               />
-              <InputGroup.Append>
-                <Button type="submit" variant="success">
-                  Explore
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
+
+              <input
+                type="submit"
+                value="Explore"
+                onClick={this.handleSubmit}
+              />
+            </form>
           </Row>
 
           <Row>
-            {/* <CitySuggestions
+            <CitySuggestions
               results={this.state.cityObj.location_suggestions}
-            /> */}
-            <ul className="city-suggestions">
+            />
+            {/* <ul className="city-suggestions">
               {this.state.cityObj.location_suggestions.map(cities => (
                 <li key={cities.id}>
-                  <button className="city-option-button" onClick={this.handleSubmit}>
+                  <button className="city-option-button" onClick={this.handleSubmit()}>
                     {cities.name}
                   </button>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </Row>
         </Container>
       </>
