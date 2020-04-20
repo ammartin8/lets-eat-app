@@ -1,4 +1,4 @@
-import React from "react";
+// import React, {Component} from "react";
 
 // // Get City Id
 // const cityId = () => {
@@ -6,16 +6,25 @@ import React from "react";
 // }
 
 // Generates Dropdown box
-const CitySuggestions = props => {
-  const options = props.results.map(cities => (
-    <li key={cities.id}>
-      <button className="city-option-button">{cities.name}</button>
-    </li>
-  ));
-  return <ul className="city-suggestions">{options}</ul>;
-};
+//WORKING ON THIS; TRYING TO PUSH CITYID TO APP.JS
+// class CitySuggestions extends Component {
+//   CitySuggestions = props => {
+//     {props.results.map(cities => (
+//       <li key={cities.id} altId={cities.id}>
+//         <button className="city-option-button" onClick={props.handleClick}>
+//           {cities.name}
+//         </button>
+//       </li>
+//     ))};
 
-export default CitySuggestions;
+//     render() {
+//     return (
+//       <ul className="city-suggestions">{options}</ul>
+//       );
+//     }
+//   };
+// }
+// export default CitySuggestions;
 
 // /* TODO:
 //         1. map the list of options  based on user input

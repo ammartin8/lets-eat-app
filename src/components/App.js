@@ -101,7 +101,7 @@ export default class App extends Component {
           <SearchCityName
             // query={this.state.query}
             // handleValueChange={this.handleValueChange}
-            updateRestaurantList={this.handleListUpdate}
+            updateRestaurantList={this.handleListUpdate} //call function
           />
         </Jumbotron>
 

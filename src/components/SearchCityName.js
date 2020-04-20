@@ -54,14 +54,31 @@ class SearchCityName extends Component {
     });
   };
 
+  // Upon onSubmit automatically assigns the first listed suggestion's city Id number is user doesn't select option below
   handleSubmit = input => {
     input.preventDefault();
-    this.setState({
-      cityId: this.state.cityObj.location_suggestions[0].id
-    },
+    this.setState(
+      {
+        cityId: this.state.cityObj.location_suggestions[0].id
+      },
       () => {
         this.props.updateRestaurantList(this.state.cityId);
-      });
+      }
+    );
+    // console.log(this.state.cityId);
+    this.setState({ query: "" });
+  };
+
+  handleClick = (cityId) => (input) => {
+    input.preventDefault();
+    this.setState(
+      {
+        cityId: cityId
+      },
+      () => {
+        this.props.updateRestaurantList(this.state.cityId);
+      }
+    );
     // console.log(this.state.cityId);
     this.setState({ query: "" });
   };
@@ -91,18 +108,23 @@ class SearchCityName extends Component {
           </Row>
 
           <Row>
-            <CitySuggestions
+            {/* Working on this!!! */}
+            {/* <CitySuggestions
               results={this.state.cityObj.location_suggestions}
-            />
-            {/* <ul className="city-suggestions">
+              handleClick={this.handleClick}
+            /> */}
+            <ul className="city-suggestions">
               {this.state.cityObj.location_suggestions.map(cities => (
-                <li key={cities.id}>
-                  <button className="city-option-button" onClick={this.handleSubmit()}>
+                <li key={cities.id} altid={cities.id}>
+                  <button
+                    className="city-option-button"
+                    onClick={this.handleClick(cities.id)}
+                  >
                     {cities.name}
                   </button>
                 </li>
               ))}
-            </ul> */}
+            </ul>
           </Row>
         </Container>
       </>
