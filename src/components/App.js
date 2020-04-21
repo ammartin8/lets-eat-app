@@ -49,7 +49,8 @@ export default class App extends Component {
       average_cost_for_two: 0,
       phone_numbers: "",
       photos: [],
-      featured_image: ""
+      featured_image: "",
+      timings: ""
     },
     cityId: "33",
     isCardOpen: false
@@ -179,7 +180,13 @@ export default class App extends Component {
                           </Modal.Title>
                         </Row>
                         <Row>
-                          <div>Why Hello There!</div>
+                          <p><strong>{"Address: "}</strong>{this.state.restaurantObj.location.address}</p>
+                        </Row>
+                        <Row>
+                          <p><strong>{"Phone Numbers: "}</strong>{this.state.restaurantObj.phone_numbers}</p>
+                        </Row>
+                        <Row>
+                          <p><strong>{"Hours: "}</strong>{this.state.restaurantObj.timings}</p>
                         </Row>
                       </Col>
                     </Modal.Body>
