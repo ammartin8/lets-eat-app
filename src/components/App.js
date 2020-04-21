@@ -6,7 +6,16 @@ import Gallery from "./Gallery";
 import SearchCityName from "./SearchCityName";
 
 // Importing React Bootstrap Elements
-import { Container, Col, Row, Card, Modal, Jumbotron } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Row,
+  Card,
+  Modal,
+  Jumbotron,
+  Button,
+  Image
+} from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -39,7 +48,8 @@ export default class App extends Component {
       establishment: [],
       average_cost_for_two: 0,
       phone_numbers: "",
-      photos: []
+      photos: [],
+      featured_image: ""
     },
     cityId: "33",
     isCardOpen: false
@@ -50,7 +60,6 @@ export default class App extends Component {
   }
 
   //HELPER FUNCTIONS
-
   checkStatus(response) {
     if (response.ok === true) {
       return Promise.resolve(response);
@@ -104,7 +113,7 @@ export default class App extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
-  fetchRestaurantsDetails = (restaurantId) => {
+  fetchRestaurantsDetails = restaurantId => {
     //put city id in paratheses to replace 58
     fetch(
       `https://developers.zomato.com/api/v2.1/restaurant?res_id=${restaurantId}&apikey=${config.apiKey}`
@@ -144,19 +153,41 @@ export default class App extends Component {
             </Col>
 
             <Col sm={9}>
-              <div id="main-content">
+              <div id="main-content" className="container d-flex">
                 {this.state.isCardOpen ? (
-                  <Modal.Dialog>
-                    <Modal.Header closeButton>
-                      <Modal.Title>Restaurant Name</Modal.Title>
+                  <Modal.Dialog className="w-100 mx-0 flex-fill" size="lg">
+                    <Modal.Header>
+                      <Col>
+                        <Row xs={12}>
+                          <Image
+                            src={this.state.restaurantObj.featured_image}
+                            fluid
+                            rounded
+                            className="mx-0"
+                            style={{ width: "auto", maxHeight: "550px"}}
+                            alt=""
+                          />
+                        </Row>
+                      </Col>
                     </Modal.Header>
 
                     <Modal.Body>
-                      <div>
-                        Why Hello There!
-                        <button onClick={() => this.handleClose()}></button>
-                      </div>
+                      <Col>
+                        <Row>
+                          <Modal.Title>
+                            {this.state.restaurantObj.name}
+                          </Modal.Title>
+                        </Row>
+                        <Row>
+                          <div>Why Hello There!</div>
+                        </Row>
+                      </Col>
                     </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={this.handleClose}>
+                        Back
+                      </Button>
+                    </Modal.Footer>
                   </Modal.Dialog>
                 ) : (
                   <>
@@ -168,7 +199,11 @@ export default class App extends Component {
                           style={{ height: "16em" }}
                           key={restaurant.restaurant.id}
                           restaurantId={restaurant.restaurant.id}
-                          onClick={() => this.fetchRestaurantsDetails(restaurant.restaurant.id)}
+                          onClick={() =>
+                            this.fetchRestaurantsDetails(
+                              restaurant.restaurant.id
+                            )
+                          }
                         >
                           <Card.Header>
                             <p className="m-0 h4">

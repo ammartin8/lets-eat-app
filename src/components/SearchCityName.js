@@ -19,7 +19,7 @@ class SearchCityName extends Component {
     this.handleValueChange();
   }
 
-  /*Making API Call Here for Cities*/
+  
   checkStatus(response) {
     if (response.ok === true) {
       return Promise.resolve(response);
@@ -28,6 +28,7 @@ class SearchCityName extends Component {
     }
   }
 
+  /*Making API Call Here for List of Suggested Cities*/
   getCityList = () => {
     fetch(
       `https://developers.zomato.com/api/v2.1/cities?q=${this.state.query}&count=5`,
@@ -47,6 +48,8 @@ class SearchCityName extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
+
+  //HELPER FUNCTIONS
   handleValueChange = () => {
     this.setState({ query: this.search.value }, () => {
       // call fetch method
@@ -54,7 +57,7 @@ class SearchCityName extends Component {
     });
   };
 
-  // Upon onSubmit automatically assigns the first listed suggestion's city Id number is user doesn't select option below
+  // Upon onSubmit automatically assigns the first listed suggestion's city Id number is user doesn't select an option
   handleSubmit = input => {
     input.preventDefault();
     this.setState(
