@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import CitySuggestions from "./CitySuggestions";
+// import CitySuggestions from "./CitySuggestions";
 
-import { Row, Container } from "react-bootstrap";
+import { Row, Container, InputGroup, FormControl, Button, Form } from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -69,7 +69,7 @@ class SearchCityName extends Component {
     this.setState({ query: "" });
   };
 
-  handleClick = (cityId) => (input) => {
+  handleClick = cityId => input => {
     input.preventDefault();
     this.setState(
       {
@@ -87,28 +87,32 @@ class SearchCityName extends Component {
     // console.log(this.state.query);
     return (
       <>
-        <Container className="search-box-container mx-auto">
-          <Row>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                id="cityName"
-                ref={input => (this.search = input)}
-                value={this.state.query}
-                onChange={this.handleValueChange}
-                placeholder="Enter City Name"
-              />
-
-              <input
-                type="submit"
-                value="Explore"
-                onClick={this.handleSubmit}
-              />
-            </form>
+        <Container className="search-box-container">
+          <Row className="mx-0">
+            <Form onSubmit={this.handleSubmit} className="search-bar-entry flex-fill">
+              <InputGroup size="md">
+                <FormControl
+                  type="text"
+                  id="cityName"
+                  ref={input => (this.search = input)}
+                  value={this.state.query}
+                  onChange={this.handleValueChange}
+                  placeholder="Enter City Name"
+                />
+                <InputGroup.Append>
+                  <Button
+                    type="submit"
+                    variant="success"
+                    onClick={this.handleSubmit}
+                  >
+                    Explore
+                  </Button>
+                </InputGroup.Append>
+              </InputGroup>
+            </Form>
           </Row>
 
           <Row>
-            {/* Working on this!!! */}
             {/* <CitySuggestions
               results={this.state.cityObj.location_suggestions}
               handleClick={this.handleClick}

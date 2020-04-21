@@ -20,10 +20,28 @@ const config = {
 
 export default class App extends Component {
   state = {
-    restaurantObj: {
+    restaurantList: {
       restaurants: []
     },
-    cityId: "",
+    restaurantObj: {
+      name: "",
+      id: "",
+      user_rating: {
+        aggregate_rating: ""
+      },
+      location: {
+        address: "",
+        city: ""
+      },
+      highlights: [],
+      cuisines: "",
+      currency: "",
+      establishment: [],
+      average_cost_for_two: 0,
+      phone_numbers: "",
+      photos: []
+    },
+    cityId: "33",
     isCardOpen: false
   };
 
@@ -67,15 +85,29 @@ export default class App extends Component {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        this.setState({ restaurantObj: data });
+        this.setState({ restaurantList: data });
       })
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
-  fetchRestaurantsDetails = () => {
-    //put city id in paratheses to replace 58
+  fetchRestaurantsList = () => {
     fetch(
       `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&apikey=${config.apiKey}`
+    )
+      .then(this.checkStatus)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ restaurantList: data });
+        this.setState({ isCardOpen: true });
+      })
+      .catch(error => console.log("Uh oh! You gotta error: ", error));
+  };
+
+  fetchRestaurantsDetails = (restaurantId) => {
+    //put city id in paratheses to replace 58
+    fetch(
+      `https://developers.zomato.com/api/v2.1/restaurant?res_id=${restaurantId}&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -101,7 +133,7 @@ export default class App extends Component {
           <SearchCityName
             // query={this.state.query}
             // handleValueChange={this.handleValueChange}
-            updateRestaurantList={this.handleListUpdate} //call function
+            updateRestaurantList={this.handleListUpdate}
           />
         </Jumbotron>
 
@@ -122,7 +154,7 @@ export default class App extends Component {
                     <Modal.Body>
                       <div>
                         Why Hello There!
-                        <button onClick={() => this.handleClose()}>X</button>
+                        <button onClick={() => this.handleClose()}></button>
                       </div>
                     </Modal.Body>
                   </Modal.Dialog>
@@ -130,12 +162,13 @@ export default class App extends Component {
                   <>
                     <ul>
                       {/*Restaurant List*/}
-                      {this.state.restaurantObj.restaurants.map(restaurant => (
+                      {this.state.restaurantList.restaurants.map(restaurant => (
                         <Card
                           className="restaurant-card my-2"
                           style={{ height: "16em" }}
                           key={restaurant.restaurant.id}
-                          onClick={() => this.fetchRestaurantsDetails()}
+                          restaurantId={restaurant.restaurant.id}
+                          onClick={() => this.fetchRestaurantsDetails(restaurant.restaurant.id)}
                         >
                           <Card.Header>
                             <p className="m-0 h4">
