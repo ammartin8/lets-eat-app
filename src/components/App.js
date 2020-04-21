@@ -86,6 +86,22 @@ export default class App extends Component {
     );
   };
 
+  generateCost = (cost) => {
+    if (cost == 1) {
+      this.setState({price_range: "$"})
+    } else if (cost == 2) {
+      this.setState({price_range: "$$"})
+    } else if (cost == 3) {
+      this.setState({price_range: "$$$"})
+    } else if (cost == 4) {
+      this.setState({price_range: "$$$$"})
+    } else if (cost == 5) {
+      this.setState({price_range: "$$$$$"})
+    } else {
+      this.setState({price_range: ""})
+    }
+  };
+
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
@@ -165,7 +181,7 @@ export default class App extends Component {
                             fluid
                             rounded
                             className="mx-0"
-                            style={{ width: "auto", maxHeight: "550px"}}
+                            style={{ width: "auto", maxHeight: "550px" }}
                             alt=""
                           />
                         </Row>
@@ -173,22 +189,52 @@ export default class App extends Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                      <Col>
-                        <Row>
-                          <Modal.Title>
-                            {this.state.restaurantObj.name}
-                          </Modal.Title>
-                        </Row>
-                        <Row>
-                          <p><strong>{"Address: "}</strong>{this.state.restaurantObj.location.address}</p>
-                        </Row>
-                        <Row>
-                          <p><strong>{"Phone Numbers: "}</strong>{this.state.restaurantObj.phone_numbers}</p>
-                        </Row>
-                        <Row>
-                          <p><strong>{"Hours: "}</strong>{this.state.restaurantObj.timings}</p>
-                        </Row>
-                      </Col>
+                      <Row className="mx-0">
+                        <Col className="px-2">
+                          <Row className="mx-0">
+                            <Modal.Title>
+                              {this.state.restaurantObj.name}
+                            </Modal.Title>
+                          </Row>
+                          <Row className="mx-0">
+                            <p>
+                              <strong>{"Address: "}</strong>
+                              {this.state.restaurantObj.location.address}
+                            </p>
+                          </Row>
+                          <Row className="mx-0">
+                            <p>
+                              <strong>{"Phone Number: "}</strong>
+                              {this.state.restaurantObj.phone_numbers}
+                            </p>
+                          </Row>
+                          <Row className="mx-0">
+                            <p>
+                              <strong>{"Hours: "}</strong>
+                              {this.state.restaurantObj.timings}
+                            </p>
+                          </Row>
+                        </Col>
+                        <Col className="px-2">
+                          <Row className="mx-0">
+                            <p>
+                              <strong>{"Rating: "}</strong>
+                            </p>
+                          </Row>
+                          <Row className="mx-0">
+                            <p>
+                              <strong>{"Cost Range: "}</strong>
+                            </p>
+                            {this.state.restaurantObj.price_range}
+                          </Row>
+                          <Row className="mx-0">
+                            <p>
+                              <strong>{"Currency: "}</strong>
+                            </p>
+                            {" "}{this.state.restaurantObj.currency}
+                          </Row>
+                        </Col>
+                      </Row>
                     </Modal.Body>
                     <Modal.Footer>
                       <Button variant="secondary" onClick={this.handleClose}>
@@ -239,10 +285,6 @@ export default class App extends Component {
                                   <Card.Text>
                                     <strong>Address</strong>:{" "}
                                     {restaurant.restaurant.location.address}
-                                  </Card.Text>
-                                  <Card.Text>
-                                    <strong>Phone Number</strong>:{" "}
-                                    {restaurant.restaurant.phone_numbers}
                                   </Card.Text>
                                   <Card.Text>
                                     <strong>Price Range</strong>:{" "}
