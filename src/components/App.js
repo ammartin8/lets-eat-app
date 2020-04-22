@@ -87,15 +87,15 @@ export default class App extends Component {
   };
 
   generateCost = (cost) => {
-    if (cost == 1) {
+    if (cost === 1) {
       this.setState({price_range: "$"})
-    } else if (cost == 2) {
+    } else if (cost === 2) {
       this.setState({price_range: "$$"})
-    } else if (cost == 3) {
+    } else if (cost === 3) {
       this.setState({price_range: "$$$"})
-    } else if (cost == 4) {
+    } else if (cost === 4) {
       this.setState({price_range: "$$$$"})
-    } else if (cost == 5) {
+    } else if (cost === 5) {
       this.setState({price_range: "$$$$$"})
     } else {
       this.setState({price_range: ""})
@@ -131,7 +131,6 @@ export default class App extends Component {
   };
 
   fetchRestaurantsDetails = restaurantId => {
-    //put city id in paratheses to replace 58
     fetch(
       `https://developers.zomato.com/api/v2.1/restaurant?res_id=${restaurantId}&apikey=${config.apiKey}`
     )
@@ -141,6 +140,7 @@ export default class App extends Component {
         console.log(data);
         this.setState({ restaurantObj: data });
         this.setState({ isCardOpen: true });
+        this.generateCost(this.state.restaurantObj.price_range);
       })
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
@@ -225,7 +225,6 @@ export default class App extends Component {
                             <p>
                               <strong>{"Cost Range: "}</strong>
                             </p>
-                            {this.state.restaurantObj.price_range}
                           </Row>
                           <Row className="mx-0">
                             <p>
