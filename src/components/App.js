@@ -53,6 +53,7 @@ export default class App extends Component {
       timings: ""
     },
     cityId: "33",
+    cuisines: "",
     isCardOpen: false
   };
 
@@ -105,7 +106,7 @@ export default class App extends Component {
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisines}&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -118,7 +119,7 @@ export default class App extends Component {
 
   fetchRestaurantsList = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisines}&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -166,7 +167,9 @@ export default class App extends Component {
         <Container>
           <Row>
             <Col>
-              <Sidebar />
+              <Sidebar 
+                cityId={this.state.cityId}
+              />
             </Col>
 
             <Col sm={9}>

@@ -9,9 +9,23 @@ const config = {
 
 class Sidebar extends Component {
   state = {
-    cuisines: [],
-    filteredCuisines: []
+    cuisineId: "",
+    cuisineList: {},
+    cityId: ""
   };
+
+
+componentDidMount() {
+  this.getCuisineList();
+}
+
+componentDidUpdate(prevProps) {
+  // Typical usage (don't forget to compare props):
+  if (this.props.cityId !== prevProps.cityId) {
+    this.setState({cityId: this.props.cityId}, () => this.getCuisineList());
+  }
+}
+
 
   checkStatus(response) {
     if (response.ok === true) {
@@ -26,7 +40,7 @@ class Sidebar extends Component {
    - Add cuisine id variable*/
   getCuisineList = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?&entity_type=city&start=0&count=10&entity_id=${this.state.cityId}&cuisines=${44}`,
+      `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.props.cityId}`,
       {
         method: "GET",
         headers: {
@@ -38,7 +52,7 @@ class Sidebar extends Component {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        this.setState({ cityObj: data });
+        this.setState({ cuisineList: data });
       })
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
