@@ -53,7 +53,7 @@ export default class App extends Component {
       timings: ""
     },
     cityId: "33",
-    cuisines: "",
+    cuisineId: "",
     isCardOpen: false
   };
 
@@ -87,6 +87,18 @@ export default class App extends Component {
     );
   };
 
+  handleCuisineListUpdate = cuisineId => {
+    console.log(cuisineId);
+    this.setState(
+      {
+        cuisineId: cuisineId
+      },
+      () => {
+        this.fetchRestaurants();
+      }
+    );
+  };
+
   generateCost = (cost) => {
     if (cost === 1) {
       this.setState({price_range: "$"})
@@ -106,7 +118,7 @@ export default class App extends Component {
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisines}&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -169,6 +181,7 @@ export default class App extends Component {
             <Col>
               <Sidebar 
                 cityId={this.state.cityId}
+                updateCuisineRestaurantList={this.handleCuisineListUpdate}
               />
             </Col>
 
