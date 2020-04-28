@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 // React Boostrap Components
-import { Form, Row, InputGroup } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
@@ -13,10 +13,15 @@ class Sidebar extends Component {
     cuisineList: {
       cuisines: []
     },
-    cityId: ""
+    cityId: "",
+    filter1Clicked: false
   };
 
   componentDidMount() {
+    this.getCuisineList();
+  }
+
+  componentDidUpdate() {
     this.getCuisineList();
   }
 
@@ -61,42 +66,44 @@ class Sidebar extends Component {
         this.props.updateCuisineRestaurantList(this.state.cuisineId);
       }
     );
-    // console.log(this.state.cityId);
   };
 
   render() {
+    
     return (
       <>
-        <Row>
-          <p className="filterLabel mx-1 px-auto">
-            <strong>Popular Cuisines</strong>
-          </p>
-        </Row>
-        <ul className="cuisine-suggestions px-auto">
-          {this.state.cuisineList.cuisines.map(cuisine => (
-            <Row>
-              <li
-                key={cuisine.cuisine.cuisine_id}
-                altid={cuisine.cuisine.cuisine_id}
-              >
-                <button
-                  className="cuisine-option-button"
-                  onClick={() =>
-                    this.handleFilterGroup1(cuisine.cuisine.cuisine_id)
-                  } //work on this!
+           <Row>
+            <p className="filterLabel mx-1 px-auto">
+              <strong>Popular Cuisines</strong>
+            </p>
+          </Row>
+          <ul className="cuisine-suggestions px-0">
+            {this.state.cuisineList.cuisines.map(cuisine => (
+              <Row className="">
+                <li
+                  key={cuisine.cuisine.cuisine_id}
+                  altid={cuisine.cuisine.cuisine_id}
+                  className="cuisine-item"
                 >
-                  {cuisine.cuisine.cuisine_name}
-                </button>
-                <button
-                  className="cuisine-option-clear"
-                  onClick={() => this.handleFilterGroup1("")}
-                >
-                  X
-                </button>
-              </li>
-            </Row>
-          ))}
-        </ul>
+                  <button
+                    className="cuisine-option-button"
+                    onClick={() =>
+                      this.handleFilterGroup1(cuisine.cuisine.cuisine_id)
+                    } //work on this!
+                  >
+                    {cuisine.cuisine.cuisine_name}
+                  </button>
+                  <button
+                    className="cuisine-option-clear"
+                    onClick={() => this.handleFilterGroup1("")}
+                  >
+                    X
+                  </button>
+                </li>
+              </Row>
+            ))}
+          </ul>
+
         <Row>
           <p className="filterLabel mx-1 px-auto">
             <strong>Restaurant Establishment</strong>
