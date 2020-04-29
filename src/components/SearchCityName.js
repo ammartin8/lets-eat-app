@@ -42,7 +42,7 @@ class SearchCityName extends Component {
       .then(this.checkStatus)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         this.setState({ cityObj: data });
       })
       .catch(error => console.log("Uh oh! You gotta error: ", error));
@@ -57,7 +57,7 @@ class SearchCityName extends Component {
     });
   };
 
-  // Upon onSubmit automatically assigns the first listed suggestion's city Id number is user doesn't select an option
+  // Upon onSubmit automatically assigns the first listed suggestion's city Id number if user doesn't select an option
   handleSubmit = input => {
     input.preventDefault();
     this.setState(

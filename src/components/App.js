@@ -99,19 +99,19 @@ export default class App extends Component {
     );
   };
 
-  generateCost = (cost) => {
+  generateCost = cost => {
     if (cost === 1) {
-      this.setState({price_range: "$"})
+      this.setState({ price_range: "$" });
     } else if (cost === 2) {
-      this.setState({price_range: "$$"})
+      this.setState({ price_range: "$$" });
     } else if (cost === 3) {
-      this.setState({price_range: "$$$"})
+      this.setState({ price_range: "$$$" });
     } else if (cost === 4) {
-      this.setState({price_range: "$$$$"})
+      this.setState({ price_range: "$$$$" });
     } else if (cost === 5) {
-      this.setState({price_range: "$$$$$"})
+      this.setState({ price_range: "$$$$$" });
     } else {
-      this.setState({price_range: ""})
+      this.setState({ price_range: "" });
     }
   };
 
@@ -179,7 +179,7 @@ export default class App extends Component {
         <Container>
           <Row>
             <Col>
-              <Sidebar 
+              <Sidebar
                 cityId={this.state.cityId}
                 updateCuisineRestaurantList={this.handleCuisineListUpdate}
               />
@@ -239,14 +239,16 @@ export default class App extends Component {
                           </Row>
                           <Row className="mx-0">
                             <p>
-                              <strong>{"Cost Range: "}</strong>
+                              <strong>
+                                {"Cost Range: "}
+                              </strong>
                             </p>
                           </Row>
                           <Row className="mx-0">
                             <p>
                               <strong>{"Currency: "}</strong>
-                            </p>
-                            {" "}{this.state.restaurantObj.currency}
+                            </p>{" "}
+                            {this.state.restaurantObj.currency}
                           </Row>
                         </Col>
                       </Row>
