@@ -1,25 +1,35 @@
 import React, { Component } from "react";
 // import CitySuggestions from "./CitySuggestions";
 
-import { Row, Container, InputGroup, FormControl, Button, Form } from "react-bootstrap";
+import {
+  Row,
+  Container,
+  InputGroup,
+  FormControl,
+  Button,
+  Form
+} from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`
 };
 
 class SearchCityName extends Component {
-  state = {
-    query: "",
-    cityObj: {
-      location_suggestions: []
-    }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      query: "",
+      cityObj: {
+        location_suggestions: []
+      }
+    };
   };
 
   componentDidMount() {
     this.handleValueChange();
   }
 
-  
   checkStatus(response) {
     if (response.ok === true) {
       return Promise.resolve(response);
@@ -48,7 +58,6 @@ class SearchCityName extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
-
   //HELPER FUNCTIONS
   handleValueChange = () => {
     this.setState({ query: this.search.value }, () => {
@@ -68,31 +77,38 @@ class SearchCityName extends Component {
         this.props.updateRestaurantList(this.state.cityId);
       }
     );
-    // console.log(this.state.cityId);
     this.setState({ query: "" });
   };
-
-  handleClick = cityId => input => {
+  // Need to commuicate between Search city name and Sidebar and App
+  handleClick = props => input => {
+    console.log(props);
     input.preventDefault();
     this.setState(
       {
-        cityId: cityId
+        cityId: props.cityId,
+        cuisineId: props.cuisineId
       },
       () => {
         this.props.updateRestaurantList(this.state.cityId);
+      },
+      () => {
+        this.props.updateCuisineRestaurantList();
       }
     );
-    // console.log(this.state.cityId);
     this.setState({ query: "" });
+    console.log(this.props.cityId, this.props.cuisineId);
   };
 
   render() {
-    // console.log(this.state.query);
+    console.log(this.props);
     return (
       <>
         <Container className="search-box-container">
           <Row className="mx-0">
-            <Form onSubmit={this.handleSubmit} className="search-bar-entry flex-fill">
+            <Form
+              onSubmit={this.handleSubmit}
+              className="search-bar-entry flex-fill"
+            >
               <InputGroup size="md">
                 <FormControl
                   type="text"

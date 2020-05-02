@@ -52,6 +52,9 @@ export default class App extends Component {
       featured_image: "",
       timings: ""
     },
+    cuisineList: {
+      cuisines: []
+    },
     cityId: "33",
     cuisineId: "",
     isCardOpen: false
@@ -59,6 +62,7 @@ export default class App extends Component {
 
   componentDidMount() {
     this.fetchRestaurants();
+    this.getCuisineList();
   }
 
   //HELPER FUNCTIONS
@@ -76,7 +80,7 @@ export default class App extends Component {
   };
 
   handleListUpdate = cityId => {
-    console.log(cityId);
+    // console.log(cityId);
     this.setState(
       {
         cityId: cityId
@@ -87,32 +91,18 @@ export default class App extends Component {
     );
   };
 
-  handleCuisineListUpdate = cuisineId => {
-    console.log(cuisineId);
+  handleCuisineListUpdate = (cuisineId, cityId) => {
+    // console.log(cuisineId);
+    // console.log(cityId);
     this.setState(
       {
-        cuisineId: cuisineId
+        cuisineId: cuisineId,
+        cityId: cityId
       },
       () => {
         this.fetchRestaurants();
       }
     );
-  };
-
-  generateCost = cost => {
-    if (cost === 1) {
-      this.setState({ price_range: "$" });
-    } else if (cost === 2) {
-      this.setState({ price_range: "$$" });
-    } else if (cost === 3) {
-      this.setState({ price_range: "$$$" });
-    } else if (cost === 4) {
-      this.setState({ price_range: "$$$$" });
-    } else if (cost === 5) {
-      this.setState({ price_range: "$$$$$" });
-    } else {
-      this.setState({ price_range: "" });
-    }
   };
 
   //FETCH FUNCTIONS
@@ -136,7 +126,7 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         this.setState({ restaurantList: data });
         this.setState({ isCardOpen: true });
       })
@@ -150,10 +140,28 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         this.setState({ restaurantObj: data });
         this.setState({ isCardOpen: true });
-        this.generateCost(this.state.restaurantObj.price_range);
+      })
+      .catch(error => console.log("Uh oh! You gotta error: ", error));
+  };
+
+  getCuisineList = () => {
+    fetch(
+      `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.state.cityId}`,
+      {
+        method: "GET",
+        headers: {
+          "user-key": config.apiKey
+        }
+      }
+    )
+      .then(this.checkStatus)
+      .then(res => res.json())
+      .then(data => {
+        // console.log(data);
+        this.setState({ cuisineList: data });
       })
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
@@ -170,9 +178,11 @@ export default class App extends Component {
           <p className="subtitle">Discover Your New Favorite Restaurant</p>
 
           <SearchCityName
-            // query={this.state.query}
-            // handleValueChange={this.handleValueChange}
+            cityId={this.state.cityId}
+            cuisineId={this.state.cuisineId}
             updateRestaurantList={this.handleListUpdate}
+            cuisineList={this.state.cuisineList.cuisines}
+            updateCuisineRestaurantList={this.handleCuisineListUpdate} //work on this want transfer to search city name
           />
         </Jumbotron>
 
@@ -180,7 +190,8 @@ export default class App extends Component {
           <Row>
             <Col>
               <Sidebar
-                cityId={this.state.cityId}
+                passCityId={this.state.cityId}
+                cuisineList={this.state.cuisineList.cuisines}
                 updateCuisineRestaurantList={this.handleCuisineListUpdate}
               />
             </Col>
@@ -239,9 +250,7 @@ export default class App extends Component {
                           </Row>
                           <Row className="mx-0">
                             <p>
-                              <strong>
-                                {"Cost Range: "}
-                              </strong>
+                              <strong>{"Cost Range: "}</strong>
                             </p>
                           </Row>
                           <Row className="mx-0">
@@ -261,63 +270,80 @@ export default class App extends Component {
                   </Modal.Dialog>
                 ) : (
                   <>
-                    <ul>
-                      {/*Restaurant List*/}
-                      {this.state.restaurantList.restaurants.map(restaurant => (
-                        <Card
-                          className="restaurant-card my-2"
-                          style={{ height: "16em" }}
-                          key={restaurant.restaurant.id}
-                          restaurantId={restaurant.restaurant.id}
-                          onClick={() =>
-                            this.fetchRestaurantsDetails(
-                              restaurant.restaurant.id
+                    <Row>
+                      <div className="w-100 d-block text-right">
+                        <p>Results: {this.state.restaurantList.results_found}</p>
+                      </div>
+                      <div className="d-block">
+                        <ul className="px-0">
+                          {/*Restaurant List*/}
+                          {this.state.restaurantList.restaurants.map(
+                            restaurant => (
+                              <Card
+                                className="restaurant-card my-2"
+                                style={{ height: "16em" }}
+                                key={restaurant.restaurant.id}
+                                restaurantId={restaurant.restaurant.id}
+                                onClick={() =>
+                                  this.fetchRestaurantsDetails(
+                                    restaurant.restaurant.id
+                                  )
+                                }
+                              >
+                                <Card.Header>
+                                  <p className="m-0 h4">
+                                    {restaurant.restaurant.name}
+                                  </p>
+                                </Card.Header>
+                                <Card.Body>
+                                  <Row>
+                                    <Col>
+                                      <img
+                                        className="img-fluid round"
+                                        style={{
+                                          width: "auto",
+                                          maxHeight: "150px"
+                                        }}
+                                        src={
+                                          restaurant.restaurant.featured_image
+                                        }
+                                        alt=""
+                                      />
+                                    </Col>
+                                    <Col sm={8}>
+                                      <Card.Title className="">
+                                        <strong>Rating</strong>:{" "}
+                                        {
+                                          restaurant.restaurant.user_rating
+                                            .aggregate_rating
+                                        }
+                                      </Card.Title>
+                                      <div className="restaurant-general-info">
+                                        <Card.Text>
+                                          <strong>Address</strong>:{" "}
+                                          {
+                                            restaurant.restaurant.location
+                                              .address
+                                          }
+                                        </Card.Text>
+                                        <Card.Text>
+                                          <strong>Price Range</strong>:{" "}
+                                          {restaurant.restaurant.price_range}
+                                        </Card.Text>
+                                        <Card.Text>
+                                          <strong>Hours Open</strong>:{" "}
+                                          {restaurant.restaurant.timings}
+                                        </Card.Text>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </Card.Body>
+                              </Card>
                             )
-                          }
-                        >
-                          <Card.Header>
-                            <p className="m-0 h4">
-                              {restaurant.restaurant.name}
-                            </p>
-                          </Card.Header>
-                          <Card.Body>
-                            <Row>
-                              <Col>
-                                <img
-                                  className="img-fluid round"
-                                  style={{ width: "auto", maxHeight: "150px" }}
-                                  src={restaurant.restaurant.featured_image}
-                                  alt=""
-                                />
-                              </Col>
-                              <Col sm={8}>
-                                <Card.Title className="">
-                                  <strong>Rating</strong>:{" "}
-                                  {
-                                    restaurant.restaurant.user_rating
-                                      .aggregate_rating
-                                  }
-                                </Card.Title>
-                                <div className="restaurant-general-info">
-                                  <Card.Text>
-                                    <strong>Address</strong>:{" "}
-                                    {restaurant.restaurant.location.address}
-                                  </Card.Text>
-                                  <Card.Text>
-                                    <strong>Price Range</strong>:{" "}
-                                    {restaurant.restaurant.price_range}
-                                  </Card.Text>
-                                  <Card.Text>
-                                    <strong>Hours Open</strong>:{" "}
-                                    {restaurant.restaurant.timings}
-                                  </Card.Text>
-                                </div>
-                              </Col>
-                            </Row>
-                          </Card.Body>
-                        </Card>
-                      ))}
-                    </ul>
+                          )}
+                        </ul>
+                      </div>
+                    </Row>
                   </>
                 )}
               </div>

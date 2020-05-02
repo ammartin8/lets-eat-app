@@ -3,74 +3,27 @@ import React, { Component } from "react";
 // React Boostrap Components
 import { Form, Row } from "react-bootstrap";
 
-const config = {
-  apiKey: `${process.env.REACT_APP_API_KEY}`
-};
-
 class Sidebar extends Component {
-  state = {
-    cuisineId: "",
-    cuisineList: {
-      cuisines: []
-    },
-    cityId: "",
-    filter1Clicked: false
-  };
+  constructor(props) {
+    super(props);
+    // console.log(this.props);
 
-  componentDidMount() {
-    this.getCuisineList();
+    this.state = {
+      filter1Clicked: false
+    };
   }
 
-  // Update
-  CuisineListUpdate(cuisineId) {
-    if (cuisineId !== this.state.cuisineId) {
-      this.props.getCuisineList();
-    }
-  }
-
-  checkStatus(response) {
-    if (response.ok === true) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(new Error(response.statusText));
-    }
-  }
-
-  /*Making API Call Here for List of Cuisines*/
-  /*TODO: Need to pass city ID in here as prop 
-   - Add cuisine id variable*/
-  getCuisineList = () => {
-    fetch(
-      `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.props.cityId}`,
-      {
-        method: "GET",
-        headers: {
-          "user-key": config.apiKey
-        }
-      }
-    )
-      .then(this.checkStatus)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        this.setState({ cuisineList: data });
-      })
-      .catch(error => console.log("Uh oh! You gotta error: ", error));
+  handleFilterGroup1 = props => {
+    // console.log(props.cuisineId);
+    this.setState({ cuisineId: props.cuisineId }, () => {
+      this.props.updateCuisineRestaurantList(this.state.cuisineId);
+    });
   };
 
-  handleFilterGroup1 = cuisineId => {
-    console.log(cuisineId);
-    this.setState(
-      {
-        cuisineId: cuisineId
-      },
-      () => {
-        this.props.updateCuisineRestaurantList(this.state.cuisineId);
-      }
-    );
-  };
+  // Might need to create a separate function to return list of cuisines!!!
 
   render() {
+    // console.log(this.props);
     return (
       <>
         <Row>
@@ -79,30 +32,32 @@ class Sidebar extends Component {
           </p>
         </Row>
         <ul className="cuisine-suggestions px-0">
-          {this.state.cuisineList.cuisines.map(cuisine => (
-            <Row>
-              <li
-                key={cuisine.cuisine.cuisine_id}
-                altid={cuisine.cuisine.cuisine_id}
-                className="cuisine-item"
-              >
-                <button
-                  className="cuisine-option-button"
-                  onClick={() =>
-                    this.handleFilterGroup1(cuisine.cuisine.cuisine_id)
-                  } //work on this!
+          {this.props.cuisineList
+            .map(cuisine => (
+              <Row>
+                <li
+                  key={cuisine.cuisine.cuisine_id}
+                  altid={cuisine.cuisine.cuisine_id}
+                  className="cuisine-item"
                 >
-                  {cuisine.cuisine.cuisine_name}
-                </button>
-                <button
-                  className="cuisine-option-clear"
-                  onClick={() => this.handleFilterGroup1("")} //there's an error here,not clearing
-                >
-                  X
-                </button>
-              </li>
-            </Row>
-          )).slice(1,15)}
+                  <button
+                    className="cuisine-option-button"
+                    onClick={() =>
+                      this.handleFilterGroup1(cuisine.cuisine.cuisine_id)
+                    } //work on this!
+                  >
+                    {cuisine.cuisine.cuisine_name}
+                  </button>
+                  <button
+                    className="cuisine-option-clear"
+                    onClick={() => this.handleFilterGroup1("")} //there's an error here,not clearing
+                  >
+                    X
+                  </button>
+                </li>
+              </Row>
+            ))
+            .slice(1, 15)}
         </ul>
 
         <Row>
