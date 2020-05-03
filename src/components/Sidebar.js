@@ -3,21 +3,69 @@ import React, { Component } from "react";
 // React Boostrap Components
 import { Form, Row } from "react-bootstrap";
 
-class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    // console.log(this.props);
+const config = {
+  apiKey: `${process.env.REACT_APP_API_KEY}`
+};
 
-    this.state = {
-      filter1Clicked: false
-    };
+class Sidebar extends Component {
+  state = {
+    cuisineList: {
+      cuisines: []
+    },
+    cuisineId: "",
+    filter1Clicked: false
+  };
+
+  // HELPER FUNCTIONS
+  componentDidMount() {
+    this.getCuisineList();
   }
 
-  handleFilterGroup1 = props => {
-    // console.log(props.cuisineId);
-    this.setState({ cuisineId: props.cuisineId }, () => {
-      this.props.updateCuisineRestaurantList(this.state.cuisineId);
+  // componentDidUpdate() {
+  //   this.getCuisineList();
+  // }
+
+  checkStatus(response) {
+    if (response.ok === true) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(new Error(response.statusText));
+    }
+  }
+
+  handleFilterGroup1 = cuisineId => {
+    this.setState({ cuisineId: cuisineId }, () => {
+      this.props.updateCuisineID(this.state.cuisineId);
+    })
+  };
+
+  //WORK ON THIS!
+  handleCuisineFilterList = () => {
+    let cuisineArray = this.state.cuisineList.cuisines;
+    this.setState({ cuisines: cuisineArray }, () => {
+      this.props.updateCuisineList(cuisineArray);
     });
+  };
+  // API CALLS
+  getCuisineList = () => {
+    //I don't want to pass cityID as a prop
+    console.log(this.props.passCityId);
+    fetch(
+      `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.props.passCityId}`,
+      {
+        method: "GET",
+        headers: {
+          "user-key": config.apiKey
+        }
+      }
+    )
+      .then(this.checkStatus)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ cuisineList: data });
+      })
+      .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
   // Might need to create a separate function to return list of cuisines!!!
@@ -32,7 +80,7 @@ class Sidebar extends Component {
           </p>
         </Row>
         <ul className="cuisine-suggestions px-0">
-          {this.props.cuisineList
+          {this.state.cuisineList.cuisines //this needs to passed as a state not props (read only)
             .map(cuisine => (
               <Row>
                 <li

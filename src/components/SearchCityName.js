@@ -26,10 +26,6 @@ class SearchCityName extends Component {
     };
   };
 
-  componentDidMount() {
-    this.handleValueChange();
-  }
-
   checkStatus(response) {
     if (response.ok === true) {
       return Promise.resolve(response);
@@ -80,13 +76,13 @@ class SearchCityName extends Component {
     this.setState({ query: "" });
   };
   // Need to commuicate between Search city name and Sidebar and App
-  handleClick = props => input => {
-    console.log(props);
+  handleClick = (cityId, cuisineId) => input => {
+    // console.log(props);
     input.preventDefault();
     this.setState(
       {
-        cityId: props.cityId,
-        cuisineId: props.cuisineId
+        cityId: cityId,
+        cuisineId: cuisineId
       },
       () => {
         this.props.updateRestaurantList(this.state.cityId);
@@ -96,11 +92,10 @@ class SearchCityName extends Component {
       }
     );
     this.setState({ query: "" });
-    console.log(this.props.cityId, this.props.cuisineId);
+    console.log(cityId, cuisineId);
   };
 
   render() {
-    console.log(this.props);
     return (
       <>
         <Container className="search-box-container">

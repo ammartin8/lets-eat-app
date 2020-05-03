@@ -28,41 +28,45 @@ const config = {
 */
 
 export default class App extends Component {
-  state = {
-    restaurantList: {
-      restaurants: []
-    },
-    restaurantObj: {
-      name: "",
-      id: "",
-      user_rating: {
-        aggregate_rating: ""
+  constructor() {
+    super()
+    this.state = {
+      restaurantList: {
+        restaurants: []
       },
-      location: {
-        address: "",
-        city: ""
+      restaurantObj: {
+        name: "",
+        id: "",
+        user_rating: {
+          aggregate_rating: ""
+        },
+        location: {
+          address: "",
+          city: ""
+        },
+        highlights: [],
+        cuisines: "",
+        currency: "",
+        establishment: [],
+        average_cost_for_two: 0,
+        phone_numbers: "",
+        photos: [],
+        featured_image: "",
+        timings: ""
       },
-      highlights: [],
-      cuisines: "",
-      currency: "",
-      establishment: [],
-      average_cost_for_two: 0,
-      phone_numbers: "",
-      photos: [],
-      featured_image: "",
-      timings: ""
-    },
-    cuisineList: {
-      cuisines: []
-    },
-    cityId: "33",
-    cuisineId: "",
-    isCardOpen: false
+      cuisineList: {
+        cuisines: []
+      },
+      cityId: "33",
+      cuisineId: "",
+      isCardOpen: false
+    }
   };
+  
 
   componentDidMount() {
     this.fetchRestaurants();
-    this.getCuisineList();
+    // this.getCuisineList();
   }
 
   //HELPER FUNCTIONS
@@ -90,14 +94,13 @@ export default class App extends Component {
       }
     );
   };
+  
 
-  handleCuisineListUpdate = (cuisineId, cityId) => {
-    // console.log(cuisineId);
-    // console.log(cityId);
+  handleCuisineIdUpdate = (cuisineId) => {
+    console.log(cuisineId);
     this.setState(
       {
         cuisineId: cuisineId,
-        cityId: cityId
       },
       () => {
         this.fetchRestaurants();
@@ -147,24 +150,24 @@ export default class App extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
-  getCuisineList = () => {
-    fetch(
-      `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.state.cityId}`,
-      {
-        method: "GET",
-        headers: {
-          "user-key": config.apiKey
-        }
-      }
-    )
-      .then(this.checkStatus)
-      .then(res => res.json())
-      .then(data => {
-        // console.log(data);
-        this.setState({ cuisineList: data });
-      })
-      .catch(error => console.log("Uh oh! You gotta error: ", error));
-  };
+  // getCuisineList = () => {
+  //   fetch(
+  //     `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.state.cityId}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "user-key": config.apiKey
+  //       }
+  //     }
+  //   )
+  //     .then(this.checkStatus)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       // console.log(data);
+  //       this.setState({ cuisineList: data });
+  //     })
+  //     .catch(error => console.log("Uh oh! You gotta error: ", error));
+  // };
 
   render() {
     return (
@@ -181,8 +184,7 @@ export default class App extends Component {
             cityId={this.state.cityId}
             cuisineId={this.state.cuisineId}
             updateRestaurantList={this.handleListUpdate}
-            cuisineList={this.state.cuisineList.cuisines}
-            updateCuisineRestaurantList={this.handleCuisineListUpdate} //work on this want transfer to search city name
+            updateCuisineID={this.handleCuisineIdUpdate} //work on this want transfer to search city name
           />
         </Jumbotron>
 
@@ -191,8 +193,8 @@ export default class App extends Component {
             <Col>
               <Sidebar
                 passCityId={this.state.cityId}
-                cuisineList={this.state.cuisineList.cuisines}
-                updateCuisineRestaurantList={this.handleCuisineListUpdate}
+                updateCuisineList={this.updateCuisineList}
+                updateCuisineID={this.handleCuisineIdUpdate}
               />
             </Col>
 
