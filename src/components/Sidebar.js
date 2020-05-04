@@ -3,79 +3,28 @@ import React, { Component } from "react";
 // React Boostrap Components
 import { Form, Row } from "react-bootstrap";
 
-// const config = {
-//   apiKey: `${process.env.REACT_APP_API_KEY}`
-// };
-
 class Sidebar extends Component {
   state = {
-    // cuisineList: {
-    //   cuisines: []
-    // },
     cuisineId: "",
     filter1Clicked: false
   };
 
-  // // HELPER FUNCTIONS
-  // componentDidMount() {
-  //   this.getCuisineList();
-  // }
-
-  // componentDidUpdate() {
-  //   this.getCuisineList();
-  // }
-
-  // checkStatus(response) {
-  //   if (response.ok === true) {
-  //     return Promise.resolve(response);
-  //   } else {
-  //     return Promise.reject(new Error(response.statusText));
-  //   }
-  // }
-
+  // HELPER FUNCTIONS
   handleFilterGroup1 = cuisineId => {
-    this.setState({ cuisineId: cuisineId }, () => {
-      this.props.updateCuisineID(this.state.cuisineId);
-    })
+    if (cuisineId !== "") {
+      this.setState({ cuisineId: cuisineId }, () => {
+        this.props.updateCuisineID(this.state.cuisineId);
+      });
+      this.setState({ filter1Clicked: true });
+    } else {
+      this.setState({ cuisineId: cuisineId }, () => {
+        this.props.updateCuisineID(this.state.cuisineId);
+      });
+      this.setState({ filter1Clicked: false });
+    }
   };
 
-  // //WORK ON THIS!
-  // handleCuisineFilterList = () => {
-  //   let cuisineArray = this.state.cuisineList.cuisines;
-  //   this.setState({ cuisines: cuisineArray }, () => {
-  //     this.props.updateCuisineList(cuisineArray);
-  //   });
-  // };
-
-  // handleGetCuisineList = () => {
-  //   this.props.getCuisineList();
-  // }
-
-  // API CALLS
-  // getCuisineList = () => {
-  //   //I don't want to pass cityID as a prop
-  //   fetch(
-  //     `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.props.passCityId}`,
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "user-key": config.apiKey
-  //       }
-  //     }
-  //   )
-  //     .then(this.checkStatus)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data);
-  //       this.setState({ cuisineList: data });
-  //     })
-  //     .catch(error => console.log("Uh oh! You gotta error: ", error));
-  // };
-
-  // Might need to create a separate function to return list of cuisines!!!
-
   render() {
-    // console.log(this.props);
     return (
       <>
         <Row>
@@ -84,7 +33,7 @@ class Sidebar extends Component {
           </p>
         </Row>
         <ul className="cuisine-suggestions px-0">
-          {this.props.cuisineList //this needs to passed as a state not props (read only)
+          {this.props.cuisineList
             .map(cuisine => (
               <Row>
                 <li
@@ -102,7 +51,7 @@ class Sidebar extends Component {
                   </button>
                   <button
                     className="cuisine-option-clear"
-                    onClick={() => this.handleFilterGroup1("")} //there's an error here,not clearing
+                    onClick={() => this.handleFilterGroup1("")}
                   >
                     X
                   </button>
@@ -110,6 +59,9 @@ class Sidebar extends Component {
               </Row>
             ))
             .slice(1, 15)}
+          <li className="cuisine-item">
+            <button className="cuisine-more-button">More Cuisines</button>
+          </li>
         </ul>
 
         <Row>

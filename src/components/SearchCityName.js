@@ -127,7 +127,7 @@ class SearchCityName extends Component {
               results={this.state.cityObj.location_suggestions}
               handleClick={this.handleClick}
             /> */}
-            <ul className="city-suggestions">
+            <ul className="city-suggestions"> {/*Need to add a conditional where display switches to none onClick or onSubmit*/}
               {this.state.cityObj.location_suggestions.map(cities => (
                 <li key={cities.id} altid={cities.id}>
                   <button
