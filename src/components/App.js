@@ -66,7 +66,7 @@ export default class App extends Component {
 
   componentDidMount() {
     this.fetchRestaurants();
-    // this.getCuisineList();
+    this.getCuisineList();
   }
 
   //HELPER FUNCTIONS
@@ -83,19 +83,18 @@ export default class App extends Component {
     this.fetchRestaurants();
   };
 
-  handleListUpdate = cityId => {
-    // console.log(cityId);
+  handleRestaurantListUpdate = cityId => {
     this.setState(
       {
         cityId: cityId
       },
       () => {
         this.fetchRestaurants();
+        this.getCuisineList();
       }
     );
   };
   
-
   handleCuisineIdUpdate = (cuisineId) => {
     console.log(cuisineId);
     this.setState(
@@ -150,24 +149,24 @@ export default class App extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
-  // getCuisineList = () => {
-  //   fetch(
-  //     `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.state.cityId}`,
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "user-key": config.apiKey
-  //       }
-  //     }
-  //   )
-  //     .then(this.checkStatus)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       // console.log(data);
-  //       this.setState({ cuisineList: data });
-  //     })
-  //     .catch(error => console.log("Uh oh! You gotta error: ", error));
-  // };
+  getCuisineList = () => {
+    fetch(
+      `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.state.cityId}`,
+      {
+        method: "GET",
+        headers: {
+          "user-key": config.apiKey
+        }
+      }
+    )
+      .then(this.checkStatus)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ cuisineList: data });
+      })
+      .catch(error => console.log("Uh oh! You gotta error: ", error));
+  };
 
   render() {
     return (
@@ -183,8 +182,9 @@ export default class App extends Component {
           <SearchCityName
             cityId={this.state.cityId}
             cuisineId={this.state.cuisineId}
-            updateRestaurantList={this.handleListUpdate}
-            updateCuisineID={this.handleCuisineIdUpdate} //work on this want transfer to search city name
+  
+            updateRestaurantList={this.handleRestaurantListUpdate} //updates list of restaurant by city
+            updateCuisineID={this.handleCuisineIdUpdate} // updates cuisine ID selected onClick
           />
         </Jumbotron>
 
@@ -193,7 +193,9 @@ export default class App extends Component {
             <Col>
               <Sidebar
                 passCityId={this.state.cityId}
-                updateCuisineList={this.updateCuisineList}
+                cuisineList={this.state.cuisineList.cuisines}
+
+                updateCuisineList={this.handleUpdateCuisineList}
                 updateCuisineID={this.handleCuisineIdUpdate}
               />
             </Col>

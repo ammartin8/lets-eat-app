@@ -76,23 +76,19 @@ class SearchCityName extends Component {
     this.setState({ query: "" });
   };
   // Need to commuicate between Search city name and Sidebar and App
-  handleClick = (cityId, cuisineId) => input => {
-    // console.log(props);
+  handleClick = (cityId) => input => {
     input.preventDefault();
     this.setState(
       {
         cityId: cityId,
-        cuisineId: cuisineId
       },
       () => {
         this.props.updateRestaurantList(this.state.cityId);
-      },
-      () => {
-        this.props.updateCuisineRestaurantList();
       }
     );
     this.setState({ query: "" });
-    console.log(cityId, cuisineId);
+    
+    console.log(cityId);
   };
 
   render() {
