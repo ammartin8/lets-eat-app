@@ -190,7 +190,7 @@ export default class App extends Component {
 
         <Container>
           <Row>
-            <Col>
+            <Col sm={3}>
               <Sidebar
                 passCityId={this.state.cityId}
                 cuisineList={this.state.cuisineList.cuisines}
