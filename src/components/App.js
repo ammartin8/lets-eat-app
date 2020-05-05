@@ -28,9 +28,7 @@ const config = {
 */
 
 export default class App extends Component {
-  constructor() {
-    super()
-    this.state = {
+  state = {
       restaurantList: {
         restaurants: []
       },
@@ -60,8 +58,8 @@ export default class App extends Component {
       cityId: "33",
       cuisineId: "",
       isCardOpen: false
-    }
-  };
+    };
+
   
 
   componentDidMount() {
@@ -268,7 +266,7 @@ export default class App extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                       <Button variant="secondary" onClick={this.handleClose}>
-                        Back
+                        Close
                       </Button>
                     </Modal.Footer>
                   </Modal.Dialog>

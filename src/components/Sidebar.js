@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import CuisineOptions from "./CuisineOptions";
 
 // React Boostrap Components
 import { Form, Row } from "react-bootstrap";
@@ -6,7 +7,8 @@ import { Form, Row } from "react-bootstrap";
 class Sidebar extends Component {
   state = {
     cuisineId: "",
-    filter1Clicked: false
+    filter1Clicked: false,
+    moreCuisineOptions: false
   };
 
   // HELPER FUNCTIONS
@@ -24,6 +26,14 @@ class Sidebar extends Component {
     }
   };
 
+  openCuisineOptions = () => {
+    this.setState({ moreCuisineOptions: !false });
+  };
+
+  closeCuisineOptions = () => {
+    this.setState({ moreCuisineOptions: !true });
+  };
+
   render() {
     return (
       <>
@@ -32,37 +42,57 @@ class Sidebar extends Component {
             <strong>Popular Cuisines</strong>
           </p>
         </Row>
-        <ul className="cuisine-suggestions px-0">
-          {this.props.cuisineList
-            .map(cuisine => (
-              <Row>
-                <li
-                  key={cuisine.cuisine.cuisine_id}
-                  altid={cuisine.cuisine.cuisine_id}
-                  className="cuisine-item"
-                >
-                  <button
-                    className="cuisine-option-button"
-                    onClick={() =>
-                      this.handleFilterGroup1(cuisine.cuisine.cuisine_id)
-                    } //work on this!
+        {/* {this.state.moreCuisineOptions ? ( */}
+          <ul className="cuisine-suggestions px-0">
+            {this.props.cuisineList
+              .filter(function(cuisine) {
+                let initialList = cuisine.cuisine.cuisine_id;
+                return (
+                  initialList === 1 ||
+                  initialList === 3 ||
+                  initialList === 193 ||
+                  initialList === 177 ||
+                  initialList === 18 ||
+                  initialList === 83 ||
+                  initialList === 182
+                );
+              })
+              .map(cuisine => (
+                <Row>
+                  <li
+                    key={cuisine.cuisine.cuisine_id}
+                    altid={cuisine.cuisine.cuisine_id}
+                    className="cuisine-item"
                   >
-                    {cuisine.cuisine.cuisine_name}
-                  </button>
-                  <button
-                    className="cuisine-option-clear"
-                    onClick={() => this.handleFilterGroup1("")}
-                  >
-                    X
-                  </button>
-                </li>
-              </Row>
-            ))
-            .slice(1, 15)}
-          <li className="cuisine-item">
-            <button className="cuisine-more-button">More Cuisines</button>
-          </li>
-        </ul>
+                    <button
+                      className="cuisine-option-button"
+                      onClick={() =>
+                        this.handleFilterGroup1(cuisine.cuisine.cuisine_id)
+                      }
+                    >
+                      {cuisine.cuisine.cuisine_name}
+                    </button>
+                    <button
+                      className="cuisine-option-clear"
+                      onClick={() => this.handleFilterGroup1("")}
+                    >
+                      X
+                    </button>
+                  </li>
+                </Row>
+              ))}
+            <CuisineOptions
+              moreCuisineOptions={this.openCuisineOptions}
+              closeCuisineOptions={this.closeCuisineOptions}
+              handleFilterGroup1={this.handleFilterGroup1}
+              cuisineList={this.props.cuisineList}
+            />
+          </ul>
+        {/* // ) : (
+        //   <div>
+        //     <CuisineOptions onClick={this.openCuisineOptions} />
+        //   </div> // Modal will appear here; Error: Allows extra step to get to Modal; Remove this and ? operator.
+        // )} */}
 
         <Row>
           <p className="filterLabel mx-1 px-auto">
