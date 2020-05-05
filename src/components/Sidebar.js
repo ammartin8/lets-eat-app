@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import CuisineOptions from "./CuisineOptions";
+import EstablishmentOptions from "./EstablishmentOptions";
 
 // React Boostrap Components
-import { Form, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 class Sidebar extends Component {
   state = {
     cuisineId: "",
+    establishmentId: "",
     filter1Clicked: false,
-    moreCuisineOptions: false
+    filter2Clicked: false,
+    moreCuisineOptions: false,
+    moreEstablishmentOptions: false,
   };
 
   // HELPER FUNCTIONS
@@ -26,12 +30,34 @@ class Sidebar extends Component {
     }
   };
 
+  handleFilterGroup2 = establishmentId => {
+    if (establishmentId !== "") {
+      this.setState({ establishmentId: establishmentId }, () => {
+        this.props.updateEstablishmentID(this.state.establishmentId);
+      });
+      this.setState({ filter2Clicked: true });
+    } else {
+      this.setState({ establishmentId: establishmentId }, () => {
+        this.props.updateEstablishmentID(this.state.establishmentId);
+      });
+      this.setState({ filter2Clicked: false });
+    }
+  };
+
   openCuisineOptions = () => {
     this.setState({ moreCuisineOptions: !false });
   };
 
   closeCuisineOptions = () => {
     this.setState({ moreCuisineOptions: !true });
+  };
+
+  moreEstablishmentOptions = () => {
+    this.setState({ moreEstablishmentOptions: !false });
+  };
+
+  closeEstablishmentOptions = () => {
+    this.setState({ moreEstablishmentOptions: !true });
   };
 
   render() {
@@ -43,77 +69,102 @@ class Sidebar extends Component {
           </p>
         </Row>
         {/* {this.state.moreCuisineOptions ? ( */}
-          <ul className="cuisine-suggestions px-0">
-            {this.props.cuisineList
-              .filter(function(cuisine) {
-                let initialList = cuisine.cuisine.cuisine_id;
-                return (
-                  initialList === 1 ||
-                  initialList === 3 ||
-                  initialList === 193 ||
-                  initialList === 177 ||
-                  initialList === 18 ||
-                  initialList === 83 ||
-                  initialList === 182
-                );
-              })
-              .map(cuisine => (
-                <Row>
-                  <li
-                    key={cuisine.cuisine.cuisine_id}
-                    altid={cuisine.cuisine.cuisine_id}
-                    className="cuisine-item"
+        <ul className="cuisine-suggestions px-0">
+          {this.props.cuisineList
+            .filter(function(cuisine) {
+              let initialList = cuisine.cuisine.cuisine_id;
+              return (
+                initialList === 1 ||
+                initialList === 3 ||
+                initialList === 193 ||
+                initialList === 177 ||
+                initialList === 18 ||
+                initialList === 83 ||
+                initialList === 182
+              );
+            })
+            .map(cuisine => (
+              <Row>
+                <li
+                  key={cuisine.cuisine.cuisine_id}
+                  altid={cuisine.cuisine.cuisine_id}
+                  className="cuisine-item"
+                >
+                  <button
+                    className="cuisine-option-button"
+                    onClick={() =>
+                      this.handleFilterGroup1(cuisine.cuisine.cuisine_id)
+                    }
                   >
-                    <button
-                      className="cuisine-option-button"
-                      onClick={() =>
-                        this.handleFilterGroup1(cuisine.cuisine.cuisine_id)
-                      }
-                    >
-                      {cuisine.cuisine.cuisine_name}
-                    </button>
-                    <button
-                      className="cuisine-option-clear"
-                      onClick={() => this.handleFilterGroup1("")}
-                    >
-                      X
-                    </button>
-                  </li>
-                </Row>
-              ))}
-            <CuisineOptions
-              moreCuisineOptions={this.openCuisineOptions}
-              closeCuisineOptions={this.closeCuisineOptions}
-              handleFilterGroup1={this.handleFilterGroup1}
-              cuisineList={this.props.cuisineList}
-            />
-          </ul>
-        {/* // ) : (
-        //   <div>
-        //     <CuisineOptions onClick={this.openCuisineOptions} />
-        //   </div> // Modal will appear here; Error: Allows extra step to get to Modal; Remove this and ? operator.
-        // )} */}
+                    {cuisine.cuisine.cuisine_name}
+                  </button>
+                  <button
+                    className="cuisine-option-clear"
+                    onClick={() => this.handleFilterGroup1("")}
+                  >
+                    X
+                  </button>
+                </li>
+              </Row>
+            ))}
+          <CuisineOptions
+            moreCuisineOptions={this.openCuisineOptions}
+            closeCuisineOptions={this.closeCuisineOptions}
+            handleFilterGroup1={this.handleFilterGroup1}
+            cuisineList={this.props.cuisineList}
+          />
+        </ul>
 
         <Row>
           <p className="filterLabel mx-1 px-auto">
-            <strong>Restaurant Establishment</strong>
+            <strong>Restaurant Establishments</strong>
           </p>
-          <Form.Group
-            controlId="formBasicCheckbox"
-            className="px-4 filter-checkboxes"
-          >
-            <Form.Check type="checkbox" label="Casual Dining" />
-            <Form.Check type="checkbox" label="Cafe" />
-            <Form.Check type="checkbox" label="Quick Bites" />
-            <Form.Check type="checkbox" label="Bakeries" />
-            <Form.Check type="checkbox" label="Fast Food" />
-            <Form.Check type="checkbox" label="Bars" />
-            <Form.Check type="checkbox" label="Pizzerias" />
-            <Form.Check type="checkbox" label="Coffee Shop" />
-            <Form.Check type="checkbox" label="Deli" />
-            <Form.Check type="checkbox" label="Dessert Shop" />
-          </Form.Group>
         </Row>
+        <ul className="establishment-suggestions px-0">
+          {this.props.establishmentList
+            .filter(function(establishments) {
+              let initialEstabList = establishments.establishment.id;
+              return (
+                initialEstabList === 16 ||
+                initialEstabList === 7 ||
+                initialEstabList === 21 ||
+                initialEstabList === 1 ||
+                initialEstabList === 31 ||
+                initialEstabList === 272 ||
+                initialEstabList === 31
+              );
+            })
+            .map(establishments => (
+              <Row>
+                <li
+                  key={establishments.establishment.id}
+                  altid={establishments.establishment.id}
+                  className="cuisine-item"
+                >
+                  <button
+                    className="cuisine-option-button"
+                    onClick={() =>
+                      this.handleFilterGroup2(establishments.establishment.id)
+                    }
+                  >
+                    {establishments.establishment.name}
+                  </button>
+                  <button
+                    className="cuisine-option-clear"
+                    onClick={() => this.handleFilterGroup2("")}
+                  >
+                    x
+                  </button>
+                </li>
+              </Row>
+            ))}
+          <EstablishmentOptions
+            moreEstablishmentOptions={this.moreEstablishmentOptions}
+            closeEstablishmentOptions={this.closeEstablishmentOptions}
+            handleFilterGroup2={this.handleFilterGroup2}
+            establishmentList={this.props.establishmentList}
+          />
+        </ul>
       </>
     );
   }

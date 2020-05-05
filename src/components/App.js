@@ -57,7 +57,11 @@ export default class App extends Component {
       },
       cityId: "33",
       cuisineId: "",
-      isCardOpen: false
+      isCardOpen: false,
+      establishmentList: {
+        establishments: []
+      },
+      establishmentId: ""   
     };
 
   
@@ -65,6 +69,7 @@ export default class App extends Component {
   componentDidMount() {
     this.fetchRestaurants();
     this.getCuisineList();
+    this.fetchEstablishmentList();
   }
 
   //HELPER FUNCTIONS
@@ -89,6 +94,7 @@ export default class App extends Component {
       () => {
         this.fetchRestaurants();
         this.getCuisineList();
+        this.fetchEstablishmentList();
       }
     );
   };
@@ -105,10 +111,22 @@ export default class App extends Component {
     );
   };
 
+  handleEstablishmentIdUpdate = (establishmentId) => {
+    console.log(establishmentId);
+    this.setState(
+      {
+        establishmentId: establishmentId,
+      },
+      () => {
+        this.fetchRestaurants();
+      }
+    );
+  }
+
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&establishment_type=${this.state.establishmentId}&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -166,6 +184,26 @@ export default class App extends Component {
       .catch(error => console.log("Uh oh! You gotta error: ", error));
   };
 
+  // Fetches Restaurant Types
+  fetchEstablishmentList = () => {
+    fetch(
+      `https://developers.zomato.com/api/v2.1/establishments?city_id=${this.state.cityId}`,
+      {
+        method: "GET",
+        headers: {
+          "user-key": config.apiKey
+        }
+      }
+    )
+      .then(this.checkStatus)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ establishmentList: data });
+      })
+      .catch(error => console.log("Uh oh! You gotta error: ", error));
+  };
+
   render() {
     return (
       <>
@@ -192,9 +230,10 @@ export default class App extends Component {
               <Sidebar
                 passCityId={this.state.cityId}
                 cuisineList={this.state.cuisineList.cuisines}
+                establishmentList={this.state.establishmentList.establishments}
 
-                updateCuisineList={this.handleUpdateCuisineList}
                 updateCuisineID={this.handleCuisineIdUpdate}
+                updateEstablishmentID={this.handleEstablishmentIdUpdate}
               />
             </Col>
 

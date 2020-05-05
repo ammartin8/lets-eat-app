@@ -172,9 +172,13 @@ button.city-option-button:hover {
   padding-bottom: .8em;
 }
 
-
 .cuisineModalItem {
   display: inline-flex;
-  padding-right: 2.5em;
+  margin: 0 2.0em;
+  
+  // width: 13rem;
+}
 
+.modalList {
+  padding: 0;
 }

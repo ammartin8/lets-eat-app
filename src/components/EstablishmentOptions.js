@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Modal, Button, Row } from "react-bootstrap";
 
-function CuisineOptions(props) {
+function EstablishmentOptions(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -15,36 +15,36 @@ function CuisineOptions(props) {
           className="cuisine-more-button"
           onClick={() => {
             handleShow();
-            props.moreCuisineOptions();
+            props.moreEstablishmentOptions();
           }}
         >
-          More Cuisines
+          More Establishments
         </button>
       </li>
       <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>List of Cuisines</Modal.Title>
+          <Modal.Title>List of Restaurant Establishments</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ul className="modalList">
-            {props.cuisineList.map(cuisine => (
+            {props.establishmentList.map(establishments => (
               <Row className="d-inline modalListItems mx-auto">
                   <li
-                    key={cuisine.cuisine.cuisine_id}
-                    altid={cuisine.cuisine.cuisine_id}
+                    key={establishments.establishment.id}
+                    altid={establishments.establishment.id}
                     className="cuisine-item cuisineModalItem"
                   >
                     <button
                       className="cuisine-option-button"
                       onClick={() =>
-                        props.handleFilterGroup1(cuisine.cuisine.cuisine_id)
+                        props.handleFilterGroup2(establishments.establishment.id)
                       }
                     >
-                      {cuisine.cuisine.cuisine_name}
+                      {establishments.establishment.name}
                     </button>
                     <button
                       className="cuisine-option-clear"
-                      onClick={() => props.handleFilterGroup1("")}
+                      onClick={() => props.handleFilterGroup2("")}
                     >
                       X
                     </button>
@@ -58,7 +58,7 @@ function CuisineOptions(props) {
             variant="secondary"
             onClick={() => {
               handleClose();
-              props.closeCuisineOptions();
+              props.closeEstablishmentOptions();
             }}
           >
             Close
@@ -69,4 +69,4 @@ function CuisineOptions(props) {
   );
 }
 
-export default CuisineOptions;
+export default EstablishmentOptions;
