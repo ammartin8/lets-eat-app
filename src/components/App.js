@@ -30,7 +30,7 @@ const config = {
 export default class App extends Component {
   state = {
     results_shown: 20,
-    results_start: 20,
+    results_start: 0,
     restaurantList: {
       restaurants: []
     },
@@ -66,7 +66,7 @@ export default class App extends Component {
     establishmentId: ""
   };
 
-  componentDidMount(prevState) {
+  componentDidMount() {
     this.fetchRestaurants();
     this.getCuisineList();
     this.fetchEstablishmentList();
@@ -132,6 +132,17 @@ export default class App extends Component {
       () => {
         this.fetchRestaurants();
       }
+    );
+  };
+
+  handleResultStartReset = resultStartNum => {
+    console.log(resultStartNum);
+    this.setState({
+      results_start: 0
+    },
+    () => {
+      this.fetchRestaurants();
+    }
     );
   };
 
@@ -230,8 +241,10 @@ export default class App extends Component {
           <SearchCityName
             cityId={this.state.cityId}
             cuisineId={this.state.cuisineId}
+            resultsStart={this.state.results_start}
             updateRestaurantList={this.handleRestaurantListUpdate} //updates list of restaurant by city
             updateCuisineID={this.handleCuisineIdUpdate} // updates cuisine ID selected onClick
+            resetResultStart={this.handleResultStartReset} // resets result start number to zero onClick
           />
         </Jumbotron>
 
@@ -253,7 +266,7 @@ export default class App extends Component {
                   <Modal.Dialog className="w-100 mx-0 flex-fill" size="lg">
                     <Modal.Header>
                       <Col>
-                        <Row xs={12}>
+                        <Row xs={12} className="mx-auto">
                           <Image
                             src={this.state.restaurantObj.featured_image}
                             fluid

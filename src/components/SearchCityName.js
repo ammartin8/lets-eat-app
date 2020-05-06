@@ -24,7 +24,7 @@ class SearchCityName extends Component {
         location_suggestions: []
       }
     };
-  };
+  }
 
   checkStatus(response) {
     if (response.ok === true) {
@@ -65,33 +65,51 @@ class SearchCityName extends Component {
   // Upon onSubmit automatically assigns the first listed suggestion's city Id number if user doesn't select an option
   handleSubmit = input => {
     input.preventDefault();
-    if (this.state.query >= 2 ) {
-    this.setState(
-      {
-        cityId: this.state.cityObj.location_suggestions[0].id
-      },
-      () => {
-        this.props.updateRestaurantList(this.state.cityId);
-      }
-    );
-    this.setState({ query: "" });
-  } else {
-    console.log('Add a message'); //replace with tooltip
-  }
-} 
+    if (this.state.query >= 2) {
+      this.setState(
+        {
+          cityId: this.state.cityObj.location_suggestions[0].id
+        },
+        () => {
+          this.props.updateRestaurantList(this.state.cityId);
+        }
+      );
+      // Upon click of new city, resets the results_start counter to zero
+      this.setState(
+        {
+          results_start: 0
+        },
+        () => {
+          this.props.resetResultStart();
+        }
+      );
+      this.setState({ query: "" });
+    } else {
+      console.log("Add a message"); //replace with tooltip
+    }
+  };
   // Need to commuicate between Search city name and Sidebar and App
-  handleClick = (cityId) => input => {
+  // Need to work on resetting results_start onClick and onSubmit
+  handleClick = cityId => input => {
     input.preventDefault();
     this.setState(
       {
-        cityId: cityId,
+        cityId: cityId
       },
       () => {
         this.props.updateRestaurantList(this.state.cityId);
       }
     );
+    this.setState(
+      {
+        results_start: 0
+      },
+      () => {
+        this.props.resetResultStart();
+      }
+    );
     this.setState({ query: "" });
-    
+
     console.log(cityId);
   };
 
@@ -131,7 +149,9 @@ class SearchCityName extends Component {
               results={this.state.cityObj.location_suggestions}
               handleClick={this.handleClick}
             /> */}
-            <ul className="city-suggestions"> {/*Need to add a conditional where display switches to none onClick or onSubmit*/}
+            <ul className="city-suggestions">
+              {" "}
+              {/*Need to add a conditional where display switches to none onClick or onSubmit*/}
               {this.state.cityObj.location_suggestions.map(cities => (
                 <li key={cities.id} altid={cities.id}>
                   <button
