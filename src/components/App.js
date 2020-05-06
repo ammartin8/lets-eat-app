@@ -29,50 +29,62 @@ const config = {
 
 export default class App extends Component {
   state = {
-      restaurantList: {
-        restaurants: []
+    results_shown: 20,
+    results_start: 20,
+    restaurantList: {
+      restaurants: []
+    },
+    restaurantObj: {
+      name: "",
+      id: "",
+      user_rating: {
+        aggregate_rating: ""
       },
-      restaurantObj: {
-        name: "",
-        id: "",
-        user_rating: {
-          aggregate_rating: ""
-        },
-        location: {
-          address: "",
-          city: ""
-        },
-        highlights: [],
-        cuisines: "",
-        currency: "",
-        establishment: [],
-        average_cost_for_two: 0,
-        phone_numbers: "",
-        photos: [],
-        featured_image: "",
-        timings: ""
+      location: {
+        address: "",
+        city: ""
       },
-      cuisineList: {
-        cuisines: []
-      },
-      cityId: "33",
-      cuisineId: "",
-      isCardOpen: false,
-      establishmentList: {
-        establishments: []
-      },
-      establishmentId: ""   
-    };
+      highlights: [],
+      cuisines: "",
+      currency: "",
+      establishment: [],
+      average_cost_for_two: 0,
+      phone_numbers: "",
+      photos: [],
+      featured_image: "",
+      timings: ""
+    },
+    cuisineList: {
+      cuisines: []
+    },
+    cityId: "33",
+    cuisineId: "",
+    isCardOpen: false,
+    establishmentList: {
+      establishments: []
+    },
+    establishmentId: ""
+  };
 
-  
-
-  componentDidMount() {
+  componentDidMount(prevState) {
     this.fetchRestaurants();
     this.getCuisineList();
     this.fetchEstablishmentList();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.results_start !== this.state.results_start) {
+      this.fetchRestaurants();
+    }
+  }
+
   //HELPER FUNCTIONS
+  updateRestaurantList = num => {
+    this.setState(prevState => {
+      return { results_start: prevState.results_start + num };
+    });
+  };
+
   checkStatus(response) {
     if (response.ok === true) {
       return Promise.resolve(response);
@@ -98,12 +110,12 @@ export default class App extends Component {
       }
     );
   };
-  
-  handleCuisineIdUpdate = (cuisineId) => {
+
+  handleCuisineIdUpdate = cuisineId => {
     console.log(cuisineId);
     this.setState(
       {
-        cuisineId: cuisineId,
+        cuisineId: cuisineId
       },
       () => {
         this.fetchRestaurants();
@@ -111,22 +123,22 @@ export default class App extends Component {
     );
   };
 
-  handleEstablishmentIdUpdate = (establishmentId) => {
+  handleEstablishmentIdUpdate = establishmentId => {
     console.log(establishmentId);
     this.setState(
       {
-        establishmentId: establishmentId,
+        establishmentId: establishmentId
       },
       () => {
         this.fetchRestaurants();
       }
     );
-  }
+  };
 
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&establishment_type=${this.state.establishmentId}&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&establishment_type=${this.state.establishmentId}&start=${this.state.results_start}&count=${this.state.results_shown}&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -139,7 +151,7 @@ export default class App extends Component {
 
   fetchRestaurantsList = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisines}&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&establishment_type=${this.state.establishmentId}&rstart=${this.state.results_start}&count=${this.state.results_shown}&apikey=${config.apiKey}`
     )
       .then(this.checkStatus)
       .then(res => res.json())
@@ -218,7 +230,6 @@ export default class App extends Component {
           <SearchCityName
             cityId={this.state.cityId}
             cuisineId={this.state.cuisineId}
-  
             updateRestaurantList={this.handleRestaurantListUpdate} //updates list of restaurant by city
             updateCuisineID={this.handleCuisineIdUpdate} // updates cuisine ID selected onClick
           />
@@ -231,7 +242,6 @@ export default class App extends Component {
                 passCityId={this.state.cityId}
                 cuisineList={this.state.cuisineList.cuisines}
                 establishmentList={this.state.establishmentList.establishments}
-
                 updateCuisineID={this.handleCuisineIdUpdate}
                 updateEstablishmentID={this.handleEstablishmentIdUpdate}
               />
@@ -313,7 +323,9 @@ export default class App extends Component {
                   <>
                     <Row>
                       <div className="w-100 d-block text-right">
-                        <p>Results: {this.state.restaurantList.results_found}</p>
+                        <p>
+                          Results: {this.state.restaurantList.results_found}
+                        </p>
                       </div>
                       <div className="d-block">
                         <ul className="px-0">
@@ -383,6 +395,20 @@ export default class App extends Component {
                             )
                           )}
                         </ul>
+                        <div className="d-flex">
+                          <Button
+                            className="mx-auto restaurantPage"
+                            onClick={() => this.updateRestaurantList(-20)}
+                          >
+                            Previous
+                          </Button>
+                          <Button
+                            className="mx-auto restaurantPage"
+                            onClick={() => this.updateRestaurantList(20)}
+                          >
+                            Next
+                          </Button>
+                        </div>
                       </div>
                     </Row>
                   </>

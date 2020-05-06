@@ -65,6 +65,7 @@ class SearchCityName extends Component {
   // Upon onSubmit automatically assigns the first listed suggestion's city Id number if user doesn't select an option
   handleSubmit = input => {
     input.preventDefault();
+    if (this.state.query >= 2 ) {
     this.setState(
       {
         cityId: this.state.cityObj.location_suggestions[0].id
@@ -74,7 +75,10 @@ class SearchCityName extends Component {
       }
     );
     this.setState({ query: "" });
-  };
+  } else {
+    console.log('Add a message'); //replace with tooltip
+  }
+} 
   // Need to commuicate between Search city name and Sidebar and App
   handleClick = (cityId) => input => {
     input.preventDefault();
