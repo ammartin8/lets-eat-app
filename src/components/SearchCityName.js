@@ -68,48 +68,33 @@ class SearchCityName extends Component {
     if (this.state.query >= 2) {
       this.setState(
         {
-          cityId: this.state.cityObj.location_suggestions[0].id
-        },
-        () => {
-          this.props.updateRestaurantList(this.state.cityId);
-        }
-      );
-      // Upon click of new city, resets the results_start counter to zero
-      this.setState(
-        {
+          cityId: this.state.cityObj.location_suggestions[0].id,
+          query: "",
           results_start: 0
         },
         () => {
+          this.props.updateRestaurantList(this.state.cityId);
           this.props.resetResultStart();
         }
       );
-      this.setState({ query: "" });
     } else {
-      console.log("Add a message"); //replace with tooltip
+      console.log("Nope!!"); //replace with tooltip
     }
   };
-  // Need to commuicate between Search city name and Sidebar and App
-  // Need to work on resetting results_start onClick and onSubmit
+
   handleClick = cityId => input => {
     input.preventDefault();
     this.setState(
       {
-        cityId: cityId
-      },
-      () => {
-        this.props.updateRestaurantList(this.state.cityId);
-      }
-    );
-    this.setState(
-      {
+        cityId: cityId,
+        query: "",
         results_start: 0
       },
       () => {
+        this.props.updateRestaurantList(this.state.cityId);
         this.props.resetResultStart();
       }
     );
-    this.setState({ query: "" });
-
     console.log(cityId);
   };
 

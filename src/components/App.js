@@ -340,7 +340,7 @@ export default class App extends Component {
                           Results: {this.state.restaurantList.results_found}
                         </p>
                       </div>
-                      <div className="d-block">
+                      <Container className="d-block">
                         <ul className="px-0">
                           {/*Restaurant List*/}
                           {this.state.restaurantList.restaurants.map(
@@ -412,17 +412,19 @@ export default class App extends Component {
                           <Button
                             className="mx-auto restaurantPage"
                             onClick={() => this.updateRestaurantList(-20)}
+                            variant="success"
                           >
                             Previous
                           </Button>
                           <Button
                             className="mx-auto restaurantPage"
                             onClick={() => this.updateRestaurantList(20)}
+                            variant="success"
                           >
                             Next
                           </Button>
                         </div>
-                      </div>
+                      </Container>
                     </Row>
                   </>
                 )}

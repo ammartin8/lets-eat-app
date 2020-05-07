@@ -28,27 +28,27 @@ function EstablishmentOptions(props) {
         <Modal.Body>
           <ul className="modalList">
             {props.establishmentList.map(establishments => (
-              <Row className="d-inline modalListItems mx-auto">
-                  <li
-                    key={establishments.establishment.id}
-                    altid={establishments.establishment.id}
-                    className="cuisine-item cuisineModalItem"
+              <Row
+                className="d-inline modalListItems mx-auto"
+                key={establishments.establishment.id}
+                altid={establishments.establishment.id}
+              >
+                <li className="cuisine-item cuisineModalItem">
+                  <button
+                    className="cuisine-option-button"
+                    onClick={() =>
+                      props.handleFilterGroup2(establishments.establishment.id)
+                    }
                   >
-                    <button
-                      className="cuisine-option-button"
-                      onClick={() =>
-                        props.handleFilterGroup2(establishments.establishment.id)
-                      }
-                    >
-                      {establishments.establishment.name}
-                    </button>
-                    <button
-                      className="cuisine-option-clear"
-                      onClick={() => props.handleFilterGroup2("")}
-                    >
-                      X
-                    </button>
-                  </li>
+                    {establishments.establishment.name}
+                  </button>
+                  <button
+                    className="cuisine-option-clear"
+                    onClick={() => props.handleFilterGroup2("")}
+                  >
+                    X
+                  </button>
+                </li>
               </Row>
             ))}
           </ul>
@@ -58,7 +58,7 @@ function EstablishmentOptions(props) {
             variant="secondary"
             onClick={() => {
               handleClose();
-              props.closeEstablishmentOptions();
+              props.moreEstablishmentOptions();
             }}
           >
             Close

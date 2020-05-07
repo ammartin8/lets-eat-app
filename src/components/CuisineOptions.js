@@ -28,27 +28,27 @@ function CuisineOptions(props) {
         <Modal.Body>
           <ul className="modalList">
             {props.cuisineList.map(cuisine => (
-              <Row className="d-inline modalListItems mx-auto">
-                  <li
-                    key={cuisine.cuisine.cuisine_id}
-                    altid={cuisine.cuisine.cuisine_id}
-                    className="cuisine-item cuisineModalItem"
+              <Row
+                className="d-inline modalListItems mx-auto"
+                key={cuisine.cuisine.cuisine_id}
+                altid={cuisine.cuisine.cuisine_id}
+              >
+                <li className="cuisine-item cuisineModalItem">
+                  <button
+                    className="cuisine-option-button"
+                    onClick={() =>
+                      props.handleFilterGroup1(cuisine.cuisine.cuisine_id)
+                    }
                   >
-                    <button
-                      className="cuisine-option-button"
-                      onClick={() =>
-                        props.handleFilterGroup1(cuisine.cuisine.cuisine_id)
-                      }
-                    >
-                      {cuisine.cuisine.cuisine_name}
-                    </button>
-                    <button
-                      className="cuisine-option-clear"
-                      onClick={() => props.handleFilterGroup1("")}
-                    >
-                      X
-                    </button>
-                  </li>
+                    {cuisine.cuisine.cuisine_name}
+                  </button>
+                  <button
+                    className="cuisine-option-clear"
+                    onClick={() => props.handleFilterGroup1("")}
+                  >
+                    X
+                  </button>
+                </li>
               </Row>
             ))}
           </ul>
@@ -58,7 +58,7 @@ function CuisineOptions(props) {
             variant="secondary"
             onClick={() => {
               handleClose();
-              props.closeCuisineOptions();
+              props.moreCuisineOptions();
             }}
           >
             Close

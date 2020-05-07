@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CuisineOptions from "./CuisineOptions";
 import EstablishmentOptions from "./EstablishmentOptions";
+// import styles from "../styles.scss"
 
 // React Boostrap Components
 import { Row } from "react-bootstrap";
@@ -12,7 +13,7 @@ class Sidebar extends Component {
     filter1Clicked: false,
     filter2Clicked: false,
     moreCuisineOptions: false,
-    moreEstablishmentOptions: false,
+    moreEstablishmentOptions: false
   };
 
   // HELPER FUNCTIONS
@@ -44,20 +45,20 @@ class Sidebar extends Component {
     }
   };
 
-  openCuisineOptions = () => {
-    this.setState({ moreCuisineOptions: !false });
-  };
-
-  closeCuisineOptions = () => {
-    this.setState({ moreCuisineOptions: !true });
+  moreCuisineOptions = () => {
+    if (this.state.moreCuisineOptions === false) {
+      this.setState({ moreCuisineOptions: !false });
+    } else if (this.state.moreCuisineOptions === true) {
+      this.setState({ moreCuisineOptions: !true });
+    }
   };
 
   moreEstablishmentOptions = () => {
-    this.setState({ moreEstablishmentOptions: !false });
-  };
-
-  closeEstablishmentOptions = () => {
-    this.setState({ moreEstablishmentOptions: !true });
+    if (this.state.moreEstablishmentOptions === false) {
+      this.setState({ moreEstablishmentOptions: !false });
+    } else if (this.state.moreEstablishmentOptions === true) {
+      this.setState({ moreEstablishmentOptions: !true });
+    }
   };
 
   render() {
@@ -84,14 +85,16 @@ class Sidebar extends Component {
               );
             })
             .map(cuisine => (
-              <Row>
-                <li
-                  key={cuisine.cuisine.cuisine_id}
-                  altid={cuisine.cuisine.cuisine_id}
-                  className="cuisine-item"
-                >
+              <Row
+                key={cuisine.cuisine.cuisine_id}
+                altid={cuisine.cuisine.cuisine_id}
+              >
+                <li className="cuisine-item">
                   <button
-                    className="cuisine-option-button"
+                    //Work on this
+                    className={
+                      ["cuisine-option-button"]
+                    }
                     onClick={() =>
                       this.handleFilterGroup1(cuisine.cuisine.cuisine_id)
                     }
@@ -108,8 +111,7 @@ class Sidebar extends Component {
               </Row>
             ))}
           <CuisineOptions
-            moreCuisineOptions={this.openCuisineOptions}
-            closeCuisineOptions={this.closeCuisineOptions}
+            moreCuisineOptions={this.moreCuisineOptions}
             handleFilterGroup1={this.handleFilterGroup1}
             cuisineList={this.props.cuisineList}
           />
@@ -135,12 +137,11 @@ class Sidebar extends Component {
               );
             })
             .map(establishments => (
-              <Row>
-                <li
-                  key={establishments.establishment.id}
-                  altid={establishments.establishment.id}
-                  className="cuisine-item"
-                >
+              <Row
+                key={establishments.establishment.id}
+                altid={establishments.establishment.id}
+              >
+                <li className="cuisine-item">
                   <button
                     className="cuisine-option-button"
                     onClick={() =>
@@ -160,7 +161,6 @@ class Sidebar extends Component {
             ))}
           <EstablishmentOptions
             moreEstablishmentOptions={this.moreEstablishmentOptions}
-            closeEstablishmentOptions={this.closeEstablishmentOptions}
             handleFilterGroup2={this.handleFilterGroup2}
             establishmentList={this.props.establishmentList}
           />
