@@ -250,8 +250,8 @@ export default class App extends Component {
 
         <Container>
           <Row>
-            <Col sm={3}>
-              <Sidebar
+            <Col sm={3} className="d-none d-sm-block">
+              <Sidebar 
                 passCityId={this.state.cityId}
                 cuisineList={this.state.cuisineList.cuisines}
                 establishmentList={this.state.establishmentList.establishments}
@@ -260,7 +260,7 @@ export default class App extends Component {
               />
             </Col>
 
-            <Col sm={9}>
+            <Col sm={9} xs={12}>
               <div id="main-content" className="container d-flex">
                 {this.state.isCardOpen ? (
                   <Modal.Dialog className="w-100 mx-0 flex-fill" size="lg">

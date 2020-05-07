@@ -25,7 +25,7 @@ li {
   width: 100%;
   background: url(./images/headerImgEdit.jpg), tomato;
   background-size: cover;
-  // padding: 10em;
+  padding-top: 10em;
 }
 
 .header {
@@ -140,6 +140,10 @@ button.city-option-button:hover {
 }
 
 // Sidebar Component Custom Styling
+.filter-card-header {
+  text-align: center;
+}
+
 .cuisine-option-button {
   font-size: 0.8em;
   color: #fff;
@@ -198,3 +202,4 @@ button.city-option-button:hover {
 .modalList {
   padding: 0;
 }
+
