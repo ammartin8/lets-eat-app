@@ -70,6 +70,12 @@ class Sidebar extends Component {
               <p className="filterLabel mx-1 px-auto ">
                 <strong>Filters</strong>
               </p>
+              <button
+                className="reset-options px-auto mx-auto"
+                onClick={() => {this.handleFilterGroup1(""); this.handleFilterGroup2("")}}
+              >
+                Reset All Filters
+              </button>
             </Row>
           </Container>
 
