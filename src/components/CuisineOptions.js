@@ -27,13 +27,15 @@ function CuisineOptions(props) {
         </Modal.Header>
         <Modal.Body>
           <ul className="modalList">
-            {props.cuisineList.map(cuisine => (
+            {props.cuisineList.map((cuisine) => (
               <Row
                 className="d-inline modalListItems mx-auto"
                 key={cuisine.cuisine.cuisine_id}
                 altid={cuisine.cuisine.cuisine_id}
               >
-                <li className="cuisine-item cuisineModalItem">
+                <li
+                  className="cuisine-item cuisineModalItem"
+                >
                   <button
                     className="cuisine-option-button"
                     onClick={() =>

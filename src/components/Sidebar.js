@@ -66,12 +66,12 @@ class Sidebar extends Component {
       <>
         <Container className="sticky-top p-0">
           <Container>
-            <Row className="justify-content-left">
+            <Row className="justify-content-left" style={{flexDirection: "row", justifyContent: "space-between"}}>
               <p className="filterLabel mx-1 px-auto ">
                 <strong>Filters</strong>
               </p>
               <button
-                className="reset-options px-auto mx-auto"
+                className="reset-options px-auto mx-0"
                 onClick={() => {this.handleFilterGroup1(""); this.handleFilterGroup2("")}}
               >
                 Reset All Filters
@@ -93,7 +93,7 @@ class Sidebar extends Component {
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
-                <Card.Body>
+                <Card.Body className="d-flex" >
                   <ul className="cuisine-suggestions px-0 mx-auto">
                     {this.props.cuisineList
                       .filter(function (cuisine) {
@@ -112,6 +112,7 @@ class Sidebar extends Component {
                         <Row
                           key={cuisine.cuisine.cuisine_id}
                           altid={cuisine.cuisine.cuisine_id}
+                          style={{justifyContent: "center"}}
                         >
                           <li className="cuisine-item">
                             <button
@@ -161,8 +162,8 @@ class Sidebar extends Component {
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
-                <Card.Body>
-                  <ul className="establishment-suggestions px-0">
+                <Card.Body className="d-flex">
+                  <ul className="establishment-suggestions px-0 mx-auto">
                     {this.props.establishmentList
                       .filter(function (establishments) {
                         let initialEstabList = establishments.establishment.id;
@@ -180,6 +181,7 @@ class Sidebar extends Component {
                         <Row
                           key={establishments.establishment.id}
                           altid={establishments.establishment.id}
+                          style={{justifyContent: "center"}}
                         >
                           <li className="cuisine-item">
                             <button
