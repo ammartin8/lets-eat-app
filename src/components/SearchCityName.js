@@ -7,11 +7,11 @@ import {
   InputGroup,
   FormControl,
   Button,
-  Form
+  Form,
 } from "react-bootstrap";
 
 const config = {
-  apiKey: `${process.env.REACT_APP_API_KEY}`
+  apiKey: `${process.env.REACT_APP_API_KEY}`,
 };
 
 class SearchCityName extends Component {
@@ -21,8 +21,8 @@ class SearchCityName extends Component {
     this.state = {
       query: "",
       cityObj: {
-        location_suggestions: []
-      }
+        location_suggestions: [],
+      },
     };
   }
 
@@ -41,17 +41,17 @@ class SearchCityName extends Component {
       {
         method: "GET",
         headers: {
-          "user-key": config.apiKey
-        }
+          "user-key": config.apiKey,
+        },
       }
     )
       .then(this.checkStatus)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         // console.log(data);
         this.setState({ cityObj: data });
       })
-      .catch(error => console.log("Uh oh! You gotta error: ", error));
+      .catch((error) => console.log("Uh oh! You gotta error: ", error));
   };
 
   //HELPER FUNCTIONS
@@ -63,14 +63,14 @@ class SearchCityName extends Component {
   };
 
   // Upon onSubmit automatically assigns the first listed suggestion's city Id number if user doesn't select an option
-  handleSubmit = input => {
+  handleSubmit = (input) => {
     input.preventDefault();
     if (this.state.query >= 2) {
       this.setState(
         {
           cityId: this.state.cityObj.location_suggestions[0].id,
           query: "",
-          results_start: 0
+          results_start: 0,
         },
         () => {
           this.props.updateRestaurantList(this.state.cityId);
@@ -82,13 +82,13 @@ class SearchCityName extends Component {
     }
   };
 
-  handleClick = cityId => input => {
+  handleClick = (cityId) => (input) => {
     input.preventDefault();
     this.setState(
       {
         cityId: cityId,
         query: "",
-        results_start: 0
+        results_start: 0,
       },
       () => {
         this.props.updateRestaurantList(this.state.cityId);
@@ -111,7 +111,7 @@ class SearchCityName extends Component {
                 <FormControl
                   type="text"
                   id="cityName"
-                  ref={input => (this.search = input)}
+                  ref={(input) => (this.search = input)}
                   value={this.state.query}
                   onChange={this.handleValueChange}
                   placeholder="Enter City Name"
@@ -134,20 +134,24 @@ class SearchCityName extends Component {
               results={this.state.cityObj.location_suggestions}
               handleClick={this.handleClick}
             /> */}
-            <ul className="city-suggestions">
-              {" "}
-              {/*Need to add a conditional where display switches to none onClick or onSubmit*/}
-              {this.state.cityObj.location_suggestions.map(cities => (
-                <li key={cities.id} altid={cities.id}>
-                  <button
-                    className="city-option-button"
-                    onClick={this.handleClick(cities.id)}
-                  >
-                    {cities.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            {this.state.query !== "" ? (
+              <ul className="city-suggestions">
+                {" "}
+                {/*Need to add a conditional where display switches to none onClick or onSubmit*/}
+                {this.state.cityObj.location_suggestions.map((cities) => (
+                  <li key={cities.id} altid={cities.id}>
+                    <button
+                      className="city-option-button"
+                      onClick={this.handleClick(cities.id)}
+                    >
+                      {cities.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul className="d-none"></ul>
+            )}
           </Row>
         </Container>
       </>

@@ -433,7 +433,7 @@ export default class App extends Component {
                         )}
                       </ul>
                       <div className="d-flex">
-                        <a href="#main-header" className="mx-auto restaurantPage">
+                        <a href="#main-content" className="mx-auto restaurantPage">
                           <Button
                             className="mx-auto restaurantPage"
                             onClick={() => this.updateRestaurantList(-20)}
@@ -442,7 +442,7 @@ export default class App extends Component {
                             Previous
                           </Button>
                         </a>
-                        <a href="#main-header" className="mx-auto restaurantPage">
+                        <a href="#main-content" className="mx-auto restaurantPage">
                           <Button
                             className="mx-auto restaurantPage"
                             onClick={() => this.updateRestaurantList(20)}
