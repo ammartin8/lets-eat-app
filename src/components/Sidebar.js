@@ -13,11 +13,11 @@ class Sidebar extends Component {
     filter1Clicked: false,
     filter2Clicked: false,
     moreCuisineOptions: false,
-    moreEstablishmentOptions: false
+    moreEstablishmentOptions: false,
   };
 
   // HELPER FUNCTIONS
-  handleFilterGroup1 = cuisineId => {
+  handleFilterGroup1 = (cuisineId) => {
     if (cuisineId !== "") {
       this.setState({ cuisineId: cuisineId }, () => {
         this.props.updateCuisineID(this.state.cuisineId);
@@ -31,7 +31,7 @@ class Sidebar extends Component {
     }
   };
 
-  handleFilterGroup2 = establishmentId => {
+  handleFilterGroup2 = (establishmentId) => {
     if (establishmentId !== "") {
       this.setState({ establishmentId: establishmentId }, () => {
         this.props.updateEstablishmentID(this.state.establishmentId);
@@ -64,140 +64,148 @@ class Sidebar extends Component {
   render() {
     return (
       <>
-        <Container>
-          <Row className="justify-content-left">
-            <p className="filterLabel mx-1 px-auto ">
-              <strong>Filters</strong>
-            </p>
-          </Row>
-        </Container>
+        <Container className="sticky-top p-0">
+          <Container>
+            <Row className="justify-content-left">
+              <p className="filterLabel mx-1 px-auto ">
+                <strong>Filters</strong>
+              </p>
+            </Row>
+          </Container>
 
-        <Accordion>
-          <Card>
-            <Card.Header className="filter-card-header">
-              <Accordion.Toggle as={Button} variant="" eventKey="0">
+          <Accordion>
+            <Card className="text-center">
+              <Card.Header className="filter-card-header d-flex justify-content-center p-1">
+                <Accordion.Toggle
+                  as={Button}
+                  variant=""
+                  eventKey="0"
+                  className="p-0"
+                  style={{ height: "3em" }}
+                >
+                  <strong>Popular Cuisines</strong>
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <ul className="cuisine-suggestions px-0 mx-auto">
+                    {this.props.cuisineList
+                      .filter(function (cuisine) {
+                        let initialList = cuisine.cuisine.cuisine_id;
+                        return (
+                          initialList === 1 ||
+                          initialList === 3 ||
+                          initialList === 193 ||
+                          initialList === 177 ||
+                          initialList === 18 ||
+                          initialList === 83 ||
+                          initialList === 182
+                        );
+                      })
+                      .map((cuisine) => (
+                        <Row
+                          key={cuisine.cuisine.cuisine_id}
+                          altid={cuisine.cuisine.cuisine_id}
+                        >
+                          <li className="cuisine-item">
+                            <button
+                              //Work on this
+                              className={["cuisine-option-button"]}
+                              onClick={() =>
+                                this.handleFilterGroup1(
+                                  cuisine.cuisine.cuisine_id
+                                )
+                              }
+                            >
+                              {cuisine.cuisine.cuisine_name}
+                            </button>
+                            <button
+                              className="cuisine-option-clear"
+                              onClick={() => this.handleFilterGroup1("")}
+                            >
+                              X
+                            </button>
+                          </li>
+                        </Row>
+                      ))}
+                    <CuisineOptions
+                      moreCuisineOptions={this.moreCuisineOptions}
+                      handleFilterGroup1={this.handleFilterGroup1}
+                      cuisineList={this.props.cuisineList}
+                    />
+                  </ul>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
 
-                  {/* <p className="filterLabel mx-1 px-auto"> */}
-                    <strong>Popular Cuisines</strong>
-                  {/* </p> */}
-
-              </Accordion.Toggle>
-            </Card.Header>
-            <Accordion.Collapse eventKey="0">
-              <Card.Body>
-                <ul className="cuisine-suggestions px-0 mx-auto">
-                  {this.props.cuisineList
-                    .filter(function(cuisine) {
-                      let initialList = cuisine.cuisine.cuisine_id;
-                      return (
-                        initialList === 1 ||
-                        initialList === 3 ||
-                        initialList === 193 ||
-                        initialList === 177 ||
-                        initialList === 18 ||
-                        initialList === 83 ||
-                        initialList === 182
-                      );
-                    })
-                    .map(cuisine => (
-                      <Row
-                        key={cuisine.cuisine.cuisine_id}
-                        altid={cuisine.cuisine.cuisine_id}
-                      >
-                        <li className="cuisine-item">
-                          <button
-                            //Work on this
-                            className={["cuisine-option-button"]}
-                            onClick={() =>
-                              this.handleFilterGroup1(
-                                cuisine.cuisine.cuisine_id
-                              )
-                            }
-                          >
-                            {cuisine.cuisine.cuisine_name}
-                          </button>
-                          <button
-                            className="cuisine-option-clear"
-                            onClick={() => this.handleFilterGroup1("")}
-                          >
-                            X
-                          </button>
-                        </li>
-                      </Row>
-                    ))}
-                  <CuisineOptions
-                    moreCuisineOptions={this.moreCuisineOptions}
-                    handleFilterGroup1={this.handleFilterGroup1}
-                    cuisineList={this.props.cuisineList}
-                  />
-                </ul>
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        </Accordion>
-
-        <Accordion>
-          <Card>
-            <Card.Header className="filter-card-header">
-              <Accordion.Toggle as={Button} variant="" eventKey="1" className="p-0">
-                <Row>
-                  <p className="filterLabel mx-1 px-auto">
+          <Accordion>
+            <Card className="w-100 text-center">
+              <Card.Header className="filter-card-header d-flex justify-content-center p-1">
+                <Accordion.Toggle
+                  as={Button}
+                  variant=""
+                  eventKey="1"
+                  className="p-0"
+                  style={{ height: "3em" }}
+                >
+                  <Row>
                     <strong>Restaurant Establishments</strong>
-                  </p>
-                </Row>
-              </Accordion.Toggle>
-            </Card.Header>
-            <Accordion.Collapse eventKey="1">
-              <Card.Body>
-                <ul className="establishment-suggestions px-0">
-                  {this.props.establishmentList
-                    .filter(function(establishments) {
-                      let initialEstabList = establishments.establishment.id;
-                      return (
-                        initialEstabList === 16 ||
-                        initialEstabList === 7 ||
-                        initialEstabList === 21 ||
-                        initialEstabList === 1 ||
-                        initialEstabList === 31 ||
-                        initialEstabList === 272 ||
-                        initialEstabList === 31
-                      );
-                    })
-                    .map(establishments => (
-                      <Row
-                        key={establishments.establishment.id}
-                        altid={establishments.establishment.id}
-                      >
-                        <li className="cuisine-item">
-                          <button
-                            className="cuisine-option-button"
-                            onClick={() =>
-                              this.handleFilterGroup2(
-                                establishments.establishment.id
-                              )
-                            }
-                          >
-                            {establishments.establishment.name}
-                          </button>
-                          <button
-                            className="cuisine-option-clear"
-                            onClick={() => this.handleFilterGroup2("")}
-                          >
-                            x
-                          </button>
-                        </li>
-                      </Row>
-                    ))}
-                  <EstablishmentOptions
-                    moreEstablishmentOptions={this.moreEstablishmentOptions}
-                    handleFilterGroup2={this.handleFilterGroup2}
-                    establishmentList={this.props.establishmentList}
-                  />
-                </ul>
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        </Accordion>
+                  </Row>
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="1">
+                <Card.Body>
+                  <ul className="establishment-suggestions px-0">
+                    {this.props.establishmentList
+                      .filter(function (establishments) {
+                        let initialEstabList = establishments.establishment.id;
+                        return (
+                          initialEstabList === 16 ||
+                          initialEstabList === 7 ||
+                          initialEstabList === 21 ||
+                          initialEstabList === 1 ||
+                          initialEstabList === 31 ||
+                          initialEstabList === 272 ||
+                          initialEstabList === 31
+                        );
+                      })
+                      .map((establishments) => (
+                        <Row
+                          key={establishments.establishment.id}
+                          altid={establishments.establishment.id}
+                        >
+                          <li className="cuisine-item">
+                            <button
+                              className="cuisine-option-button"
+                              onClick={() =>
+                                this.handleFilterGroup2(
+                                  establishments.establishment.id
+                                )
+                              }
+                            >
+                              {establishments.establishment.name}
+                            </button>
+                            <button
+                              className="cuisine-option-clear"
+                              onClick={() => this.handleFilterGroup2("")}
+                            >
+                              x
+                            </button>
+                          </li>
+                        </Row>
+                      ))}
+                    <EstablishmentOptions
+                      moreEstablishmentOptions={this.moreEstablishmentOptions}
+                      handleFilterGroup2={this.handleFilterGroup2}
+                      establishmentList={this.props.establishmentList}
+                    />
+                  </ul>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+        </Container>
       </>
     );
   }
