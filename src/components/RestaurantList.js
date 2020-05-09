@@ -1,0 +1,103 @@
+import React from "react";
+
+import { Container, Button, Row, Col, Card } from "react-bootstrap";
+
+function RestaurantList(props) {
+  return (
+    <Row>
+      <Container className="d-block">
+        <div className="w-100 d-block text-right">
+          <p>Results:{props.resultsFound}</p>
+        </div>
+
+        <ul className="px-0">
+          {props.restaurantList.restaurants.map((restaurant) => (
+            <Card
+              className="restaurant-card my-2"
+              key={restaurant.restaurant.id}
+              restaurantId={restaurant.restaurant.id}
+              onClick={() =>
+                props.fetchRestaurantsDetails(restaurant.restaurant.id)
+              }
+            >
+              <Row className="d-flex ">
+                <Col
+                  sm={5}
+                  className="d-flex"
+                  style={{
+                    height: "12rem",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  {restaurant.restaurant.featured_image !== "" ? (
+                    <Card.Img
+                      className="img-fluid d-flex p-0"
+                      style={{
+                        flexShrink: "0",
+                        minHeight: "100%",
+                        minWidth: "100%",
+                      }}
+                      src={restaurant.restaurant.featured_image}
+                      alt=""
+                    />
+                  ) : (
+                    <>
+                      <p className="h3 text-center">Image Coming Soon</p>
+                    </>
+                  )}
+                </Col>
+
+                <Col sm={7} className="p-0">
+                  <Card.Body>
+                    <Card.Text className="m-0">
+                      <strong>{restaurant.restaurant.name}</strong>
+                    </Card.Text>
+                    <Card.Text className="m-0">
+                      <strong>Rating</strong>:{" "}
+                      {restaurant.restaurant.user_rating.aggregate_rating}
+                    </Card.Text>
+                    <div className="restaurant-general-info">
+                      <Card.Text className="d-none d-sm-block">
+                        <strong>Address</strong>:{" "}
+                        {restaurant.restaurant.location.address}
+                      </Card.Text>
+                      <Card.Text className="d-none d-sm-block">
+                        <strong>Price Range</strong>:{" "}
+                        {restaurant.restaurant.price_range}
+                      </Card.Text>
+                      <Card.Text>{restaurant.restaurant.cuisines}</Card.Text>
+                    </div>
+                  </Card.Body>
+                </Col>
+              </Row>
+            </Card>
+          ))}
+        </ul>
+        <div className="d-flex">
+          <a href="#main-content" className="mx-auto restaurantPage">
+            <Button
+              className="mx-auto restaurantPage"
+              onClick={() => props.updateRestaurantList(-20)}
+              variant="success"
+            >
+              Previous
+            </Button>
+          </a>
+          <a href="#main-content" className="mx-auto restaurantPage">
+            <Button
+              className="mx-auto restaurantPage"
+              onClick={() => props.updateRestaurantList(20)}
+              variant="success"
+            >
+              Next
+            </Button>
+          </a>
+        </div>
+      </Container>
+    </Row>
+  );
+}
+
+export default RestaurantList;

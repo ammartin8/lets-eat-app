@@ -4,19 +4,11 @@ import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import Gallery from "./Gallery";
 import SearchCityName from "./SearchCityName";
-// import
+import RestaurantDetails from "./RestaurantDetails";
+import RestaurantList from "./RestaurantList";
 
 // Importing React Bootstrap Elements
-import {
-  Container,
-  Col,
-  Row,
-  Card,
-  Modal,
-  Jumbotron,
-  Button,
-  Image,
-} from "react-bootstrap";
+import { Container, Col, Row, Jumbotron } from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`,
@@ -252,38 +244,67 @@ export default class App extends Component {
           />
         </Jumbotron>
 
-        <Container className="m-0" fluid>
+        <Container className="m-0 justify-content-center d-flex" fluid>
           <Row className="w-100">
             {this.state.isCardOpen ? (
-              <Col sm={3} className="d-none">
-                {" "}
-                {/*WORK ON THIS */}
-                <Sidebar
-                  passCityId={this.state.cityId}
-                  cuisineList={this.state.cuisineList.cuisines}
-                  establishmentList={
-                    this.state.establishmentList.establishments
-                  }
-                  updateCuisineID={this.handleCuisineIdUpdate}
-                  updateEstablishmentID={this.handleEstablishmentIdUpdate}
-                  className="d-none"
-                />
-              </Col>
+              <>
+                <Col sm={3} className="d-none">
+                  {/*WORK ON THIS */}
+                  <Sidebar
+                    passCityId={this.state.cityId}
+                    cuisineList={this.state.cuisineList.cuisines}
+                    establishmentList={
+                      this.state.establishmentList.establishments
+                    }
+                    updateCuisineID={this.handleCuisineIdUpdate}
+                    updateEstablishmentID={this.handleEstablishmentIdUpdate}
+                    className="d-none"
+                  />
+                </Col>
+
+                <Col
+                  id="main-content"
+                  className="d-flex justify-content-center"
+                  sm={12}
+                >
+                  <RestaurantDetails
+                    restaurantObj={this.state.restaurantObj}
+                    handleClose={this.handleClose}
+                    isCardOpen={this.state.isCardOpen}
+                  />
+                </Col>
+              </>
             ) : (
-              <Col sm={3}>
-                <Sidebar
-                  passCityId={this.state.cityId}
-                  cuisineList={this.state.cuisineList.cuisines}
-                  establishmentList={
-                    this.state.establishmentList.establishments
-                  }
-                  updateCuisineID={this.handleCuisineIdUpdate}
-                  updateEstablishmentID={this.handleEstablishmentIdUpdate}
-                />
-              </Col>
+              <>
+                <Col sm={4}>
+                  <Sidebar
+                    passCityId={this.state.cityId}
+                    cuisineList={this.state.cuisineList.cuisines}
+                    establishmentList={
+                      this.state.establishmentList.establishments
+                    }
+                    updateCuisineID={this.handleCuisineIdUpdate}
+                    updateEstablishmentID={this.handleEstablishmentIdUpdate}
+                  />
+                </Col>
+
+                <Col
+                  id="main-content"
+                  className="d-flex justify-content-center"
+                  sm={8}
+                >
+                  <RestaurantList
+                    restaurantList={this.state.restaurantList}
+                    restaurantObj={this.state.restaurantObj}
+                    fetchRestaurantsDetails={this.fetchRestaurantsDetails}
+                    updateRestaurantList={this.updateRestaurantList}
+                    resultsFound={this.state.results_found}
+                  />
+                </Col>
+              </>
             )}
-            <Col id="main-content" className="d-flex" sm={9}>
-              {this.state.isCardOpen ? (
+
+            {/* {this.state.isCardOpen ? (
                 <Modal.Dialog className="w-100 mx-0 flex-fill" size="lg">
                   <Modal.Header>
                     <Col>
@@ -374,8 +395,8 @@ export default class App extends Component {
                           Results: {this.state.restaurantList.results_found}
                         </p>
                       </div>
-                      <ul className="px-0">
-                        {/*Restaurant List*/}
+                      
+                        <ul className="px-0">
                         {this.state.restaurantList.restaurants.map(
                           (restaurant) => (
                             <Card
@@ -483,8 +504,7 @@ export default class App extends Component {
                     </Container>
                   </Row>
                 </>
-              )}
-            </Col>
+              )} */}
           </Row>
         </Container>
         <Gallery title="Here will Lie a Gallery" />
