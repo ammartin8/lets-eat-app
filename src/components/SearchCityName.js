@@ -65,7 +65,7 @@ class SearchCityName extends Component {
   // Upon onSubmit automatically assigns the first listed suggestion's city Id number if user doesn't select an option
   handleSubmit = (input) => {
     input.preventDefault();
-    if (this.state.query >= 2) {
+    if (this.state.query.length >= 2) {
       this.setState(
         {
           cityId: this.state.cityObj.location_suggestions[0].id,
@@ -117,13 +117,14 @@ class SearchCityName extends Component {
                   placeholder="Enter City Name"
                 />
                 <InputGroup.Append>
-                  <Button
-                    type="submit"
-                    variant="success"
-                    onClick={this.handleSubmit}
-                  >
-                    Explore
-                  </Button>
+
+                    <Button
+                      type="submit"
+                      variant="success"
+                      onClick={this.handleSubmit}
+                    >
+                      Explore
+                    </Button>
                 </InputGroup.Append>
               </InputGroup>
             </Form>
@@ -140,12 +141,12 @@ class SearchCityName extends Component {
                 {/*Need to add a conditional where display switches to none onClick or onSubmit*/}
                 {this.state.cityObj.location_suggestions.map((cities) => (
                   <li key={cities.id} altid={cities.id}>
-                    <button
-                      className="city-option-button"
-                      onClick={this.handleClick(cities.id)}
-                    >
-                      {cities.name}
-                    </button>
+                      <button
+                        className="city-option-button"
+                        onClick={this.handleClick(cities.id)}
+                      >
+                        {cities.name}
+                      </button>
                   </li>
                 ))}
               </ul>

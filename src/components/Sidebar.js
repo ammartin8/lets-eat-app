@@ -64,15 +64,21 @@ class Sidebar extends Component {
   render() {
     return (
       <>
-        <Container className="sticky-top p-0">
+        <Container className="sticky-top pt-5">
           <Container>
-            <Row className="justify-content-left" style={{flexDirection: "row", justifyContent: "space-between"}}>
+            <Row
+              className="justify-content-left"
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <p className="filterLabel mx-1 px-auto ">
                 <strong>Filters</strong>
               </p>
               <button
                 className="reset-options px-auto mx-0"
-                onClick={() => {this.handleFilterGroup1(""); this.handleFilterGroup2("")}}
+                onClick={() => {
+                  this.handleFilterGroup1("");
+                  this.handleFilterGroup2("");
+                }}
               >
                 Reset All Filters
               </button>
@@ -89,11 +95,11 @@ class Sidebar extends Component {
                   className="p-0"
                   style={{ height: "3em" }}
                 >
-                  <strong>Popular Cuisines</strong>
+                  <strong style={{fontSize: ".9em"}}>Popular Cuisines</strong>
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
-                <Card.Body className="d-flex" >
+                <Card.Body className="d-flex">
                   <ul className="cuisine-suggestions px-0 mx-auto">
                     {this.props.cuisineList
                       .filter(function (cuisine) {
@@ -112,17 +118,17 @@ class Sidebar extends Component {
                         <Row
                           key={cuisine.cuisine.cuisine_id}
                           altid={cuisine.cuisine.cuisine_id}
-                          style={{justifyContent: "center"}}
+                          style={{ justifyContent: "center" }}
                         >
                           <li className="cuisine-item">
                             <button
                               //Work on this
                               className={["cuisine-option-button"]}
-                              onClick={() =>
+                              onClick={() => {
                                 this.handleFilterGroup1(
                                   cuisine.cuisine.cuisine_id
-                                )
-                              }
+                                );
+                              }}
                             >
                               {cuisine.cuisine.cuisine_name}
                             </button>
@@ -157,7 +163,7 @@ class Sidebar extends Component {
                   style={{ height: "3em" }}
                 >
                   <Row>
-                    <strong>Restaurant Establishments</strong>
+                    <strong style={{fontSize: ".9em"}}>Restaurant Establishments</strong>
                   </Row>
                 </Accordion.Toggle>
               </Card.Header>
@@ -181,16 +187,16 @@ class Sidebar extends Component {
                         <Row
                           key={establishments.establishment.id}
                           altid={establishments.establishment.id}
-                          style={{justifyContent: "center"}}
+                          style={{ justifyContent: "center" }}
                         >
                           <li className="cuisine-item">
                             <button
                               className="cuisine-option-button"
-                              onClick={() =>
+                              onClick={() => {
                                 this.handleFilterGroup2(
                                   establishments.establishment.id
-                                )
-                              }
+                                );
+                              }}
                             >
                               {establishments.establishment.name}
                             </button>

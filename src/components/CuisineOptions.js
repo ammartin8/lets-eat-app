@@ -33,14 +33,12 @@ function CuisineOptions(props) {
                 key={cuisine.cuisine.cuisine_id}
                 altid={cuisine.cuisine.cuisine_id}
               >
-                <li
-                  className="cuisine-item cuisineModalItem"
-                >
+                <li className="cuisine-item cuisineModalItem">
                   <button
                     className="cuisine-option-button"
-                    onClick={() =>
-                      props.handleFilterGroup1(cuisine.cuisine.cuisine_id)
-                    }
+                    onClick={() => {
+                      props.handleFilterGroup1(cuisine.cuisine.cuisine_id);
+                    }}
                   >
                     {cuisine.cuisine.cuisine_name}
                   </button>

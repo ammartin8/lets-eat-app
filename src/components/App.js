@@ -117,6 +117,7 @@ export default class App extends Component {
     this.setState(
       {
         cuisineId: cuisineId,
+        results_start: 0
       },
       () => {
         this.fetchRestaurants();
@@ -129,6 +130,7 @@ export default class App extends Component {
     this.setState(
       {
         establishmentId: establishmentId,
+        results_start: 0
       },
       () => {
         this.fetchRestaurants();
@@ -252,7 +254,7 @@ export default class App extends Component {
 
         <Container className="m-0" fluid>
           <Row className="w-100">
-            <Col sm={4} className="d-none d-sm-block">
+            <Col sm={3} className="d-none d-sm-block">
               <Sidebar
                 passCityId={this.state.cityId}
                 cuisineList={this.state.cuisineList.cuisines}
@@ -262,7 +264,7 @@ export default class App extends Component {
               />
             </Col>
 
-            <Col id="main-content" className="d-flex" sm={8} xs={12}>
+            <Col id="main-content" className="d-flex" sm={9} xs={12}>
               {this.state.isCardOpen ? (
                 <Modal.Dialog className="w-100 mx-0 flex-fill" size="lg">
                   <Modal.Header>
@@ -368,7 +370,7 @@ export default class App extends Component {
                             >
                               <Row className="d-flex ">
                                 <Col
-                                  sm={6}
+                                  sm={4}
                                   className="pr-0 d-flex"
                                   style={{
                                     height: "12rem",
@@ -398,7 +400,7 @@ export default class App extends Component {
                                   )}
                                 </Col>
 
-                                <Col sm={6} className="p-0">
+                                <Col sm={8} className="p-0">
                                   <Card.Body>
                                     <Card.Text className="m-0">
                                       <strong>
