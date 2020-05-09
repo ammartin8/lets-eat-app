@@ -86,20 +86,20 @@ class Sidebar extends Component {
           </Container>
 
           <Accordion>
-            <Card className="text-center">
+            <Card>
               <Card.Header className="filter-card-header d-flex justify-content-center p-1">
                 <Accordion.Toggle
                   as={Button}
                   variant=""
                   eventKey="0"
                   className="p-0"
-                  style={{ height: "3em" }}
+                  style={{ height: "3em", width: "100%" }}
                 >
-                  <strong style={{fontSize: ".9em"}}>Popular Cuisines</strong>
+                  <strong style={{ fontSize: ".9em" }}>Popular Cuisines</strong>
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
-                <Card.Body className="d-flex">
+                <Card.Body className="d-flex justify-content-center">
                   <ul className="cuisine-suggestions px-0 mx-auto">
                     {this.props.cuisineList
                       .filter(function (cuisine) {
@@ -153,22 +153,22 @@ class Sidebar extends Component {
           </Accordion>
 
           <Accordion>
-            <Card className="w-100 text-center">
+            <Card>
               <Card.Header className="filter-card-header d-flex justify-content-center p-1">
                 <Accordion.Toggle
                   as={Button}
                   variant=""
                   eventKey="1"
-                  className="p-0"
-                  style={{ height: "3em" }}
+                  className="mx-auto"
+                  style={{ height: "3em", width: "100%" }}
                 >
-                  <Row>
-                    <strong style={{fontSize: ".9em"}}>Restaurant Establishments</strong>
-                  </Row>
+                  <strong style={{ fontSize: ".9em" }}>
+                    Restaurant Establishments
+                  </strong>
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
-                <Card.Body className="d-flex">
+                <Card.Body className="d-flex justify-content-center">
                   <ul className="establishment-suggestions px-0 mx-auto">
                     {this.props.establishmentList
                       .filter(function (establishments) {

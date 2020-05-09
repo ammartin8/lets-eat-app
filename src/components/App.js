@@ -117,7 +117,7 @@ export default class App extends Component {
     this.setState(
       {
         cuisineId: cuisineId,
-        results_start: 0
+        results_start: 0,
       },
       () => {
         this.fetchRestaurants();
@@ -130,7 +130,7 @@ export default class App extends Component {
     this.setState(
       {
         establishmentId: establishmentId,
-        results_start: 0
+        results_start: 0,
       },
       () => {
         this.fetchRestaurants();
@@ -254,17 +254,35 @@ export default class App extends Component {
 
         <Container className="m-0" fluid>
           <Row className="w-100">
-            <Col sm={3} className="d-none d-sm-block">
-              <Sidebar
-                passCityId={this.state.cityId}
-                cuisineList={this.state.cuisineList.cuisines}
-                establishmentList={this.state.establishmentList.establishments}
-                updateCuisineID={this.handleCuisineIdUpdate}
-                updateEstablishmentID={this.handleEstablishmentIdUpdate}
-              />
-            </Col>
-
-            <Col id="main-content" className="d-flex" sm={9} xs={12}>
+            {this.state.isCardOpen ? (
+              <Col sm={3} className="d-none">
+                {" "}
+                {/*WORK ON THIS */}
+                <Sidebar
+                  passCityId={this.state.cityId}
+                  cuisineList={this.state.cuisineList.cuisines}
+                  establishmentList={
+                    this.state.establishmentList.establishments
+                  }
+                  updateCuisineID={this.handleCuisineIdUpdate}
+                  updateEstablishmentID={this.handleEstablishmentIdUpdate}
+                  className="d-none"
+                />
+              </Col>
+            ) : (
+              <Col sm={3}>
+                <Sidebar
+                  passCityId={this.state.cityId}
+                  cuisineList={this.state.cuisineList.cuisines}
+                  establishmentList={
+                    this.state.establishmentList.establishments
+                  }
+                  updateCuisineID={this.handleCuisineIdUpdate}
+                  updateEstablishmentID={this.handleEstablishmentIdUpdate}
+                />
+              </Col>
+            )}
+            <Col id="main-content" className="d-flex" sm={9}>
               {this.state.isCardOpen ? (
                 <Modal.Dialog className="w-100 mx-0 flex-fill" size="lg">
                   <Modal.Header>
@@ -350,10 +368,12 @@ export default class App extends Component {
               ) : (
                 <>
                   <Row>
-                    <div className="w-100 d-block text-right">
-                      <p>Results: {this.state.restaurantList.results_found}</p>
-                    </div>
                     <Container className="d-block">
+                      <div className="w-100 d-block text-right">
+                        <p>
+                          Results: {this.state.restaurantList.results_found}
+                        </p>
+                      </div>
                       <ul className="px-0">
                         {/*Restaurant List*/}
                         {this.state.restaurantList.restaurants.map(
@@ -371,7 +391,7 @@ export default class App extends Component {
                               <Row className="d-flex ">
                                 <Col
                                   sm={4}
-                                  className="pr-0 d-flex"
+                                  className="d-flex"
                                   style={{
                                     height: "12rem",
                                     justifyContent: "center",
@@ -435,7 +455,10 @@ export default class App extends Component {
                         )}
                       </ul>
                       <div className="d-flex">
-                        <a href="#main-content" className="mx-auto restaurantPage">
+                        <a
+                          href="#main-content"
+                          className="mx-auto restaurantPage"
+                        >
                           <Button
                             className="mx-auto restaurantPage"
                             onClick={() => this.updateRestaurantList(-20)}
@@ -444,7 +467,10 @@ export default class App extends Component {
                             Previous
                           </Button>
                         </a>
-                        <a href="#main-content" className="mx-auto restaurantPage">
+                        <a
+                          href="#main-content"
+                          className="mx-auto restaurantPage"
+                        >
                           <Button
                             className="mx-auto restaurantPage"
                             onClick={() => this.updateRestaurantList(20)}
