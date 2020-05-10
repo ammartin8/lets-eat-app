@@ -7,7 +7,7 @@ function RestaurantList(props) {
     <Row>
       <Container className="d-block">
         <div className="w-100 d-block text-right">
-          <p>Results:{props.resultsFound}</p>
+          <p>Results: {props.restaurantList.results_found}</p>
         </div>
 
         <ul className="px-0">

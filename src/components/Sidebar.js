@@ -64,7 +64,7 @@ class Sidebar extends Component {
   render() {
     return (
       <>
-        <Container className="sticky-top pt-5">
+        <Container className="sticky-top pt-5" style={{maxWidth: "280px", minWidth: "190px"}}>
           <Container>
             <Row
               className="justify-content-left"
