@@ -21,7 +21,7 @@ function CuisineOptions(props) {
           More Cuisines
         </button>
       </li>
-      <Modal size="lg" show={show} onHide={handleClose}>
+      <Modal size="lg" show={show} onHide={handleClose} onExited={props.moreCuisineOptions}>
         <Modal.Header closeButton={handleClose}>
           <Modal.Title>List of Cuisines</Modal.Title>
         </Modal.Header>

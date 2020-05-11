@@ -21,7 +21,7 @@ function EstablishmentOptions(props) {
           More Establishments
         </button>
       </li>
-      <Modal size="lg" show={show} onHide={handleClose}>
+      <Modal size="lg" show={show} onHide={handleClose} onExited={props.moreEstablishmentOptions}>
         <Modal.Header closeButton={handleClose}>
           <Modal.Title>List of Restaurant Establishments</Modal.Title>
         </Modal.Header>

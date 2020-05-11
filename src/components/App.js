@@ -87,7 +87,9 @@ export default class App extends Component {
   }
 
   handleClose = () => {
-    this.setState({ isCardOpen: false });
+    this.setState((prevState) => {
+      return { isCardOpen: !prevState.isCardOpen };
+    });
     this.fetchRestaurants();
   };
 
@@ -105,7 +107,6 @@ export default class App extends Component {
   };
 
   handleCuisineIdUpdate = (cuisineId) => {
-    console.log(cuisineId);
     this.setState(
       {
         cuisineId: cuisineId,
@@ -118,7 +119,6 @@ export default class App extends Component {
   };
 
   handleEstablishmentIdUpdate = (establishmentId) => {
-    console.log(establishmentId);
     this.setState(
       {
         establishmentId: establishmentId,
@@ -131,7 +131,6 @@ export default class App extends Component {
   };
 
   handleResultStartReset = (resultStartNum) => {
-    console.log(resultStartNum);
     this.setState(
       {
         results_start: 0,
@@ -161,20 +160,33 @@ export default class App extends Component {
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&establishment_type=${this.state.establishmentId}&start=${this.state.results_start}&count=${this.state.results_shown}&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&establishment_type=${this.state.establishmentId}&start=${this.state.results_start}&count=${this.state.results_shown}`,
+      {
+        method: "GET",
+        headers: {
+          "user-key": config.apiKey,
+        },
+      }
     )
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         this.setState({ restaurantList: data });
       })
       .catch((error) => console.log("Uh oh! You gotta error: ", error));
   };
 
+  // Fetches restaurant list 
   fetchRestaurantsList = () => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&establishment_type=${this.state.establishmentId}&rstart=${this.state.results_start}&count=${this.state.results_shown}&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&establishment_type=${this.state.establishmentId}&rstart=${this.state.results_start}&count=${this.state.results_shown}&apikey=${config.apiKey}`,
+      {
+        method: "GET",
+        headers: {
+          "user-key": config.apiKey,
+        },
+      }
     )
       .then(this.checkStatus)
       .then((res) => res.json())
@@ -186,20 +198,28 @@ export default class App extends Component {
       .catch((error) => console.log("Uh oh! You gotta error: ", error));
   };
 
+  // Fetches additional for specific restaurant on click
   fetchRestaurantsDetails = (restaurantId) => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/restaurant?res_id=${restaurantId}&apikey=${config.apiKey}`
+      `https://developers.zomato.com/api/v2.1/restaurant?res_id=${restaurantId}&apikey=${config.apiKey}`,
+      {
+        method: "GET",
+        headers: {
+          "user-key": config.apiKey,
+        },
+      }
     )
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         this.setState({ restaurantObj: data });
         this.setState({ isCardOpen: true });
       })
       .catch((error) => console.log("Uh oh! You gotta error: ", error));
   };
 
+  // Fetches cuisine list for city
   getCuisineList = () => {
     fetch(
       `https://developers.zomato.com/api/v2.1/cuisines?city_id=${this.state.cityId}`,
@@ -256,6 +276,7 @@ export default class App extends Component {
             resultsStart={this.state.results_start}
             updateRestaurantList={this.handleRestaurantListUpdate} //updates list of restaurant by city
             updateCuisineID={this.handleCuisineIdUpdate} // updates cuisine ID selected onClick
+            updateEstablishmentID={this.handleEstablishmentIdUpdate} // updates establishment ID selected onClick
             resetResultStart={this.handleResultStartReset} // resets result start number to zero onClick
           />
         </Jumbotron>
@@ -267,14 +288,13 @@ export default class App extends Component {
                 <Col sm={3} lg={2} className="d-none">
                   {/*WORK ON THIS */}
                   <Sidebar
+                    className="d-none"
+
                     passCityId={this.state.cityId}
                     cuisineList={this.state.cuisineList.cuisines}
-                    establishmentList={
-                      this.state.establishmentList.establishments
-                    }
+                    establishmentList={this.state.establishmentList.establishments}
                     updateCuisineID={this.handleCuisineIdUpdate}
                     updateEstablishmentID={this.handleEstablishmentIdUpdate}
-                    className="d-none"
                   />
                 </Col>
 
@@ -297,9 +317,7 @@ export default class App extends Component {
                   <Sidebar
                     passCityId={this.state.cityId}
                     cuisineList={this.state.cuisineList.cuisines}
-                    establishmentList={
-                      this.state.establishmentList.establishments
-                    }
+                    establishmentList={this.state.establishmentList.establishments}
                     updateCuisineID={this.handleCuisineIdUpdate}
                     updateEstablishmentID={this.handleEstablishmentIdUpdate}
                   />
@@ -308,9 +326,9 @@ export default class App extends Component {
                 <Col
                   id="main-content"
                   className="d-flex justify-content-center"
-                  xs={12} sm={8} 
+                  xs={12}
+                  sm={8}
                 >
-                  {" "}
                   <RestaurantList
                     restaurantList={this.state.restaurantList}
                     restaurantObj={this.state.restaurantObj}

@@ -57,7 +57,7 @@ class SearchCityName extends Component {
   //HELPER FUNCTIONS
   handleValueChange = () => {
     this.setState({ query: this.search.value }, () => {
-      // call fetch method
+      // calls fetch method
       this.getCityList();
     });
   };
@@ -75,6 +75,8 @@ class SearchCityName extends Component {
         () => {
           this.props.updateRestaurantList(this.state.cityId);
           this.props.resetResultStart();
+          this.props.updateCuisineID("");
+          this.props.updateEstablishmentID("");
         }
       );
     } else {
@@ -93,9 +95,10 @@ class SearchCityName extends Component {
       () => {
         this.props.updateRestaurantList(this.state.cityId);
         this.props.resetResultStart();
+        this.props.updateCuisineID("");
+        this.props.updateEstablishmentID("");
       }
     );
-    console.log(cityId);
   };
 
   render() {
