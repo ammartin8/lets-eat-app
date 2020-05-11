@@ -56,7 +56,8 @@ function RestaurantList(props) {
                     </Card.Text>
                     <Card.Text className="m-0">
                       <strong>Rating</strong>:{" "}
-                      {restaurant.restaurant.user_rating.aggregate_rating}
+                      {restaurant.restaurant.user_rating.aggregate_rating} (
+                      {restaurant.restaurant.all_reviews_count})
                     </Card.Text>
                     <div className="restaurant-general-info">
                       <Card.Text className="d-none d-sm-block">
@@ -65,7 +66,9 @@ function RestaurantList(props) {
                       </Card.Text>
                       <Card.Text className="d-none d-sm-block">
                         <strong>Price Range</strong>:{" "}
-                        {restaurant.restaurant.price_range}
+                        {props.generateCostLevel(
+                          restaurant.restaurant.price_range
+                        )}
                       </Card.Text>
                       <Card.Text>{restaurant.restaurant.cuisines}</Card.Text>
                     </div>
@@ -95,7 +98,8 @@ function RestaurantList(props) {
             <a href="#main-content" className="mx-auto restaurantPage">
               <Button
                 className={
-                 props.resultsShown < 20 || props.resultsFound === props.resultsShown
+                  props.resultsShown < 20 ||
+                  props.resultsFound === props.resultsShown
                     ? ["d-none"]
                     : ["mx-auto"] + " " + ["restaurantPage"]
                 }

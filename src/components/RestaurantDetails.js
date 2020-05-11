@@ -33,7 +33,7 @@ function RestaurantDetails(props) {
 
       <Modal.Body>
         <Row className="mx-0">
-          <Col className="px-2">
+          <Col className="px-2" sm={6}>
             <Row className="mx-0">
               <Modal.Title>{props.restaurantObj.name}</Modal.Title>
             </Row>
@@ -56,10 +56,12 @@ function RestaurantDetails(props) {
               </p>
             </Row>
           </Col>
-          <Col className="px-2">
+          <Col className="px-2" sm={6}>
             <Row className="mx-0">
               <p>
                 <strong>{"Rating: "}</strong>
+                {props.restaurantObj.user_rating.aggregate_rating} (
+                {props.restaurantObj.all_reviews_count})
               </p>
             </Row>
             <Row className="mx-0">
@@ -69,9 +71,20 @@ function RestaurantDetails(props) {
             </Row>
             <Row className="mx-0">
               <p>
-                <strong>{"Currency: "}</strong>
-              </p>{" "}
-              {props.restaurantObj.currency}
+                <strong>Currency:</strong> {props.restaurantObj.currency}
+              </p>
+            </Row>
+            <Row className="mx-0">
+              <p>
+                <strong>Highlights:</strong>
+                {props.restaurantObj.highlights.map((features) => {
+                  return (
+                    <>
+                      <li key={features.index}> {features}</li>
+                    </>
+                  );
+                })}
+              </p>
             </Row>
           </Col>
         </Row>

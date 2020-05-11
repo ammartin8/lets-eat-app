@@ -142,6 +142,22 @@ export default class App extends Component {
     );
   };
 
+  generateCostLevel = (priceRange) => {
+    if (priceRange === 1) {
+      return "$";
+    } else if (priceRange === 2) {
+      return "$$";
+    } else if (priceRange === 3) {
+      return "$$$";
+    } else if (priceRange === 4) {
+      return "$$$$";
+    } else if (priceRange === 5) {
+      return "$$$$$";
+    } else {
+      return "";
+    }
+  };
+
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
@@ -177,7 +193,7 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         this.setState({ restaurantObj: data });
         this.setState({ isCardOpen: true });
       })
@@ -245,7 +261,7 @@ export default class App extends Component {
         </Jumbotron>
 
         <Container className="m-0 justify-content-center d-flex px-4" fluid>
-          <Row className="w-100">
+          <Row className="w-100 justify-content-center">
             {this.state.isCardOpen ? (
               <>
                 <Col sm={3} lg={2} className="d-none">
@@ -265,7 +281,8 @@ export default class App extends Component {
                 <Col
                   id="main-content"
                   className="d-flex justify-content-center"
-                  sm={12} lg={10}
+                  sm={12}
+                  lg={10}
                 >
                   <RestaurantDetails
                     restaurantObj={this.state.restaurantObj}
@@ -301,6 +318,8 @@ export default class App extends Component {
                     resultsStart={this.state.restaurantList.results_start}
                     resultsFound={this.state.restaurantList.results_found}
                     resultsShown={this.state.restaurantList.results_shown}
+                    priceRange={this.state.restaurantObj.price_range}
+                    generateCostLevel={this.generateCostLevel}
                   />
                 </Col>
               </>
