@@ -35,6 +35,7 @@ class Sidebar extends Component {
     if (establishmentId !== "") {
       this.setState({ establishmentId: establishmentId }, () => {
         this.props.updateEstablishmentID(this.state.establishmentId);
+
       });
       this.setState({ filter2Clicked: true });
     } else {
@@ -145,6 +146,7 @@ class Sidebar extends Component {
                       moreCuisineOptions={this.moreCuisineOptions}
                       handleFilterGroup1={this.handleFilterGroup1}
                       cuisineList={this.props.cuisineList}
+                      moreCuisineOptionsState={this.state.moreCuisineOptions}
                     />
                   </ul>
                 </Card.Body>

@@ -308,8 +308,9 @@ export default class App extends Component {
                 <Col
                   id="main-content"
                   className="d-flex justify-content-center"
-                  sm={8}
+                  xs={12} sm={8} 
                 >
+                  {" "}
                   <RestaurantList
                     restaurantList={this.state.restaurantList}
                     restaurantObj={this.state.restaurantObj}

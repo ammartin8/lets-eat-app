@@ -22,7 +22,7 @@ function CuisineOptions(props) {
         </button>
       </li>
       <Modal size="lg" show={show} onHide={handleClose}>
-        <Modal.Header>
+        <Modal.Header closeButton={handleClose}>
           <Modal.Title>List of Cuisines</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -38,6 +38,7 @@ function CuisineOptions(props) {
                     className="cuisine-option-button"
                     onClick={() => {
                       props.handleFilterGroup1(cuisine.cuisine.cuisine_id);
+                      handleClose();
                     }}
                   >
                     {cuisine.cuisine.cuisine_name}

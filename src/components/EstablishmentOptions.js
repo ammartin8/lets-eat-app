@@ -22,7 +22,7 @@ function EstablishmentOptions(props) {
         </button>
       </li>
       <Modal size="lg" show={show} onHide={handleClose}>
-        <Modal.Header>
+        <Modal.Header closeButton={handleClose}>
           <Modal.Title>List of Restaurant Establishments</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -36,8 +36,10 @@ function EstablishmentOptions(props) {
                 <li className="cuisine-item cuisineModalItem">
                   <button
                     className="cuisine-option-button"
-                    onClick={() =>
-                      props.handleFilterGroup2(establishments.establishment.id)
+                    onClick={() => {
+                      props.handleFilterGroup2(establishments.establishment.id);
+                      handleClose();
+                    }
                     }
                   >
                     {establishments.establishment.name}
