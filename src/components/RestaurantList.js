@@ -75,25 +75,37 @@ function RestaurantList(props) {
             </Card>
           ))}
         </ul>
-        <div className="d-flex">
-          <a href="#main-content" className="mx-auto restaurantPage">
-            <Button
-              className="mx-auto restaurantPage"
-              onClick={() => props.updateRestaurantList(-20)}
-              variant="success"
-            >
-              Previous
-            </Button>
-          </a>
-          <a href="#main-content" className="mx-auto restaurantPage">
-            <Button
-              className="mx-auto restaurantPage"
-              onClick={() => props.updateRestaurantList(20)}
-              variant="success"
-            >
-              Next
-            </Button>
-          </a>
+        <div className="d-flex justify-content-center">
+          <div>
+            <a href="#main-content" className="mx-auto restaurantPage">
+              <Button
+                className={
+                  props.resultsStart === 0
+                    ? ["d-none"]
+                    : ["mx-auto"] + " " + ["restaurantPage"]
+                }
+                onClick={() => props.updateRestaurantList(-20)}
+                variant="success"
+              >
+                Previous
+              </Button>
+            </a>
+          </div>
+          <div>
+            <a href="#main-content" className="mx-auto restaurantPage">
+              <Button
+                className={
+                 props.resultsShown < 20 || props.resultsFound === props.resultsShown
+                    ? ["d-none"]
+                    : ["mx-auto"] + " " + ["restaurantPage"]
+                }
+                onClick={() => props.updateRestaurantList(20)}
+                variant="success"
+              >
+                Next
+              </Button>
+            </a>
+          </div>
         </div>
       </Container>
     </Row>

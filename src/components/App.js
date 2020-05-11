@@ -244,11 +244,11 @@ export default class App extends Component {
           />
         </Jumbotron>
 
-        <Container className="m-0 justify-content-center d-flex" fluid>
+        <Container className="m-0 justify-content-center d-flex px-4" fluid>
           <Row className="w-100">
             {this.state.isCardOpen ? (
               <>
-                <Col sm={3} className="d-none">
+                <Col sm={3} lg={2} className="d-none">
                   {/*WORK ON THIS */}
                   <Sidebar
                     passCityId={this.state.cityId}
@@ -265,7 +265,7 @@ export default class App extends Component {
                 <Col
                   id="main-content"
                   className="d-flex justify-content-center"
-                  sm={12}
+                  sm={12} lg={10}
                 >
                   <RestaurantDetails
                     restaurantObj={this.state.restaurantObj}
@@ -298,6 +298,9 @@ export default class App extends Component {
                     restaurantObj={this.state.restaurantObj}
                     fetchRestaurantsDetails={this.fetchRestaurantsDetails}
                     updateRestaurantList={this.updateRestaurantList}
+                    resultsStart={this.state.restaurantList.results_start}
+                    resultsFound={this.state.restaurantList.results_found}
+                    resultsShown={this.state.restaurantList.results_shown}
                   />
                 </Col>
               </>
