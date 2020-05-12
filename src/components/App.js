@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-// import Header from "./Header";
+import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
-import Gallery from "./Gallery";
-import SearchCityName from "./SearchCityName";
 import RestaurantDetails from "./RestaurantDetails";
 import RestaurantList from "./RestaurantList";
 
 // Importing React Bootstrap Elements
-import { Container, Col, Row, Jumbotron } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 
 const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`,
@@ -177,7 +175,7 @@ export default class App extends Component {
       .catch((error) => console.log("Uh oh! You gotta error: ", error));
   };
 
-  // Fetches restaurant list 
+  // Fetches restaurant list
   fetchRestaurantsList = () => {
     fetch(
       `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisineId}&establishment_type=${this.state.establishmentId}&rstart=${this.state.results_start}&count=${this.state.results_shown}&apikey=${config.apiKey}`,
@@ -262,24 +260,15 @@ export default class App extends Component {
   render() {
     return (
       <>
-        <Jumbotron
-          id="main-header"
-          className="text-center header-background"
-          style={{ height: "75vh" }}
-        >
-          <h1 className="header">Let's Eat</h1>
-          <p className="subtitle">Discover Your New Favorite Restaurant</p>
-
-          <SearchCityName
-            cityId={this.state.cityId}
-            cuisineId={this.state.cuisineId}
-            resultsStart={this.state.results_start}
-            updateRestaurantList={this.handleRestaurantListUpdate} //updates list of restaurant by city
-            updateCuisineID={this.handleCuisineIdUpdate} // updates cuisine ID selected onClick
-            updateEstablishmentID={this.handleEstablishmentIdUpdate} // updates establishment ID selected onClick
-            resetResultStart={this.handleResultStartReset} // resets result start number to zero onClick
-          />
-        </Jumbotron>
+        <Header
+          cityId={this.state.cityId}
+          cuisineId={this.state.cuisineId}
+          resultsStart={this.state.results_start}
+          updateRestaurantList={this.handleRestaurantListUpdate} //updates list of restaurant by city
+          updateCuisineID={this.handleCuisineIdUpdate} // updates cuisine ID selected onClick
+          updateEstablishmentID={this.handleEstablishmentIdUpdate} // updates establishment ID selected onClick
+          resetResultStart={this.handleResultStartReset} // resets result start number to zero onClick
+        />
 
         <Container className="m-0 justify-content-center d-flex px-4" fluid>
           <Row className="w-100 justify-content-center">
@@ -289,10 +278,11 @@ export default class App extends Component {
                   {/*WORK ON THIS */}
                   <Sidebar
                     className="d-none"
-
                     passCityId={this.state.cityId}
                     cuisineList={this.state.cuisineList.cuisines}
-                    establishmentList={this.state.establishmentList.establishments}
+                    establishmentList={
+                      this.state.establishmentList.establishments
+                    }
                     updateCuisineID={this.handleCuisineIdUpdate}
                     updateEstablishmentID={this.handleEstablishmentIdUpdate}
                   />
@@ -317,7 +307,9 @@ export default class App extends Component {
                   <Sidebar
                     passCityId={this.state.cityId}
                     cuisineList={this.state.cuisineList.cuisines}
-                    establishmentList={this.state.establishmentList.establishments}
+                    establishmentList={
+                      this.state.establishmentList.establishments
+                    }
                     updateCuisineID={this.handleCuisineIdUpdate}
                     updateEstablishmentID={this.handleEstablishmentIdUpdate}
                   />
@@ -345,7 +337,6 @@ export default class App extends Component {
             )}
           </Row>
         </Container>
-        <Gallery title="Here will Lie a Gallery" />
         <Footer title="Top Cities to Visit" />
       </>
     );

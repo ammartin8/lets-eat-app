@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import CitySuggestions from "./CitySuggestions";
+import CitySuggestions from "./CitySuggestions";
 
 import {
   Row,
@@ -120,41 +120,30 @@ class SearchCityName extends Component {
                   placeholder="Enter City Name"
                 />
                 <InputGroup.Append>
-
-                    <Button
-                      type="submit"
-                      variant="success"
-                      onClick={this.handleSubmit}
-                    >
-                      Explore
-                    </Button>
+                  <Button
+                    type="submit"
+                    variant="success"
+                    onClick={this.handleSubmit}
+                  >
+                    Explore
+                  </Button>
                 </InputGroup.Append>
               </InputGroup>
             </Form>
           </Row>
 
           <Row>
-            {/* <CitySuggestions
-              results={this.state.cityObj.location_suggestions}
-              handleClick={this.handleClick}
-            /> */}
             {this.state.query !== "" ? (
-              <ul className="city-suggestions">
-                {" "}
-                {/*Need to add a conditional where display switches to none onClick or onSubmit*/}
-                {this.state.cityObj.location_suggestions.map((cities) => (
-                  <li key={cities.id} altid={cities.id}>
-                      <button
-                        className="city-option-button"
-                        onClick={this.handleClick(cities.id)}
-                      >
-                        {cities.name}
-                      </button>
-                  </li>
-                ))}
-              </ul>
+              <CitySuggestions
+                results={this.state.cityObj.location_suggestions}
+                handleClick={this.handleClick}
+              />
             ) : (
-              <ul className="d-none"></ul>
+              <CitySuggestions
+                className="d-none"
+                results={this.state.cityObj.location_suggestions}
+                handleClick={this.handleClick}
+              />
             )}
           </Row>
         </Container>

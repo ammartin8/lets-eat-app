@@ -123,7 +123,6 @@ class Sidebar extends Component {
                         >
                           <li className="cuisine-item">
                             <button
-                              //Work on this
                               className={["cuisine-option-button"]}
                               onClick={() => {
                                 this.handleFilterGroup1(
