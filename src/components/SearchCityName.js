@@ -133,18 +133,11 @@ class SearchCityName extends Component {
           </Row>
 
           <Row>
-            {this.state.query !== "" ? (
-              <CitySuggestions
-                results={this.state.cityObj.location_suggestions}
-                handleClick={this.handleClick}
-              />
-            ) : (
-              <CitySuggestions
-                className="d-none"
-                results={this.state.cityObj.location_suggestions}
-                handleClick={this.handleClick}
-              />
-            )}
+            <CitySuggestions
+              results={this.state.cityObj.location_suggestions}
+              handleClick={this.handleClick}
+              query={this.state.query}
+            />
           </Row>
         </Container>
       </>

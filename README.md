@@ -56,8 +56,10 @@ The following technologies are used to build this application:
 ## Requirements to Run Application
 
 * Make a pull request or download the files from the GitHub respository.
+* Create an .env file and save it in the lets-eat-restaurant-app main folder.
+* In the .env file type (without the quotation marks) "REACT_APP_API_KEY =" and enter your actual API KEY then save.
 * Be sure to have npm or yarn install on your computer.
   * Once installed\:
-    * Open your terminal 
-    * Change directory or cd into the folder containing the files 
+    * Open your terminal
+    * Change directory or cd into the folder containing the files.
     * `npm start` to start the application.

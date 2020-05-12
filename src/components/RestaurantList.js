@@ -17,7 +17,7 @@ function RestaurantList(props) {
               <Card
                 className="restaurant-card my-2"
                 key={restaurant.restaurant.id}
-                restaurantId={restaurant.restaurant.id}
+                restaurantid={restaurant.restaurant.id}
                 onClick={() =>
                   props.fetchRestaurantsDetails(restaurant.restaurant.id)
                 }

@@ -169,7 +169,7 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         this.setState({ restaurantList: data });
       })
       .catch((error) => console.log("Uh oh! You gotta error: ", error));
@@ -197,9 +197,9 @@ export default class App extends Component {
   };
 
   // Fetches additional for specific restaurant on click
-  fetchRestaurantsDetails = (restaurantId) => {
+  fetchRestaurantsDetails = (restaurantid) => {
     fetch(
-      `https://developers.zomato.com/api/v2.1/restaurant?res_id=${restaurantId}&apikey=${config.apiKey}`,
+      `https://developers.zomato.com/api/v2.1/restaurant?res_id=${restaurantid}`,
       {
         method: "GET",
         headers: {
@@ -275,7 +275,6 @@ export default class App extends Component {
             {this.state.isCardOpen ? (
               <>
                 <Col sm={3} lg={2} className="d-none">
-                  {/*WORK ON THIS */}
                   <Sidebar
                     className="d-none"
                     passCityId={this.state.cityId}
