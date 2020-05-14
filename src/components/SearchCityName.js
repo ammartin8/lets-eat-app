@@ -65,7 +65,7 @@ class SearchCityName extends Component {
   // Upon onSubmit automatically assigns the first listed suggestion's city Id number if user doesn't select an option
   handleSubmit = (input) => {
     input.preventDefault();
-    if (this.state.query.length >= 2) {
+    if (this.state.query.length >= 2 && this.state.cityObj.location_suggestions[0] !== undefined) {
       this.setState(
         {
           cityId: this.state.cityObj.location_suggestions[0].id,
@@ -79,8 +79,10 @@ class SearchCityName extends Component {
           this.props.updateEstablishmentID("");
         }
       );
+    } else if (this.state.cityObj.location_suggestions[0] === undefined) {
+      return false;
     } else {
-      console.log(""); //replace with tooltip
+      return false;
     }
   };
 
@@ -124,7 +126,7 @@ class SearchCityName extends Component {
                     type="submit"
                     variant="success"
                     onClick={this.handleSubmit}
-                    className={(this.state.query.length < 2 ? ["disabled"] : ["active"])}
+                    className={(this.state.query.length < 2 ? ["disabled"] : [""])}
                   >
                     Explore
                   </Button>

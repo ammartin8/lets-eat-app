@@ -19,7 +19,6 @@ function CitySuggestions(props) {
       ) : (
         <ul className="d-none"></ul>
       )}
-      ;
     </>
   );
 }
