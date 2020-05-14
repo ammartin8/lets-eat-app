@@ -39,34 +39,34 @@ function RestaurantDetails(props) {
             </Row>
             <Row className="mx-0">
               <p>
-                <strong>{"Address: "}</strong>
-                {props.restaurantObj.location.address}
+                <strong>Address:</strong> {props.restaurantObj.location.address}
               </p>
             </Row>
             <Row className="mx-0">
               <p>
-                <strong>{"Phone Number: "}</strong>
+                <strong>Phone Number:</strong>{" "}
                 {props.restaurantObj.phone_numbers}
               </p>
             </Row>
             <Row className="mx-0">
               <p>
-                <strong>{"Hours: "}</strong>
-                {props.restaurantObj.timings}
+                <strong>Hours:</strong> {props.restaurantObj.timings}
               </p>
             </Row>
           </Col>
           <Col className="px-2" sm={6}>
             <Row className="mx-0">
               <p>
-                <strong>{"Rating: "}</strong>
+                <strong>Rating:</strong>{" "}
                 {props.restaurantObj.user_rating.aggregate_rating} (
                 {props.restaurantObj.all_reviews_count})
               </p>
             </Row>
             <Row className="mx-0">
               <p>
-                <strong>{"Cost Range: "}</strong>
+                <strong>Cost for Two:</strong>{" "}
+                {props.restaurantObj.average_cost_for_two}{" "}
+                {props.restaurantObj.currency}
               </p>
             </Row>
             <Row className="mx-0">
@@ -77,10 +77,10 @@ function RestaurantDetails(props) {
             <Row className="mx-0">
               <p>
                 <strong>Highlights:</strong>
-                {props.restaurantObj.highlights.map((features) => {
+                {props.restaurantObj.highlights.map((features, index) => {
                   return (
                     <>
-                      <li key={features.index}> {features}</li>
+                      <li key={index}>{features}</li>
                     </>
                   );
                 })}

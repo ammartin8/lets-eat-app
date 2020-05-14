@@ -12,11 +12,6 @@ const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`,
 };
 
-/*TODOS:
-1. Fetch data from Zomato API
-2. Map list of restaurants and show in DOM
-3. Filter list
-*/
 
 export default class App extends Component {
   state = {
@@ -210,7 +205,7 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         this.setState({ restaurantObj: data });
         this.setState({ isCardOpen: true });
       })

@@ -6,8 +6,8 @@ import {
   Container,
   InputGroup,
   FormControl,
-  Button,
   Form,
+  Button,
 } from "react-bootstrap";
 
 const config = {
@@ -80,7 +80,7 @@ class SearchCityName extends Component {
         }
       );
     } else {
-      console.log("Nope!!"); //replace with tooltip
+      console.log(""); //replace with tooltip
     }
   };
 
@@ -124,6 +124,7 @@ class SearchCityName extends Component {
                     type="submit"
                     variant="success"
                     onClick={this.handleSubmit}
+                    className={(this.state.query.length < 2 ? ["disabled"] : ["active"])}
                   >
                     Explore
                   </Button>
