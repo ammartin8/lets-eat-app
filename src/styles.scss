@@ -213,6 +213,10 @@ button.city-option-button:hover {
   padding-bottom: .8em;
 }
 
+.activeSelection {
+  background-color: darkgoldenrod !important;
+}
+
 .cuisineModalItem {
   display: inline-flex;
   margin: 0 2.0em;

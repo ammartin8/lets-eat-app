@@ -25,13 +25,15 @@ const Footer = props => {
           <Row>
             <strong>{props.title}</strong>
           </Row>
-          <Row>New York</Row>
-          <Row>San Francisco</Row>
-          <Row>Miami</Row>
-          <Row>Amesterdam</Row>
-          <Row>London</Row>
-          <Row>Tokyo</Row>
-          <Row>Addis Abba</Row>
+          <ul>
+          <li>New York</li>
+          <li>San Francisco</li>
+          <li>Miami</li>
+          <li>Amesterdam</li>
+          <li>London</li>
+          <li>Los Angeles</li>
+          <li>Houston</li>
+          </ul>
         </Col>
         <Col className="cuisine-container" sm={3}>
           <Row>

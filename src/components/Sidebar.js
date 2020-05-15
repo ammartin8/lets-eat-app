@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import CuisineOptions from "./CuisineOptions";
 import EstablishmentOptions from "./EstablishmentOptions";
-// import styles from "../styles.scss"
 
 // React Boostrap Components
 import { Row, Accordion, Card, Button, Container } from "react-bootstrap";
@@ -14,14 +13,25 @@ class Sidebar extends Component {
     filter2Clicked: false,
     moreCuisineOptions: false,
     moreEstablishmentOptions: false,
+    selectedEstablishmentId: "",
+    isEstablishmentSelected: false,
+    selectedCuisineId: "",
+    isCuisineSelected: false,
   };
 
   // HELPER FUNCTIONS
   handleFilterGroup1 = (cuisineId) => {
-    if (cuisineId !== "") {
-      this.setState({ cuisineId: cuisineId }, () => {
-        this.props.updateCuisineID(this.state.cuisineId);
-      });
+    if (cuisineId !== "" || cuisineId !== undefined) {
+      this.setState(
+        {
+          cuisineId: cuisineId,
+          isCuisineSelected: true,
+          selectedCuisineId: cuisineId,
+        },
+        () => {
+          this.props.updateCuisineID(this.state.cuisineId);
+        }
+      );
       this.setState({ filter1Clicked: true });
     } else {
       this.setState({ cuisineId: cuisineId }, () => {
@@ -33,15 +43,28 @@ class Sidebar extends Component {
 
   handleFilterGroup2 = (establishmentId) => {
     if (establishmentId !== "") {
-      this.setState({ establishmentId: establishmentId }, () => {
-        this.props.updateEstablishmentID(this.state.establishmentId);
-
-      });
+      this.setState(
+        {
+          establishmentId: establishmentId,
+          isEstablishmentSelected: true,
+          selectedEstablishmentId: establishmentId,
+        },
+        () => {
+          this.props.updateEstablishmentID(this.state.establishmentId);
+        }
+      );
       this.setState({ filter2Clicked: true });
     } else {
-      this.setState({ establishmentId: establishmentId }, () => {
-        this.props.updateEstablishmentID(this.state.establishmentId);
-      });
+      this.setState(
+        {
+          establishmentId: establishmentId,
+          isEstablishmentSelected: false,
+          selectedEstablishmentId: establishmentId,
+        },
+        () => {
+          this.props.updateEstablishmentID(this.state.establishmentId);
+        }
+      );
       this.setState({ filter2Clicked: false });
     }
   };
@@ -62,10 +85,21 @@ class Sidebar extends Component {
     }
   };
 
+  togglefilterHighlight = (filterId) => {
+    if (filterId === this.state.establishmentId) {
+      this.isEstablishmentSelected = !this.isEstablishmentSelected;
+    } else if (filterId === this.state.cuisineId) {
+      this.isCuisineSelected = !this.isCuisineSelected;
+    }
+  };
+
   render() {
     return (
       <>
-        <Container className="sticky-top pt-4" style={{maxWidth: "280px", minWidth: "190px"}}>
+        <Container
+          className="sticky-top pt-4"
+          style={{ maxWidth: "280px", minWidth: "190px" }}
+        >
           <Container>
             <Row
               className="justify-content-left"
@@ -77,6 +111,8 @@ class Sidebar extends Component {
               <button
                 className="reset-options px-auto mx-0"
                 onClick={() => {
+                  this.selectedCuisineId = 0;
+                  this.selectedEstablishmentId = 0;
                   this.handleFilterGroup1("");
                   this.handleFilterGroup2("");
                 }}
@@ -123,8 +159,18 @@ class Sidebar extends Component {
                         >
                           <li className="cuisine-item">
                             <button
-                              className={["cuisine-option-button"]}
+                              className={`cuisine-option-button ${
+                                this.selectedCuisineId ===
+                                cuisine.cuisine.cuisine_id
+                                  ? "activeSelection"
+                                  : ""
+                              }`}
                               onClick={() => {
+                                this.selectedCuisineId =
+                                  cuisine.cuisine.cuisine_id;
+                                this.togglefilterHighlight(
+                                  cuisine.cuisine.cuisine_id
+                                );
                                 this.handleFilterGroup1(
                                   cuisine.cuisine.cuisine_id
                                 );
@@ -133,8 +179,16 @@ class Sidebar extends Component {
                               {cuisine.cuisine.cuisine_name}
                             </button>
                             <button
-                              className="cuisine-option-clear"
-                              onClick={() => this.handleFilterGroup1("")}
+                              className={`cuisine-option-clear ${
+                                this.selectedCuisineId ===
+                                cuisine.cuisine.cuisine_id
+                                  ? "activeSelection"
+                                  : ""
+                              }`}
+                              onClick={() => {
+                                this.selectedCuisineId = 0;
+                                this.handleFilterGroup1("");
+                              }}
                             >
                               X
                             </button>
@@ -192,8 +246,18 @@ class Sidebar extends Component {
                         >
                           <li className="cuisine-item">
                             <button
-                              className="cuisine-option-button"
+                              className={`cuisine-option-button ${
+                                this.selectedEstablishmentId ===
+                                establishments.establishment.id
+                                  ? "activeSelection"
+                                  : ""
+                              }`}
                               onClick={() => {
+                                this.selectedEstablishmentId =
+                                  establishments.establishment.id;
+                                this.togglefilterHighlight(
+                                  establishments.establishment.id
+                                );
                                 this.handleFilterGroup2(
                                   establishments.establishment.id
                                 );
@@ -202,8 +266,16 @@ class Sidebar extends Component {
                               {establishments.establishment.name}
                             </button>
                             <button
-                              className="cuisine-option-clear"
-                              onClick={() => this.handleFilterGroup2("")}
+                              className={`cuisine-option-clear ${
+                                this.selectedEstablishmentId ===
+                                establishments.establishment.id
+                                  ? "activeSelection"
+                                  : ""
+                              }`}
+                              onClick={() => {
+                                this.selectedEstablishmentId = 0;
+                                this.handleFilterGroup2("");
+                              }}
                             >
                               x
                             </button>

@@ -12,7 +12,6 @@ const config = {
   apiKey: `${process.env.REACT_APP_API_KEY}`,
 };
 
-
 export default class App extends Component {
   state = {
     results_shown: 20,
@@ -331,7 +330,11 @@ export default class App extends Component {
             )}
           </Row>
         </Container>
-        <Footer title="Top Cities to Visit" />
+        <Footer
+          title="Top Cities to Visit"
+          passCityId={this.state.cityId}
+          fetchRestaurantsList={this.fetchRestaurantsList}
+        />
       </>
     );
   }
