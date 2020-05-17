@@ -42,7 +42,7 @@ export default class App extends Component {
     cuisineList: {
       cuisines: [],
     },
-    cityId: "33",
+    cityId: "280",
     cuisineId: "",
     isCardOpen: false,
     establishmentList: {
@@ -331,7 +331,8 @@ export default class App extends Component {
           </Row>
         </Container>
         <Footer
-          title="Top Cities to Visit"
+          cityTitle="Popular Cities"
+          cuisineTitle="Popular Cuisines"
           passCityId={this.state.cityId}
           fetchRestaurantsList={this.fetchRestaurantsList}
         />

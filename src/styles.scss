@@ -102,7 +102,6 @@ button.city-option-button:hover {
   background-color: tomato;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
 
 .lower-footer-container {
@@ -110,8 +109,7 @@ button.city-option-button:hover {
 }
 
 .top-cities,
-.cuisine-container,
-.illustration-container {
+.cuisine-container{
   padding: 1.5em 3em;
 }
 
@@ -128,7 +126,7 @@ button.city-option-button:hover {
   display: flex;
   justify-content: center;
   text-align: center;
-  // width: 100%;
+  flex-wrap: nowrap;
   padding-top: 4em;
   margin: 0 auto;
 }
@@ -214,7 +212,7 @@ button.city-option-button:hover {
 }
 
 .activeSelection {
-  background-color: darkgoldenrod !important;
+  background-color: rgb(65, 63, 60) !important;
 }
 
 .cuisineModalItem {
@@ -225,4 +223,5 @@ button.city-option-button:hover {
 .modalList {
   padding: 0;
 }
+
 

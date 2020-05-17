@@ -63,11 +63,20 @@ function RestaurantDetails(props) {
               </p>
             </Row>
             <Row className="mx-0">
-              <p>
-                <strong>Cost for Two:</strong>{" "}
-                {props.restaurantObj.average_cost_for_two}{" "}
-                {props.restaurantObj.currency}
-              </p>
+              <div>
+                <strong>Average Cost for Two:</strong>{" "}
+                {props.restaurantObj.currency === "$" ? (
+                  <p>
+                    {props.restaurantObj.currency}{" "}
+                    {props.restaurantObj.average_cost_for_two}
+                  </p>
+                ) : (
+                  <p>
+                    {props.restaurantObj.average_cost_for_two}{" "}
+                    {props.restaurantObj.currency}
+                  </p>
+                )}
+              </div>
             </Row>
             <Row className="mx-0">
               <p>
@@ -84,6 +93,11 @@ function RestaurantDetails(props) {
                     </>
                   );
                 })}
+              </p>
+            </Row>
+            <Row className="mx-0">
+              <p>
+                <strong><a href={props.restaurantObj.menu_url} style={{textDecoration: "none", color:"tomato"}}>See Menu</a></strong> 
               </p>
             </Row>
           </Col>
