@@ -11,7 +11,7 @@ function Header(props) {
         className="text-center header-background"
         style={{ height: "75vh" }}
       >
-        <h1 className="header">Let's Eat</h1>
+        <h1 className="header">Let's Eat!</h1>
         <p className="subtitle">Discover Your New Favorite Restaurant</p>
 
         <SearchCityName

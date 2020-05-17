@@ -26,35 +26,94 @@ const Footer = (props) => {
           style={{ flexDirection: "column" }}
           xs={5}
         >
-          <ul className="p-0">
+          <ul className="p-0 footer-city-list">
+            <strong>{props.cityTitle}</strong>
             <li>
-              <strong>{props.cityTitle}</strong>
+              <a
+                href="#main-header"
+                onClick={() => {
+                  props.handleRestaurantListUpdate(280);
+                }}
+              >
+                New York
+              </a>
             </li>
-            <li>New York</li>
-            <li>San Francisco</li>
-            <li>Miami</li>
-            <li>Amesterdam</li>
-            <li>London</li>
-            <li>Los Angeles</li>
-            <li>Houston</li>
+            <li>
+              <a
+                href="#main-header"
+                onClick={() => {
+                  props.handleRestaurantListUpdate(306);
+                }}
+              >
+                San Francisco
+              </a>
+            </li>
+            <li>
+              <a
+                href="#main-header"
+                onClick={() => {
+                  props.handleRestaurantListUpdate(291);
+                }}
+              >
+                Miami
+              </a>
+            </li>
+            <li>
+              <a
+                href="#main-header"
+                onClick={() => {
+                  props.handleRestaurantListUpdate(288);
+                }}
+              >
+                Atlanta
+              </a>
+            </li>
+            <li>
+              <a
+                href="#main-header"
+                onClick={() => {
+                  props.handleRestaurantListUpdate(61);
+                }}
+              >
+                London
+              </a>
+            </li>
+            <li>
+              <a
+                href="#main-header"
+                onClick={() => {
+                  props.handleRestaurantListUpdate(281);
+                }}
+              >
+                Los Angeles
+              </a>
+            </li>
+            <li>
+              <a
+                href="#main-header"
+                onClick={() => {
+                  props.handleRestaurantListUpdate(52);
+                }}
+              >
+                Singapore
+              </a>
+            </li>
           </ul>
         </Col>
         <Col
-          className="cuisine-container d-flex justify-content-center"
+          className="cuisine-container d-flex"
           style={{ flexDirection: "column" }}
           xs={5}
         >
-          <ul className="p-0">
-            <li>
-              <strong>{props.cuisineTitle}</strong>
-            </li>
-            <li>African</li>
-            <li>Asian</li>
-            <li>American</li>
-            <li>Mexican</li>
-            <li>Italian</li>
-            <li>Mediterranean</li>
-            <li>Vegetarian</li>
+          <ul className="p-0 footer-city-list">
+            <strong>{props.cuisineTitle}</strong>
+            <li><a href="#main-header" onClick={()=> {props.handleCuisineIdUpdate(152)}}>African</a></li>
+            <li><a href="#main-header" onClick={()=> {props.handleCuisineIdUpdate(3)}}>Asian</a></li>
+            <li><a href="#main-header" onClick={()=> {props.handleCuisineIdUpdate(1)}}>American</a></li>
+            <li><a href="#main-header" onClick={()=> {props.handleCuisineIdUpdate(73)}}>Mexican</a></li>
+            <li><a href="#main-header" onClick={()=> {props.handleCuisineIdUpdate(55)}}>Italian</a></li>
+            <li><a href="#main-header" onClick={()=> {props.handleCuisineIdUpdate(70)}}>Mediterranean</a></li>
+            <li><a href="#main-header" onClick={()=> {props.handleCuisineIdUpdate(308)}}>Vegetarian</a></li>
           </ul>
         </Col>
 
@@ -92,7 +151,7 @@ const Footer = (props) => {
         </Row>
         <Row sm={12}>
           <span className="mx-auto py-3">
-            &copy; Copyright 2020. All Rights Reserved
+            &copy; Copyright 2020 | All Rights Reserved
           </span>
         </Row>
       </Container>

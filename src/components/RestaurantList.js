@@ -67,7 +67,7 @@ function RestaurantList(props) {
                           {restaurant.restaurant.location.address}
                         </Card.Text>
                         <Card.Text className="d-none d-sm-block">
-                          <strong>Price Range</strong>:{" "}
+                          <strong>Price</strong>:{" "}
                           {props.generateCostLevel(
                             restaurant.restaurant.price_range
                           )}

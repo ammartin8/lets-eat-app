@@ -99,6 +99,7 @@ export default class App extends Component {
   };
 
   handleCuisineIdUpdate = (cuisineId) => {
+    console.log(cuisineId);
     this.setState(
       {
         cuisineId: cuisineId,
@@ -331,10 +332,11 @@ export default class App extends Component {
           </Row>
         </Container>
         <Footer
-          cityTitle="Popular Cities"
-          cuisineTitle="Popular Cuisines"
+          cityTitle="Popular Destinations"
+          cuisineTitle="Tasty Cuisines"
           passCityId={this.state.cityId}
-          fetchRestaurantsList={this.fetchRestaurantsList}
+          handleRestaurantListUpdate={this.handleRestaurantListUpdate}
+          handleCuisineIdUpdate={this.handleCuisineIdUpdate}
         />
       </>
     );

@@ -38,6 +38,9 @@ function RestaurantDetails(props) {
               <Modal.Title>{props.restaurantObj.name}</Modal.Title>
             </Row>
             <Row className="mx-0">
+              <p>{props.restaurantObj.location.city}</p>
+            </Row>
+            <Row className="mx-0">
               <p>
                 <strong>Address:</strong> {props.restaurantObj.location.address}
               </p>
@@ -51,6 +54,18 @@ function RestaurantDetails(props) {
             <Row className="mx-0">
               <p>
                 <strong>Hours:</strong> {props.restaurantObj.timings}
+              </p>
+            </Row>
+            <Row className="mx-0">
+              <p>
+                <strong>Highlights:</strong>
+                {props.restaurantObj.highlights.map((features, index) => {
+                  return (
+                    <>
+                      <li key={index}>{features}</li>
+                    </>
+                  );
+                })}
               </p>
             </Row>
           </Col>
@@ -83,21 +98,22 @@ function RestaurantDetails(props) {
                 <strong>Currency:</strong> {props.restaurantObj.currency}
               </p>
             </Row>
+
             <Row className="mx-0">
               <p>
-                <strong>Highlights:</strong>
-                {props.restaurantObj.highlights.map((features, index) => {
-                  return (
-                    <>
-                      <li key={index}>{features}</li>
-                    </>
-                  );
-                })}
+                <strong>Cuisines:</strong> {props.restaurantObj.cuisines}
               </p>
             </Row>
             <Row className="mx-0">
               <p>
-                <strong><a href={props.restaurantObj.menu_url} style={{textDecoration: "none", color:"tomato"}}>See Menu</a></strong> 
+                <strong>
+                  <a
+                    href={props.restaurantObj.menu_url}
+                    style={{ textDecoration: "none", color: "tomato" }}
+                  >
+                    See Menu
+                  </a>
+                </strong>
               </p>
             </Row>
           </Col>
