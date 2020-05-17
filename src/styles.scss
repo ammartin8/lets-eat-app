@@ -109,8 +109,16 @@ button.city-option-button:hover {
 }
 
 .top-cities,
-.cuisine-container {
-  padding: 1.5em 3em;
+.cuisine-container,
+.illustrate-container {
+  padding-top: 1.5em;
+  padding-right: 2em;
+  padding-left: 2em;
+  min-width: 5em;
+}
+
+.footer-city-list {
+  min-width: 5em;
 }
 
 .footer-city-list > li > a {
