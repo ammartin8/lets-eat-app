@@ -55,6 +55,7 @@ function RestaurantList(props) {
                     <Card.Body>
                       <Card.Text className="m-0">
                         <strong>{restaurant.restaurant.name}</strong>
+                        <p>{restaurant.restaurant.location.city}</p>
                       </Card.Text>
                       <Card.Text className="m-0">
                         <strong>Rating</strong>:{" "}

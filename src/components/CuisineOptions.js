@@ -35,17 +35,33 @@ function CuisineOptions(props) {
               >
                 <li className="cuisine-item cuisineModalItem">
                   <button
-                    className="cuisine-option-button"
+                    className={`cuisine-option-button ${
+                      props.selectedCuisineId ===
+                      cuisine.cuisine.cuisine_id
+                        ? "activeSelection"
+                        : ""
+                    }`}
                     onClick={() => {
-                      props.handleFilterGroup1(cuisine.cuisine.cuisine_id);
-                      handleClose();
+                      props.togglefilterHighlight(
+                        cuisine.cuisine.cuisine_id
+                      );
+                      props.handleFilterGroup1(
+                        cuisine.cuisine.cuisine_id
+                      );
                     }}
                   >
                     {cuisine.cuisine.cuisine_name}
                   </button>
                   <button
-                    className="cuisine-option-clear"
-                    onClick={() => props.handleFilterGroup1("")}
+                    className={`cuisine-option-clear ${
+                      props.selectedCuisineId ===
+                      cuisine.cuisine.cuisine_id
+                        ? "activeSelection"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      props.handleFilterGroup1("");
+                    }}
                   >
                     X
                   </button>

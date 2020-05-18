@@ -42,7 +42,7 @@ class Sidebar extends Component {
   };
 
   handleFilterGroup2 = (establishmentId) => {
-    if (establishmentId !== "") {
+    if (establishmentId !== "" || establishmentId !== undefined) {
       this.setState(
         {
           establishmentId: establishmentId,
@@ -88,7 +88,8 @@ class Sidebar extends Component {
   togglefilterHighlight = (filterId) => {
     if (filterId === this.state.establishmentId) {
       this.isEstablishmentSelected = !this.isEstablishmentSelected;
-    } else if (filterId === this.state.cuisineId) {
+    };  
+    if (filterId === this.state.cuisineId) {
       this.isCuisineSelected = !this.isCuisineSelected;
     }
   };
@@ -200,6 +201,8 @@ class Sidebar extends Component {
                       handleFilterGroup1={this.handleFilterGroup1}
                       cuisineList={this.props.cuisineList}
                       moreCuisineOptionsState={this.state.moreCuisineOptions}
+                      togglefilterHighlight={this.togglefilterHighlight}
+                      selectedCuisineId={this.state.selectedCuisineId}
                     />
                   </ul>
                 </Card.Body>
@@ -286,6 +289,9 @@ class Sidebar extends Component {
                       moreEstablishmentOptions={this.moreEstablishmentOptions}
                       handleFilterGroup2={this.handleFilterGroup2}
                       establishmentList={this.props.establishmentList}
+                      moreEstablishmentOptionsState={this.state.moreEstablishmentOptions}
+                      togglefilterHighlight={this.togglefilterHighlight}
+                      selectedEstablishmentId={this.state.selectedEstablishmentId}
                     />
                   </ul>
                 </Card.Body>

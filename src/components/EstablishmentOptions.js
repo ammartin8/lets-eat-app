@@ -35,18 +35,36 @@ function EstablishmentOptions(props) {
               >
                 <li className="cuisine-item cuisineModalItem">
                   <button
-                    className="cuisine-option-button"
+                    className={`cuisine-option-button ${
+                      props.selectedEstablishmentId ===
+                      establishments.establishment.id
+                        ? "activeSelection"
+                        : ""
+                    }`}
                     onClick={() => {
-                      props.handleFilterGroup2(establishments.establishment.id);
+                      props.togglefilterHighlight(
+                        establishments.establishment.id
+                      );
+                      props.handleFilterGroup2(
+                        establishments.establishment.id
+                      );
                       handleClose();
-                    }
-                    }
+                    }}
                   >
                     {establishments.establishment.name}
                   </button>
                   <button
-                    className="cuisine-option-clear"
-                    onClick={() => props.handleFilterGroup2("")}
+                    className={`cuisine-option-clear ${
+                      props.selectedEstablishmentId ===
+                      establishments.establishment.id
+                        ? "activeSelection"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      props.handleFilterGroup2("");
+                      // handleClose();
+                    }
+                  }
                   >
                     X
                   </button>
