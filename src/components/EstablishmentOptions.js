@@ -62,7 +62,7 @@ function EstablishmentOptions(props) {
                     }`}
                     onClick={() => {
                       props.handleFilterGroup2("");
-                      // handleClose();
+                      handleClose();
                     }
                   }
                   >

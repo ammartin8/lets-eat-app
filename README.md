@@ -55,11 +55,15 @@ The following technologies are used to build this application:
 
 ## Requirements to Run Application
 
-* Make a pull request or download the files from the GitHub respository.
-* Create an .env file and save it in the lets-eat-restaurant-app main folder.
-* In the .env file type (without the quotation marks) "REACT_APP_API_KEY =" and enter your actual API KEY then save.
+* Make a pull request or download the files from the GitHub repository.
+* Create an .env file and save it in the lets-eat-restaurant-app main folder (save in the same folder as the README file).
+* Add .env in your gitignore to avoid sending API Key to public domain.
+* In the .env file type (don't add the quotation marks) "REACT_APP_API_KEY =" and enter your actual API KEY after the equal sign then click save.
 * Be sure to have npm or yarn install on your computer.
   * Once installed\:
     * Open your terminal
-    * Change directory or cd into the folder containing the files.
+    * Change directory or cd into the lets-eat-restaurant-app folder.
+    * If you do not already have the following dependency packages installed, type:
+      * `npm install` react-bootstrap
+      * `npm install` react-icons
     * `npm start` to start the application.

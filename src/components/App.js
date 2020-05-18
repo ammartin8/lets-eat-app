@@ -63,93 +63,7 @@ export default class App extends Component {
     }
   }
 
-  //HELPER FUNCTIONS
-  updateRestaurantList = (num) => {
-    this.setState((prevState) => {
-      return { results_start: prevState.results_start + num };
-    });
-  };
-
-  checkStatus(response) {
-    if (response.ok === true) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(new Error(response.statusText));
-    }
-  }
-
-  handleClose = () => {
-    this.setState((prevState) => {
-      return { isCardOpen: !prevState.isCardOpen };
-    });
-    this.fetchRestaurants();
-  };
-
-  handleRestaurantListUpdate = (cityId) => {
-    this.setState(
-      {
-        cityId: cityId,
-      },
-      () => {
-        this.fetchRestaurants();
-        this.getCuisineList();
-        this.fetchEstablishmentList();
-      }
-    );
-  };
-
-  handleCuisineIdUpdate = (cuisineId) => {
-    console.log(cuisineId);
-    this.setState(
-      {
-        cuisineId: cuisineId,
-        results_start: 0,
-      },
-      () => {
-        this.fetchRestaurants();
-      }
-    );
-  };
-
-  handleEstablishmentIdUpdate = (establishmentId) => {
-    this.setState(
-      {
-        establishmentId: establishmentId,
-        results_start: 0,
-      },
-      () => {
-        this.fetchRestaurants();
-      }
-    );
-  };
-
-  handleResultStartReset = (resultStartNum) => {
-    this.setState(
-      {
-        results_start: 0,
-      },
-      () => {
-        this.fetchRestaurants();
-      }
-    );
-  };
-
-  generateCostLevel = (priceRange) => {
-    if (priceRange === 1) {
-      return "$";
-    } else if (priceRange === 2) {
-      return "$$";
-    } else if (priceRange === 3) {
-      return "$$$";
-    } else if (priceRange === 4) {
-      return "$$$$";
-    } else if (priceRange === 5) {
-      return "$$$$$";
-    } else {
-      return "";
-    }
-  };
-
+  
   //FETCH FUNCTIONS
   fetchRestaurants = () => {
     fetch(
@@ -252,6 +166,95 @@ export default class App extends Component {
       .catch((error) => console.log("Uh oh! You gotta error: ", error));
   };
 
+  //HELPER FUNCTIONS
+  updateRestaurantList = (num) => {
+    this.setState((prevState) => {
+      return { results_start: prevState.results_start + num };
+    });
+  };
+
+  checkStatus(response) {
+    if (response.ok === true) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(new Error(response.statusText));
+    }
+  }
+
+  handleClose = () => {
+    this.setState((prevState) => {
+      return { isCardOpen: !prevState.isCardOpen };
+    });
+    this.fetchRestaurants();
+  };
+
+  handleRestaurantListUpdate = (cityId) => {
+    this.setState(
+      {
+        cityId: cityId,
+        results_start: 0
+      },
+      () => {
+        this.fetchRestaurants();
+        this.getCuisineList();
+        this.fetchEstablishmentList();
+      }
+    );
+  };
+
+  handleCuisineIdUpdate = (cuisineId) => {
+    console.log(cuisineId);
+    this.setState(
+      {
+        cuisineId: cuisineId,
+        results_start: 0
+      },
+      () => {
+        this.fetchRestaurants();
+      }
+    );
+  };
+
+  handleEstablishmentIdUpdate = (establishmentId) => {
+    this.setState(
+      {
+        establishmentId: establishmentId,
+        results_start: 0
+      },
+      () => {
+        this.fetchRestaurants();
+      }
+    );
+  };
+
+  handleResultStartReset = (resultStartNum) => {
+    this.setState(
+      {
+        results_start: 0,
+      },
+      () => {
+        this.fetchRestaurants();
+      }
+    );
+  };
+
+  generateCostLevel = (priceRange) => {
+    if (priceRange === 1) {
+      return "$";
+    } else if (priceRange === 2) {
+      return "$$";
+    } else if (priceRange === 3) {
+      return "$$$";
+    } else if (priceRange === 4) {
+      return "$$$$";
+    } else if (priceRange === 5) {
+      return "$$$$$";
+    } else {
+      return "";
+    }
+  };
+
+
   render() {
     return (
       <>
@@ -337,6 +340,7 @@ export default class App extends Component {
           passCityId={this.state.cityId}
           handleRestaurantListUpdate={this.handleRestaurantListUpdate}
           handleCuisineIdUpdate={this.handleCuisineIdUpdate}
+          handleEstablishmentIdUpdate={this.handleEstablishmentIdUpdate}
         />
       </>
     );

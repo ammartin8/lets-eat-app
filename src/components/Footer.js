@@ -33,6 +33,8 @@ const Footer = (props) => {
                 href="#main-header"
                 onClick={() => {
                   props.handleRestaurantListUpdate(280);
+                  props.handleCuisineIdUpdate("");
+                  props.handleEstablishmentIdUpdate("");
                 }}
               >
                 New York
@@ -43,6 +45,8 @@ const Footer = (props) => {
                 href="#main-header"
                 onClick={() => {
                   props.handleRestaurantListUpdate(306);
+                  props.handleCuisineIdUpdate("");
+                  props.handleEstablishmentIdUpdate("");
                 }}
               >
                 San Francisco
@@ -53,6 +57,8 @@ const Footer = (props) => {
                 href="#main-header"
                 onClick={() => {
                   props.handleRestaurantListUpdate(291);
+                  props.handleCuisineIdUpdate("");
+                  props.handleEstablishmentIdUpdate("");
                 }}
               >
                 Miami
@@ -63,6 +69,8 @@ const Footer = (props) => {
                 href="#main-header"
                 onClick={() => {
                   props.handleRestaurantListUpdate(288);
+                  props.handleCuisineIdUpdate("");
+                  props.handleEstablishmentIdUpdate("");
                 }}
               >
                 Atlanta
@@ -73,6 +81,8 @@ const Footer = (props) => {
                 href="#main-header"
                 onClick={() => {
                   props.handleRestaurantListUpdate(61);
+                  props.handleCuisineIdUpdate("");
+                  props.handleEstablishmentIdUpdate("");
                 }}
               >
                 London
@@ -83,6 +93,8 @@ const Footer = (props) => {
                 href="#main-header"
                 onClick={() => {
                   props.handleRestaurantListUpdate(281);
+                  props.handleCuisineIdUpdate("");
+                  props.handleEstablishmentIdUpdate("");
                 }}
               >
                 Los Angeles
@@ -93,6 +105,8 @@ const Footer = (props) => {
                 href="#main-header"
                 onClick={() => {
                   props.handleRestaurantListUpdate(52);
+                  props.handleCuisineIdUpdate("");
+                  props.handleEstablishmentIdUpdate("");
                 }}
               >
                 Singapore

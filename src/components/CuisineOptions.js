@@ -21,7 +21,12 @@ function CuisineOptions(props) {
           More Cuisines
         </button>
       </li>
-      <Modal size="lg" show={show} onHide={handleClose} onExited={props.moreCuisineOptions}>
+      <Modal
+        size="lg"
+        show={show}
+        onHide={handleClose}
+        onExited={props.moreCuisineOptions}
+      >
         <Modal.Header closeButton={handleClose}>
           <Modal.Title>List of Cuisines</Modal.Title>
         </Modal.Header>
@@ -36,31 +41,27 @@ function CuisineOptions(props) {
                 <li className="cuisine-item cuisineModalItem">
                   <button
                     className={`cuisine-option-button ${
-                      props.selectedCuisineId ===
-                      cuisine.cuisine.cuisine_id
+                      props.selectedCuisineId === cuisine.cuisine.cuisine_id
                         ? "activeSelection"
                         : ""
                     }`}
                     onClick={() => {
-                      props.togglefilterHighlight(
-                        cuisine.cuisine.cuisine_id
-                      );
-                      props.handleFilterGroup1(
-                        cuisine.cuisine.cuisine_id
-                      );
+                      props.togglefilterHighlight(cuisine.cuisine.cuisine_id);
+                      props.handleFilterGroup1(cuisine.cuisine.cuisine_id);
+                      handleClose();
                     }}
                   >
                     {cuisine.cuisine.cuisine_name}
                   </button>
                   <button
                     className={`cuisine-option-clear ${
-                      props.selectedCuisineId ===
-                      cuisine.cuisine.cuisine_id
+                      props.selectedCuisineId === cuisine.cuisine.cuisine_id
                         ? "activeSelection"
                         : ""
                     }`}
                     onClick={() => {
                       props.handleFilterGroup1("");
+                      handleClose();
                     }}
                   >
                     X
