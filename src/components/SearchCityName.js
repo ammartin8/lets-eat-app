@@ -48,7 +48,6 @@ class SearchCityName extends Component {
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         this.setState({ cityObj: data });
       })
       .catch((error) => console.log("Uh oh! You gotta error: ", error));

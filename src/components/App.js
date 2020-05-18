@@ -78,7 +78,6 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         this.setState({ restaurantList: data });
       })
       .catch((error) => console.log("Uh oh! You gotta error: ", error));
@@ -98,7 +97,6 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         this.setState({ restaurantList: data });
         this.setState({ isCardOpen: true });
       })
@@ -119,7 +117,6 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         this.setState({ restaurantObj: data });
         this.setState({ isCardOpen: true });
       })
@@ -140,7 +137,6 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         this.setState({ cuisineList: data });
       })
       .catch((error) => console.log("Uh oh! You gotta error: ", error));
@@ -160,7 +156,6 @@ export default class App extends Component {
       .then(this.checkStatus)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         this.setState({ establishmentList: data });
       })
       .catch((error) => console.log("Uh oh! You gotta error: ", error));
@@ -203,7 +198,6 @@ export default class App extends Component {
   };
 
   handleCuisineIdUpdate = (cuisineId) => {
-    console.log(cuisineId);
     this.setState(
       {
         cuisineId: cuisineId,
