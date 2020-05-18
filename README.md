@@ -37,8 +37,8 @@ The following technologies are used to build this application:
 ## Features
 
 * Core Features will include the following\:
-    1. User will have the ability to type in any city in the search bar and see list of restaurants available based on user's input. 
-    2. User will have the ability to click on a restaurant and see additional details about the selected restaurant 
+    1. User will have the ability to type in any city in the search bar and see list of restaurants available based on user's input.
+    2. User will have the ability to click on a restaurant and see additional details about the selected restaurant
     3. User will have the ability to filter list of results by restaurant type (establishment), cuisine type, restaurant category (ex. Nightlife)
 
 * Additional Features based upon time\:
