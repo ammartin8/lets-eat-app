@@ -109,6 +109,8 @@ function RestaurantDetails(props) {
                 <strong>
                   <a
                     href={props.restaurantObj.menu_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{ textDecoration: "none", color: "tomato" }}
                   >
                     See Menu
